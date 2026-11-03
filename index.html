@@ -42,6 +42,9 @@ h1{font-size:clamp(38px,5.2vw,66px);line-height:1.05;letter-spacing:-1.5px;margi
 .perk{display:flex;align-items:center;gap:10px}
 .perk .i{font-size:30px;color:var(--gold)}
 
+.nav{display:flex;gap:30px;font-size:15px;font-weight:600}
+.nav a{padding:6px 0;border-bottom:2px solid transparent;color:#fff}
+.nav a:hover{color:var(--gold);border-color:var(--gold)}
 /* sections */
 .programs{position:relative;background:#fff;border-radius:26px 26px 0 0;margin-top:-30px;padding:34px 0 40px}
 .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:20px}
@@ -141,6 +144,7 @@ dialog::backdrop{background:#0009}
  .mid-grid{grid-template-columns:1fr}
  .hero{background-position:70% center}
 }
+@media(max-width:1020px){header{flex-wrap:wrap}.nav{order:3;width:100%;gap:22px;justify-content:flex-start;font-size:14px}}
 @media(max-width:640px){
  .hero{min-height:700px;background:#0c1016 url(assets/hero.webp) 78% bottom/auto 360px no-repeat}
  .hero:before{background:linear-gradient(180deg,#090c11f2 0%,#090c11d9 52%,#0c101600 78%)}
@@ -186,10 +190,11 @@ dialog::backdrop{background:#0009}
  </defs>
 </svg>
 
-<section class="hero">
+<section class="hero" id="top">
  <div class="wrap">
   <header>
    <a href="#" class="brand" aria-label="NEO Drive"><img src="assets/logo.jpg" alt="NEO Drive — Driving School"></a>
+   <nav class="nav" id="nav" aria-label="Main"></nav>
    <div class="tools">
     <button class="search" aria-label="Search" data-open-chat><svg class="i"><use href="#search"/></svg></button>
     <div class="langs" role="group" aria-label="Language">
@@ -414,6 +419,7 @@ en:{
  sent:"Thank you! Your request has been received.",saved:"Your request is saved on your device: the site is not connected to the school yet."}
 };
 
+const NAV={hy:["Գլխավոր","Մեր մասին","Կապ"],ru:["Главная","О нас","Контакты"],en:["Home","About us","Contact"]};
 const ico=(n)=>`<svg class="i"><use href="#${n}"/></svg>`;
 let lang="hy";
 try{const s=localStorage.getItem("neo-lang");if(T[s])lang=s}catch(e){}
@@ -426,6 +432,7 @@ function render(){
  document.querySelectorAll("[data-t]").forEach(el=>{const v=t[el.dataset.t];if(typeof v==="string")el.innerHTML=v});
  document.querySelectorAll("[data-ph]").forEach(el=>el.placeholder=t[el.dataset.ph]);
  document.querySelectorAll(".lang").forEach(b=>{const on=b.dataset.lang===lang;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
+ $("#nav").innerHTML=NAV[lang].map((n,i)=>`<a href="#${["top","advantages","contact"][i]}">${n}</a>`).join("");
  $("#perks").innerHTML=t.perks.map((p,i)=>`<div class="perk">${ico(["cap","car","shield"][i])}<span>${p}</span></div>`).join("");
  $("#cards").innerHTML=t.cards.map((c,i)=>`<article class="card"><div class="card-top"><span class="ico">${ico(["wheel","gear","gear","book"][i])}</span><h3>${c.n}${c.s?`<small>${c.s}</small>`:""}</h3></div><ul>${c.l.map(x=>`<li>${x}</li>`).join("")}</ul><div class="card-bot"><span class="price"><small>${t.from}</small>${c.p} ${t.cur}</span><button class="go" data-book="${i}" aria-label="${c.n}">${ico("arrow")}</button></div></article>`).join("");
  $("#adv").innerHTML=t.adv.map((a,i)=>`<div><span class="ic">${ico(["users","car","cal","shield"][i])}</span><span><h3>${a[0]}</h3><p>${a[1]}</p></span></div>`).join("");
