@@ -105,6 +105,12 @@ h2.sp{margin-top:34px}
 .chat form button{width:40px;height:40px;border-radius:50%;border:0;background:var(--red);color:#fff;font-size:18px;display:grid;place-items:center}
 
 /* tests */
+.tests[hidden]{display:none}
+.tests{border-radius:26px 26px 0 0;margin-top:-30px;position:relative;padding-top:30px}
+.tests+.programs{margin-top:0;border-radius:0}
+.tests-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.cat{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:13px;letter-spacing:.5px;border-radius:999px;padding:5px 14px;margin-bottom:10px}
+.tclose{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:16px}
 .tests{padding:34px 0 10px;background:#fff}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px}
 .tgrid button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:12px 6px;font-weight:700;font-size:14px}
@@ -254,6 +260,17 @@ dialog::backdrop{background:#0009}
  </div>
 </section>
 
+<section class="tests" id="tests" hidden>
+ <div class="wrap">
+  <div class="tests-head">
+   <div><span class="cat" data-t="tCat"></span><h2 data-t="tTitle"></h2></div>
+   <button type="button" class="tclose" id="testsClose" aria-label="Close">✕</button>
+  </div>
+  <p class="thp" data-t="tText"></p>
+  <div id="testBox" aria-live="polite"></div>
+ </div>
+</section>
+
 <section class="programs" id="programs">
  <div class="wrap">
   <div class="sec-head"><h2 data-t="progTitle"></h2><a class="more" href="#programs"><span data-t="all"></span><svg class="i"><use href="#arrow"/></svg></a></div>
@@ -292,14 +309,6 @@ dialog::backdrop{background:#0009}
     <button aria-label="Send"><svg class="i"><use href="#send"/></svg></button>
    </form>
   </aside>
- </div>
-</section>
-
-<section class="tests" id="tests">
- <div class="wrap">
-  <h2 data-t="tTitle"></h2>
-  <p class="thp" data-t="tText"></p>
-  <div id="testBox" aria-live="polite"></div>
  </div>
 </section>
 
@@ -389,7 +398,7 @@ hy:{
   "Արժեքը՝ B կարգ 180 000 ֏-ից, ավտոմատ 200 000 ֏-ից, մեխանիկա 180 000 ֏-ից, տեսություն 40 000 ֏-ից։"],
  thTitle:"Քննական հարցեր (ՃՈ պաշտոնական շարք)",thText:"Վարորդական իրավունքի տեսական քննության պաշտոնական հարցաշարերը (A, B, C կարգեր)՝ 10 խումբ։ Քննությանը տրվում է 20 հարց, թույլատրվում է մինչև 2 սխալ։",thSrc:"Աղբյուրը՝ ՀՀ ՆԳՆ Ճանապարհային ոստիկանություն՝",thGroup:"Խումբ",
  calTitle:"Ընտրեք օրը և ժամը",pickErr:"Ընտրեք ամսաթիվը և ժամը։",picked:"Ընտրված է՝",
- tTitle:"Թեստեր",tText:"Վարորդական իրավունքի տեսական քննության թեստեր։ Յուրաքանչյուր թեստում 20 հարց է, թույլատրվում է մինչև 2 սխալ։",tName:"Թեստը",tNext:"Հաջորդը",tFinish:"Ավարտել",tRetry:"Նորից",tAll:"Բոլոր թեստերը",tPass:"Հանձնված է",tFailed:"Չի հանձնվել",tCorrect:"Ճիշտ պատասխաններ",tQ:"Հարց",tSoon:"Թեստերի հարցերը շուտով կավելացվեն։",
+ tCat:"A, B, C կարգերի հարցեր", tTitle:"Թեստեր",tText:"Վարորդական իրավունքի տեսական քննության թեստեր։ Յուրաքանչյուր թեստում 20 հարց է, թույլատրվում է մինչև 2 սխալ։",tName:"Թեստը",tNext:"Հաջորդը",tFinish:"Ավարտել",tRetry:"Նորից",tAll:"Բոլոր թեստերը",tPass:"Հանձնված է",tFailed:"Չի հանձնվել",tCorrect:"Ճիշտ պատասխաններ",tQ:"Հարց",tSoon:"Թեստերի հարցերը շուտով կավելացվեն։",
  fallback:"Շնորհակալություն հարցի համար։ Ճշգրիտ պատասխանի համար թողեք հայտ կամ զանգահարեք՝ +374 77 000 000։",
  kw:[["դասընթաց","ծրագիր","կարգ"],["հրահանգ"],["ժամ","ժամանակ","գրաֆիկ"],["արժե","գին","արժեք","թանկ"]],
  autoTitle:"Ժամանակակից <em>ավտոդրոմ</em> Երևանում",autoText:"Ընդարձակ հարթակ՝ քննությանը որակյալ նախապատրաստվելու համար անհրաժեշտ բոլոր տարրերով։",more:"Ավելին",
@@ -427,7 +436,7 @@ ru:{
   "Стоимость: категория B от 180 000 ֏, автомат от 200 000 ֏, механика от 180 000 ֏, теория от 40 000 ֏."],
  thTitle:"Экзаменационные вопросы (официальные)",thText:"Официальные вопросы теоретического экзамена (категории A, B, C): 10 групп. На экзамене 20 вопросов, допускается не более 2 ошибок.",thSrc:"Источник: Дорожная полиция МВД РА —",thGroup:"Группа",
  calTitle:"Выберите день и время",pickErr:"Выберите дату и время.",picked:"Выбрано:",
- tTitle:"Тесты",tText:"Тесты по теоретическому экзамену на права. В каждом тесте 20 вопросов, допускается не более 2 ошибок.",tName:"Тест",tNext:"Далее",tFinish:"Завершить",tRetry:"Заново",tAll:"Все тесты",tPass:"Сдано",tFailed:"Не сдано",tCorrect:"Правильных ответов",tQ:"Вопрос",tSoon:"Вопросы тестов скоро появятся.",
+ tCat:"Вопросы категорий A, B, C", tTitle:"Тесты",tText:"Тесты по теоретическому экзамену на права. В каждом тесте 20 вопросов, допускается не более 2 ошибок.",tName:"Тест",tNext:"Далее",tFinish:"Завершить",tRetry:"Заново",tAll:"Все тесты",tPass:"Сдано",tFailed:"Не сдано",tCorrect:"Правильных ответов",tQ:"Вопрос",tSoon:"Вопросы тестов скоро появятся.",
  fallback:"Спасибо за вопрос! Для точного ответа оставьте заявку или позвоните: +374 77 000 000.",
  kw:[["курс","программ","категор"],["инструктор"],["время","график","расписан"],["стоим","цена","сколько","цены"]],
  autoTitle:"Современный <em>автодром</em> в Ереване",autoText:"Просторная площадка, все необходимые элементы для качественной подготовки к экзамену.",more:"Подробнее",
@@ -465,7 +474,7 @@ en:{
   "Prices: Category B from 180,000 AMD, automatic from 200,000 AMD, manual from 180,000 AMD, theory from 40,000 AMD."],
  thTitle:"Exam questions (official)",thText:"Official theory exam questions (categories A, B, C): 10 groups. The exam has 20 questions and up to 2 mistakes are allowed.",thSrc:"Source: Road Police of the Ministry of Internal Affairs of Armenia —",thGroup:"Group",
  calTitle:"Choose a day and time",pickErr:"Please choose a date and a time.",picked:"Selected:",
- tTitle:"Tests",tText:"Practice tests for the driving theory exam. Each test has 20 questions and up to 2 mistakes are allowed.",tName:"Test",tNext:"Next",tFinish:"Finish",tRetry:"Retry",tAll:"All tests",tPass:"Passed",tFailed:"Not passed",tCorrect:"Correct answers",tQ:"Question",tSoon:"Test questions are coming soon.",
+ tCat:"Categories A, B, C questions", tTitle:"Tests",tText:"Practice tests for the driving theory exam. Each test has 20 questions and up to 2 mistakes are allowed.",tName:"Test",tNext:"Next",tFinish:"Finish",tRetry:"Retry",tAll:"All tests",tPass:"Passed",tFailed:"Not passed",tCorrect:"Correct answers",tQ:"Question",tSoon:"Test questions are coming soon.",
  fallback:"Thanks for your question! For an exact answer, leave a request or call +374 77 000 000.",
  kw:[["course","program","categor"],["instructor"],["time","schedule","when"],["price","cost","how much","pric"]],
  autoTitle:"A modern <em>training ground</em> in Yerevan",autoText:"A spacious area with every element needed to prepare properly for the exam.",more:"Learn more",
@@ -514,6 +523,7 @@ function drawPick(){
 }
 
 /* ---------- Tests ---------- */
+function openTests(){const el=$("#tests");el.hidden=false;el.scrollIntoView({behavior:"smooth",block:"start"})}
 const TEST_TOTAL=58,PASS_MISTAKES=2;
 let TESTS=null,tState=null;
 const tLoad=fetch("assets/questions.json").then(r=>r.ok?r.json():null).catch(()=>null).then(d=>{TESTS=d&&d.tests?d.tests:null;drawTests()});
@@ -567,6 +577,8 @@ function render(){
 
 function say(text,me){const d=document.createElement("div");d.className=me?"me":"bot-msg";d.textContent=text;$("#log").append(d);d.scrollIntoView({block:"nearest"})}
 document.addEventListener("click",e=>{
+ const tl=e.target.closest('a[href="#tests"]');if(tl){e.preventDefault();openTests();return}
+ if(e.target.closest("#testsClose")){$("#tests").hidden=true;window.scrollTo({top:0,behavior:"smooth"});return}
  const l=e.target.closest(".lang");
  if(l){lang=l.dataset.lang;try{localStorage.setItem("neo-lang",lang)}catch(_){}render();return}
  const q=e.target.closest("[data-q]");
@@ -606,6 +618,7 @@ $("#bookForm").addEventListener("submit",async e=>{
 });
 
 render();
+if(location.hash==="#tests")openTests();
 </script>
 </body>
 </html>
