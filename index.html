@@ -27,11 +27,7 @@ svg.i{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.9;stroke
 .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#090c11f2 0%,#090c11b8 38%,#090c1100 72%),linear-gradient(0deg,#0c1016 0%,#0c101600 22%)}
 .hero>.wrap{position:relative}
 header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0}
-.brand{display:inline-flex;flex-direction:column;line-height:1;position:relative;padding-top:6px}
-.brand b{font-size:46px;font-weight:900;font-style:italic;letter-spacing:-3px;color:#fff;text-shadow:0 2px 0 #000a}
-.brand strong{font-size:25px;font-weight:900;font-style:italic;color:var(--red);letter-spacing:4px;text-align:right;margin-top:-6px;text-shadow:0 0 12px #ff9a0066}
-.brand small{font-size:8px;letter-spacing:5px;margin-top:6px;color:#ddd}
-.brand:before{content:"";position:absolute;width:112px;height:66px;border:6px solid var(--gold);border-bottom:0;border-radius:90px 90px 0 0;left:44px;top:-10px;transform:rotate(-8deg);opacity:.95;filter:drop-shadow(0 0 8px #ff8a00aa);z-index:-1}
+.brand{display:inline-block;line-height:0}.brand img{height:104px;width:auto;border-radius:12px;display:block;box-shadow:0 4px 20px #0006}
 .tools{display:flex;align-items:center;gap:14px}
 .search{width:38px;height:38px;border-radius:9px;border:0;background:#ffffff2e;color:#fff;font-size:18px;display:grid;place-items:center}
 .langs{display:flex;gap:4px}
@@ -77,7 +73,7 @@ h2{font-size:clamp(25px,3vw,32px);line-height:1.2;margin:0;letter-spacing:-.5px;
 .mid-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:34px;align-items:start}
 .inst{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .person{display:flex;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;box-shadow:0 3px 12px #1112180a}
-.person img{width:64px;height:92px;object-fit:cover;border-radius:8px;flex-shrink:0;background:#222}
+.ph{width:64px;height:92px;border-radius:8px;flex-shrink:0;background:#f1f2f5;border:1px dashed #c9cdd5;color:#b4b9c3;display:grid;place-items:center;font-size:26px}
 .person h3{margin:0;font-size:15px}.person p{margin:2px 0 8px;font-size:12px;color:var(--muted);line-height:1.3}
 .tags{display:flex;gap:4px;flex-wrap:wrap}.tags span{font-size:10px;font-weight:700;background:#f1f2f5;border-radius:5px;padding:2px 6px}
 .note{font-size:11.5px;color:#9aa0aa;margin:10px 0 0}
@@ -105,6 +101,14 @@ h2.sp{margin-top:34px}
 .chat input{flex:1;border:0;outline:0;background:none;min-width:0;font-size:14px}
 .chat form button{width:40px;height:40px;border-radius:50%;border:0;background:var(--red);color:#fff;font-size:18px;display:grid;place-items:center}
 
+/* theory */
+.theory{padding:10px 0 34px;background:#fff}
+.thp{max-width:720px;color:#4a4f58;font-size:15px;margin:8px 0 16px}
+.groups{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.groups a{display:flex;justify-content:space-between;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-weight:700;font-size:14px;background:#fff;transition:.15s}
+.groups a:hover{border-color:var(--red);color:var(--red)}
+.groups a .i{color:var(--red)}
+@media(max-width:1020px){.groups{grid-template-columns:repeat(2,1fr)}}
 /* autodrom */
 .auto{background-color:#0f1319;background-image:linear-gradient(90deg,#0f1319f2 20%,#0f131988 60%,#0f131955),url(assets/autodrom.jpg);background-position:center;background-size:cover;color:#fff;padding:34px 0;border-radius:22px 22px 0 0;margin-top:20px}
 .auto-grid{display:flex;justify-content:space-between;align-items:center;gap:30px;flex-wrap:wrap}
@@ -140,7 +144,7 @@ dialog::backdrop{background:#0009}
 @media(max-width:640px){
  .hero{min-height:700px;background:#0c1016 url(assets/hero.webp) 78% bottom/auto 360px no-repeat}
  .hero:before{background:linear-gradient(180deg,#090c11f2 0%,#090c11d9 52%,#0c101600 78%)}
- .brand b{font-size:38px}.brand:before{width:90px;left:34px}
+ .brand img{height:72px}
  .search{display:none}.tools .btn{display:none}
  .hero-copy{padding-top:12px}.lead b{font-size:17px}
  .perks{gap:14px}.perk .i{font-size:24px}
@@ -185,7 +189,7 @@ dialog::backdrop{background:#0009}
 <section class="hero">
  <div class="wrap">
   <header>
-   <a href="#" class="brand" aria-label="NEO Drive"><b>NEO</b><strong>DRIVE</strong><small>DRIVING SCHOOL</small></a>
+   <a href="#" class="brand" aria-label="NEO Drive"><img src="assets/logo.jpg" alt="NEO Drive — Driving School"></a>
    <div class="tools">
     <button class="search" aria-label="Search" data-open-chat><svg class="i"><use href="#search"/></svg></button>
     <div class="langs" role="group" aria-label="Language">
@@ -248,6 +252,15 @@ dialog::backdrop{background:#0009}
  </div>
 </section>
 
+<section class="theory" id="theory">
+ <div class="wrap">
+  <h2 data-t="thTitle"></h2>
+  <p class="thp" data-t="thText"></p>
+  <div class="groups" id="groups"></div>
+  <p class="note"><span data-t="thSrc"></span> <a href="https://roadpolice.am/hy/viv-exam" target="_blank" rel="noopener">roadpolice.am</a></p>
+ </div>
+</section>
+
 <section class="auto" id="autodrom">
  <div class="wrap auto-grid">
   <div>
@@ -261,7 +274,7 @@ dialog::backdrop{background:#0009}
 
 <footer id="contact">
  <div class="wrap">
-  <a href="#" class="brand" aria-label="NEO Drive"><b>NEO</b><strong>DRIVE</strong><small>DRIVING SCHOOL</small></a>
+  <a href="#" class="brand" aria-label="NEO Drive"><img src="assets/logo.jpg" alt="NEO Drive — Driving School"></a>
   <div class="soc">
    <a href="#" aria-label="Instagram"><svg class="i"><use href="#insta"/></svg></a>
    <a href="#" aria-label="Facebook"><svg class="i"><use href="#fb"/></svg></a>
@@ -307,7 +320,7 @@ hy:{
  adv:[["Փորձառու հրահանգիչներ","Պրոֆեսիոնալներ՝ մեծ փորձով"],["Ժամանակակից ավտոմեքենաներ","Անվտանգ և հարմար ուսուցման համար"],["Հարմար ժամանակացույց","Առավոտյան, ցերեկային և երեկոյան խմբեր"],["Աջակցություն մինչև վարորդական իրավունք ստանալը","Ուղեկցում բոլոր փուլերում"]],
  instTitle:"Մեր <em>հրահանգիչները</em>",
  inst:[["Արմեն","Փորձառու հրահանգիչ",["ՌՈՒՍ","ՀԱՅ","ENG"]],["Աննա","Հանգիստ և համբերատար մոտեցում",["ՌՈՒՍ","ՀԱՅ"]],["Տիգրան","Նախապատրաստում քննությանը",["ՌՈՒՍ","ՀԱՅ","ENG"]]],
- instNote:"Անուններն ու լուսանկարները օրինակելի են՝ փոխարինեք իրական հրահանգիչների տվյալներով։",
+ instNote:"Լուսանկարների տեղերը դեռ դատարկ են․ անունները՝ օրինակելի։",
  howTitle:"Ինչպես է անցնում <em>ուսուցումը</em>",
  steps:["Թողնում եք հայտ","Մենք ընտրում ենք ծրագիրն ու հրահանգչին","Ընտրում եք հարմար ժամանակ","Սկսում եք ուսուցումը","Ստանում եք վարորդական իրավունքը"],
  botName:"NEO օգնական",botSub:"Հաճախ տրվող հարցեր",
@@ -319,6 +332,7 @@ hy:{
   "Մեր հրահանգիչները խոսում են ռուսերեն, հայերեն և անգլերեն։ Թողեք հայտ, և մենք կընտրենք ձեզ հարմար հրահանգչին։",
   "Ժամանակացույցը ճկուն է՝ առավոտյան, ցերեկային և երեկոյան խմբեր։ Թողեք հայտ, և մենք կհամաձայնեցնենք ժամը։",
   "Արժեքը՝ B կարգ 180 000 ֏-ից, ավտոմատ 200 000 ֏-ից, մեխանիկա 180 000 ֏-ից, տեսություն 40 000 ֏-ից։"],
+ thTitle:"Քննական հարցեր (ՃՈ պաշտոնական շարք)",thText:"Վարորդական իրավունքի տեսական քննության պաշտոնական հարցաշարերը (A, B, C կարգեր)՝ 10 խումբ։ Քննությանը տրվում է 20 հարց, թույլատրվում է մինչև 2 սխալ։",thSrc:"Աղբյուրը՝ ՀՀ ՆԳՆ Ճանապարհային ոստիկանություն՝",thGroup:"Խումբ",
  fallback:"Շնորհակալություն հարցի համար։ Ճշգրիտ պատասխանի համար թողեք հայտ կամ զանգահարեք՝ +374 77 000 000։",
  kw:[["դասընթաց","ծրագիր","կարգ"],["հրահանգ"],["ժամ","ժամանակ","գրաֆիկ"],["արժե","գին","արժեք","թանկ"]],
  autoTitle:"Ժամանակակից <em>ավտոդրոմ</em> Երևանում",autoText:"Ընդարձակ հարթակ՝ քննությանը որակյալ նախապատրաստվելու համար անհրաժեշտ բոլոր տարրերով։",more:"Ավելին",
@@ -342,7 +356,7 @@ ru:{
  adv:[["Опытные инструкторы","Профессионалы с большим опытом"],["Современные автомобили","Безопасные и удобные для обучения"],["Удобное расписание","Утренние, дневные и вечерние группы"],["Поддержка до получения прав","Сопровождение на всех этапах"]],
  instTitle:"Наши <em>инструкторы</em>",
  inst:[["Армен","Опытный инструктор",["РУС","АРМ","ENG"]],["Анна","Спокойный и терпеливый подход",["РУС","АРМ"]],["Тигран","Подготовка к экзамену",["РУС","АРМ","ENG"]]],
- instNote:"Имена и фото — примеры: замените их данными реальных инструкторов.",
+ instNote:"Места для фото пока пустые; имена — примеры.",
  howTitle:"Как проходит <em>обучение</em>",
  steps:["Вы оставляете заявку","Мы подбираем программу и инструктора","Вы выбираете удобное время","Начинаете обучение","Получаете права"],
  botName:"Помощник NEO",botSub:"Частые вопросы",
@@ -354,6 +368,7 @@ ru:{
   "Наши инструкторы говорят на русском, армянском и английском. Оставьте заявку, и мы подберём подходящего инструктора.",
   "График гибкий: утренние, дневные и вечерние группы. Оставьте заявку, и мы согласуем время.",
   "Стоимость: категория B от 180 000 ֏, автомат от 200 000 ֏, механика от 180 000 ֏, теория от 40 000 ֏."],
+ thTitle:"Экзаменационные вопросы (официальные)",thText:"Официальные вопросы теоретического экзамена (категории A, B, C): 10 групп. На экзамене 20 вопросов, допускается не более 2 ошибок.",thSrc:"Источник: Дорожная полиция МВД РА —",thGroup:"Группа",
  fallback:"Спасибо за вопрос! Для точного ответа оставьте заявку или позвоните: +374 77 000 000.",
  kw:[["курс","программ","категор"],["инструктор"],["время","график","расписан"],["стоим","цена","сколько","цены"]],
  autoTitle:"Современный <em>автодром</em> в Ереване",autoText:"Просторная площадка, все необходимые элементы для качественной подготовки к экзамену.",more:"Подробнее",
@@ -377,7 +392,7 @@ en:{
  adv:[["Experienced instructors","Professionals with years of practice"],["Modern cars","Safe and comfortable for learning"],["Flexible schedule","Morning, afternoon and evening groups"],["Support until you get your licence","Guidance at every stage"]],
  instTitle:"Our <em>instructors</em>",
  inst:[["Armen","Experienced instructor",["RUS","ARM","ENG"]],["Anna","Calm and patient approach",["RUS","ARM"]],["Tigran","Exam preparation",["RUS","ARM","ENG"]]],
- instNote:"Names and photos are samples: replace them with your real instructors.",
+ instNote:"Photo spots are left empty for now; names are samples.",
  howTitle:"How <em>learning</em> works",
  steps:["You leave a request","We match a program and instructor","You pick a convenient time","You start learning","You get your licence"],
  botName:"NEO assistant",botSub:"Frequently asked questions",
@@ -389,6 +404,7 @@ en:{
   "Our instructors speak Russian, Armenian and English. Leave a request and we will match you with the right one.",
   "The schedule is flexible: morning, afternoon and evening groups. Leave a request and we will agree on a time.",
   "Prices: Category B from 180,000 AMD, automatic from 200,000 AMD, manual from 180,000 AMD, theory from 40,000 AMD."],
+ thTitle:"Exam questions (official)",thText:"Official theory exam questions (categories A, B, C): 10 groups. The exam has 20 questions and up to 2 mistakes are allowed.",thSrc:"Source: Road Police of the Ministry of Internal Affairs of Armenia —",thGroup:"Group",
  fallback:"Thanks for your question! For an exact answer, leave a request or call +374 77 000 000.",
  kw:[["course","program","categor"],["instructor"],["time","schedule","when"],["price","cost","how much","pric"]],
  autoTitle:"A modern <em>training ground</em> in Yerevan",autoText:"A spacious area with every element needed to prepare properly for the exam.",more:"Learn more",
@@ -413,11 +429,12 @@ function render(){
  $("#perks").innerHTML=t.perks.map((p,i)=>`<div class="perk">${ico(["cap","car","shield"][i])}<span>${p}</span></div>`).join("");
  $("#cards").innerHTML=t.cards.map((c,i)=>`<article class="card"><div class="card-top"><span class="ico">${ico(["wheel","gear","gear","book"][i])}</span><h3>${c.n}${c.s?`<small>${c.s}</small>`:""}</h3></div><ul>${c.l.map(x=>`<li>${x}</li>`).join("")}</ul><div class="card-bot"><span class="price"><small>${t.from}</small>${c.p} ${t.cur}</span><button class="go" data-book="${i}" aria-label="${c.n}">${ico("arrow")}</button></div></article>`).join("");
  $("#adv").innerHTML=t.adv.map((a,i)=>`<div><span class="ic">${ico(["users","car","cal","shield"][i])}</span><span><h3>${a[0]}</h3><p>${a[1]}</p></span></div>`).join("");
- $("#inst").innerHTML=t.inst.map((p,i)=>`<div class="person"><img src="assets/inst${i+1}.jpg" alt="${p[0]}" width="64" height="92"><div><h3>${p[0]}</h3><p>${p[1]}</p><div class="tags">${p[2].map(l=>`<span>${l}</span>`).join("")}</div></div></div>`).join("");
+ $("#inst").innerHTML=t.inst.map((p,i)=>`<div class="person"><span class="ph" aria-hidden="true">${ico("users")}</span><div><h3>${p[0]}</h3><p>${p[1]}</p><div class="tags">${p[2].map(l=>`<span>${l}</span>`).join("")}</div></div></div>`).join("");
  $("#steps").innerHTML=t.steps.map((s,i)=>`<div class="step"><div class="ring">${ico(["doc","head","cal","car","id"][i])}</div>${s}</div>`).join("");
  $("#quick").innerHTML=t.quick.map((q,i)=>`<button type="button" data-q="${i}">${ico(q[0])}${q[1]}</button>`).join("");
  $("#chips").innerHTML=t.chips.map(c=>`<div class="chip">${ico(c[0])}<span>${c[1]}</span></div>`).join("");
  $("#course").innerHTML=t.cards.map(c=>`<option>${c.n}</option>`).join("");
+ $("#groups").innerHTML=Array.from({length:10},(_,i)=>`<a href="https://roadpolice.am/exam/abc/${lang}/${i+1}.pdf" target="_blank" rel="noopener">${t.thGroup} ${i+1}${ico("arrow")}</a>`).join("");
  $("#log").innerHTML="";
 }
 
