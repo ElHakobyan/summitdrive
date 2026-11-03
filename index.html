@@ -128,7 +128,7 @@ footer .wrap{display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-con
 .contacts a:hover{color:var(--gold)}
 
 /* modal */
-dialog{border:0;border-radius:16px;padding:0;width:min(440px,92vw);box-shadow:0 20px 70px #0006}
+dialog{border:0;border-radius:16px;padding:0;width:min(500px,94vw);max-height:94vh;overflow:auto;box-shadow:0 20px 70px #0006}
 dialog::backdrop{background:#0009}
 .m{padding:26px}.m h2{font-size:24px}.m p{color:var(--muted);font-size:14px;margin:8px 0 16px}
 .m label{display:block;font-size:12px;font-weight:700;margin-bottom:12px}
@@ -137,6 +137,23 @@ dialog::backdrop{background:#0009}
 .m .btn.plain{background:#eceef2;color:var(--ink);box-shadow:none}
 .ok{color:#1f7a3e;font-size:14px;margin-top:12px}
 
+/* calendar */
+.cal{border:1px solid var(--line);border-radius:12px;padding:12px;margin:4px 0 12px}
+.cal-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.cal-h b{font-size:15px;text-transform:capitalize}
+.cal-h button{width:32px;height:32px;border:1px solid var(--line);border-radius:8px;background:#fff;font-size:16px}
+.cal-h button:disabled{opacity:.35;cursor:default}
+.cal-g{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;text-align:center}
+.cal-g span{font-size:11px;color:var(--muted);font-weight:700;padding:4px 0;text-transform:uppercase}
+.cal-g button{height:36px;border:0;border-radius:8px;background:#f4f5f8;font-size:13px;font-weight:600;color:var(--ink)}
+.cal-g button:hover:not(:disabled){background:#ffe9a8}
+.cal-g button.sel{background:var(--red);color:#fff}
+.cal-g button.today{outline:2px solid var(--gold);outline-offset:-2px}
+.cal-g button:disabled{background:none;color:#c3c7cf;cursor:default}
+.slots{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.slots button{border:1px solid var(--line);background:#fff;border-radius:8px;padding:7px 11px;font-size:13px;font-weight:600}
+.slots button.sel{background:var(--red);border-color:var(--red);color:#fff}
+.pick{font-size:13px;margin-top:8px;color:var(--muted)}.pick.err{color:var(--red)}
 /* responsive */
 @media(max-width:1020px){
  .cards{grid-template-columns:repeat(2,1fr)}
@@ -292,13 +309,17 @@ dialog::backdrop{background:#0009}
  </div>
 </footer>
 
-<dialog id="book">
+<dialog id="bookDlg">
  <form method="dialog" class="m" id="bookForm">
   <h2 data-t="formTitle"></h2>
   <p data-t="formText"></p>
   <label><span data-t="fName"></span><input name="name" required autocomplete="name"></label>
   <label><span data-t="fPhone"></span><input name="phone" type="tel" required autocomplete="tel" placeholder="+374 ..."></label>
   <label><span data-t="fCourse"></span><select name="course" id="course"></select></label>
+  <div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="calTitle"></div>
+  <div class="cal" id="calBox"></div>
+  <div class="slots" id="slots" role="group"></div>
+  <div class="pick" id="pick" role="status"></div>
   <div class="row"><button type="button" class="btn plain" id="cancel" data-t="cancel"></button><button class="btn" value="ok" data-t="send"></button></div>
   <div class="ok" id="ok" role="status"></div>
  </form>
@@ -338,6 +359,7 @@ hy:{
   "Ժամանակացույցը ճկուն է՝ առավոտյան, ցերեկային և երեկոյան խմբեր։ Թողեք հայտ, և մենք կհամաձայնեցնենք ժամը։",
   "Արժեքը՝ B կարգ 180 000 ֏-ից, ավտոմատ 200 000 ֏-ից, մեխանիկա 180 000 ֏-ից, տեսություն 40 000 ֏-ից։"],
  thTitle:"Քննական հարցեր (ՃՈ պաշտոնական շարք)",thText:"Վարորդական իրավունքի տեսական քննության պաշտոնական հարցաշարերը (A, B, C կարգեր)՝ 10 խումբ։ Քննությանը տրվում է 20 հարց, թույլատրվում է մինչև 2 սխալ։",thSrc:"Աղբյուրը՝ ՀՀ ՆԳՆ Ճանապարհային ոստիկանություն՝",thGroup:"Խումբ",
+ calTitle:"Ընտրեք օրը և ժամը",pickErr:"Ընտրեք ամսաթիվը և ժամը։",picked:"Ընտրված է՝",
  fallback:"Շնորհակալություն հարցի համար։ Ճշգրիտ պատասխանի համար թողեք հայտ կամ զանգահարեք՝ +374 77 000 000։",
  kw:[["դասընթաց","ծրագիր","կարգ"],["հրահանգ"],["ժամ","ժամանակ","գրաֆիկ"],["արժե","գին","արժեք","թանկ"]],
  autoTitle:"Ժամանակակից <em>ավտոդրոմ</em> Երևանում",autoText:"Ընդարձակ հարթակ՝ քննությանը որակյալ նախապատրաստվելու համար անհրաժեշտ բոլոր տարրերով։",more:"Ավելին",
@@ -374,6 +396,7 @@ ru:{
   "График гибкий: утренние, дневные и вечерние группы. Оставьте заявку, и мы согласуем время.",
   "Стоимость: категория B от 180 000 ֏, автомат от 200 000 ֏, механика от 180 000 ֏, теория от 40 000 ֏."],
  thTitle:"Экзаменационные вопросы (официальные)",thText:"Официальные вопросы теоретического экзамена (категории A, B, C): 10 групп. На экзамене 20 вопросов, допускается не более 2 ошибок.",thSrc:"Источник: Дорожная полиция МВД РА —",thGroup:"Группа",
+ calTitle:"Выберите день и время",pickErr:"Выберите дату и время.",picked:"Выбрано:",
  fallback:"Спасибо за вопрос! Для точного ответа оставьте заявку или позвоните: +374 77 000 000.",
  kw:[["курс","программ","категор"],["инструктор"],["время","график","расписан"],["стоим","цена","сколько","цены"]],
  autoTitle:"Современный <em>автодром</em> в Ереване",autoText:"Просторная площадка, все необходимые элементы для качественной подготовки к экзамену.",more:"Подробнее",
@@ -410,6 +433,7 @@ en:{
   "The schedule is flexible: morning, afternoon and evening groups. Leave a request and we will agree on a time.",
   "Prices: Category B from 180,000 AMD, automatic from 200,000 AMD, manual from 180,000 AMD, theory from 40,000 AMD."],
  thTitle:"Exam questions (official)",thText:"Official theory exam questions (categories A, B, C): 10 groups. The exam has 20 questions and up to 2 mistakes are allowed.",thSrc:"Source: Road Police of the Ministry of Internal Affairs of Armenia —",thGroup:"Group",
+ calTitle:"Choose a day and time",pickErr:"Please choose a date and a time.",picked:"Selected:",
  fallback:"Thanks for your question! For an exact answer, leave a request or call +374 77 000 000.",
  kw:[["course","program","categor"],["instructor"],["time","schedule","when"],["price","cost","how much","pric"]],
  autoTitle:"A modern <em>training ground</em> in Yerevan",autoText:"A spacious area with every element needed to prepare properly for the exam.",more:"Learn more",
@@ -425,6 +449,37 @@ let lang="hy";
 try{const s=localStorage.getItem("neo-lang");if(T[s])lang=s}catch(e){}
 const $=(s)=>document.querySelector(s);
 
+
+const CLOSED_DAYS=[0]; /* 0 = Sunday; փոխեք աշխատանքային օրերի համաձայն */
+const SLOTS=["09:00","10:30","12:00","13:30","15:00","16:30","18:00"];
+const loc=()=>({hy:"hy-AM",ru:"ru-RU",en:"en-GB"})[lang];
+let calMonth=new Date();calMonth.setDate(1);let selDate=null,selSlot=null;
+const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+function drawCal(){
+ const today=new Date();today.setHours(0,0,0,0);
+ const y=calMonth.getFullYear(),m=calMonth.getMonth();
+ const first=new Date(y,m,1),startPad=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate();
+ const fmt=new Intl.DateTimeFormat(loc(),{month:"long",year:"numeric"});
+ const wd=new Intl.DateTimeFormat(loc(),{weekday:"short"});
+ let h=`<div class="cal-h"><button type="button" id="cPrev" aria-label="prev" ${y===today.getFullYear()&&m<=today.getMonth()?"disabled":""}>‹</button><b>${fmt.format(first)}</b><button type="button" id="cNext" aria-label="next">›</button></div><div class="cal-g">`;
+ for(let i=0;i<7;i++){h+=`<span>${wd.format(new Date(2024,0,1+i))}</span>`}
+ for(let i=0;i<startPad;i++)h+="<i></i>";
+ for(let d=1;d<=days;d++){const dt=new Date(y,m,d);const off=dt<today||CLOSED_DAYS.includes(dt.getDay());const k=iso(dt);
+  h+=`<button type="button" data-d="${k}" ${off?"disabled":""} class="${selDate===k?"sel":""} ${dt.getTime()===today.getTime()?"today":""}">${d}</button>`}
+ $("#calBox").innerHTML=h+"</div>";
+ $("#cPrev").onclick=()=>{calMonth=new Date(y,m-1,1);drawCal()};
+ $("#cNext").onclick=()=>{calMonth=new Date(y,m+1,1);drawCal()};
+ $("#calBox").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDate=b.dataset.d;drawCal();drawPick()});
+}
+function drawSlots(){
+ $("#slots").innerHTML=SLOTS.map(t=>`<button type="button" data-s="${t}" class="${selSlot===t?"sel":""}">${t}</button>`).join("");
+ $("#slots").querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{selSlot=b.dataset.s;drawSlots();drawPick()});
+}
+function drawPick(){
+ const el=$("#pick");el.classList.remove("err");
+ if(selDate&&selSlot){const [y,m,d]=selDate.split("-").map(Number);el.textContent=T[lang].picked+" "+new Intl.DateTimeFormat(loc(),{weekday:"long",day:"numeric",month:"long"}).format(new Date(y,m-1,d))+", "+selSlot}
+ else el.textContent="";
+}
 function render(){
  const t=T[lang];
  document.documentElement.lang=lang;
@@ -443,6 +498,7 @@ function render(){
  $("#course").innerHTML=t.cards.map(c=>`<option>${c.n}</option>`).join("");
  $("#groups").innerHTML=Array.from({length:10},(_,i)=>`<a href="https://roadpolice.am/exam/abc/${lang}/${i+1}.pdf" target="_blank" rel="noopener">${t.thGroup} ${i+1}${ico("arrow")}</a>`).join("");
  $("#log").innerHTML="";
+ drawCal();drawSlots();drawPick();
 }
 
 function say(text,me){const d=document.createElement("div");d.className=me?"me":"bot-msg";d.textContent=text;$("#log").append(d);d.scrollIntoView({block:"nearest"})}
@@ -452,11 +508,11 @@ document.addEventListener("click",e=>{
  const q=e.target.closest("[data-q]");
  if(q){const i=+q.dataset.q,t=T[lang];say(t.quick[i][1],true);say(t.answers[i]);return}
  const b=e.target.closest("[data-book]");
- if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book))$("#course").selectedIndex=+b.dataset.book;$("#ok").textContent="";$("#book").showModal();return}
+ if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book))$("#course").selectedIndex=+b.dataset.book;$("#ok").textContent="";$("#bookDlg").showModal();return}
  if(e.target.closest("[data-open-chat]")){$("#chat").scrollIntoView({behavior:"smooth"});$("#chatInput").focus({preventScroll:true})}
 });
-$("#cancel").onclick=()=>$("#book").close();
-$("#book").addEventListener("click",e=>{if(e.target.id==="book")e.target.close()});
+$("#cancel").onclick=()=>$("#bookDlg").close();
+$("#bookDlg").addEventListener("click",e=>{if(e.target.id==="bookDlg")e.target.close()});
 
 $("#chatForm").addEventListener("submit",e=>{
  e.preventDefault();
@@ -472,16 +528,17 @@ $("#bookForm").addEventListener("submit",async e=>{
  const f=e.submitter&&e.submitter.value==="ok";
  if(!f)return;
  e.preventDefault();
- const form=e.currentTarget,data=Object.fromEntries(new FormData(form));
+ const form=e.currentTarget,data=Object.fromEntries(new FormData(form));data.date=selDate;data.time=selSlot;
  const t=T[lang];
  if(!form.reportValidity())return;
+ if(!selDate||!selSlot){const el=$("#pick");el.textContent=t.pickErr;el.classList.add("err");return}
  if(FORM_ENDPOINT){
   try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)});
-   if(!r.ok)throw 0;$("#ok").textContent=t.sent;form.reset();return}catch(_){}
+   if(!r.ok)throw 0;$("#ok").textContent=t.sent;form.reset();selDate=selSlot=null;drawCal();drawSlots();drawPick();return}catch(_){}
  }
- const blob=new Blob([`Summit\n${data.name}\n${data.phone}\n${data.course}\n${new Date().toISOString()}\n`],{type:"text/plain;charset=utf-8"});
+ const blob=new Blob([`Summit\n${data.name}\n${data.phone}\n${data.course}\n${data.date} ${data.time}\n${new Date().toISOString()}\n`],{type:"text/plain;charset=utf-8"});
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="neo-drive-request.txt";a.click();URL.revokeObjectURL(a.href);
- $("#ok").textContent=t.saved;form.reset();
+ $("#ok").textContent=t.saved;form.reset();selDate=selSlot=null;drawCal();drawSlots();drawPick();
 });
 
 render();
