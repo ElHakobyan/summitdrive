@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>NEO Drive — Ավտոդպրոց Երևանում</title>
-<meta name="description" content="NEO Drive — ժամանակակից ավտոդպրոց Երևանում՝ փորձառու հրահանգիչներով և ժամանակակից ավտոմեքենաներով։">
+<title>NeoWay Drive — Ավտոդպրոց Երևանում</title>
+<meta name="description" content="NeoWay Drive — ժամանակակից ավտոդպրոց Երևանում՝ փորձառու հրահանգիչներով և ժամանակակից ավտոմեքենաներով։">
 <style>
 :root{--red:#f20a24;--red2:#ff3b1c;--gold:#ffc21a;--ink:#14181f;--dark:#10141a;--muted:#737984;--line:#e8eaee}
 *{box-sizing:border-box}
@@ -193,7 +193,7 @@ dialog::backdrop{background:#0009}
 <section class="hero" id="top">
  <div class="wrap">
   <header>
-   <a href="#" class="brand" aria-label="NEO Drive"><img src="assets/logo.png" alt="NEO Drive — Driving School"></a>
+   <a href="#" class="brand" aria-label="NeoWay Drive"><img src="assets/logo.png" alt="NeoWay Drive — Driving School"></a>
    <nav class="nav" id="nav" aria-label="Main"></nav>
    <div class="tools">
     <button class="search" aria-label="Search" data-open-chat><svg class="i"><use href="#search"/></svg></button>
@@ -279,7 +279,7 @@ dialog::backdrop{background:#0009}
 
 <footer id="contact">
  <div class="wrap">
-  <a href="#" class="brand" aria-label="NEO Drive"><img src="assets/logo.png" alt="NEO Drive — Driving School"></a>
+  <a href="#" class="brand" aria-label="NeoWay Drive"><img src="assets/logo.png" alt="NeoWay Drive — Driving School"></a>
   <div class="soc">
    <a href="#" aria-label="Instagram"><svg class="i"><use href="#insta"/></svg></a>
    <a href="#" aria-label="Facebook"><svg class="i"><use href="#fb"/></svg></a>
@@ -328,7 +328,7 @@ hy:{
  instNote:"Լուսանկարների տեղերը դեռ դատարկ են․ անունները՝ օրինակելի։",
  howTitle:"Ինչպես է անցնում <em>ուսուցումը</em>",
  steps:["Թողնում եք հայտ","Մենք ընտրում ենք ծրագիրն ու հրահանգչին","Ընտրում եք հարմար ժամանակ","Սկսում եք ուսուցումը","Ստանում եք վարորդական իրավունքը"],
- botName:"NEO օգնական",botSub:"Հաճախ տրվող հարցեր",
+ botName:"NeoWay օգնական",botSub:"Հաճախ տրվող հարցեր",
  botHello:"Բարև 👋<br>Օգնեմ ընտրել դասընթացը, հրահանգչին և հարմար ժամանակը։ Տվեք ցանկացած հարց կամ ընտրեք թեմա։",
  botPh:"Գրեք հաղորդագրություն…",
  quick:[["cap","Ընտրել դասընթաց"],["users","Գտնել հրահանգիչ"],["cal","Ազատ ժամանակ"],["tag","Արժեք"]],
@@ -364,7 +364,7 @@ ru:{
  instNote:"Места для фото пока пустые; имена — примеры.",
  howTitle:"Как проходит <em>обучение</em>",
  steps:["Вы оставляете заявку","Мы подбираем программу и инструктора","Вы выбираете удобное время","Начинаете обучение","Получаете права"],
- botName:"Помощник NEO",botSub:"Частые вопросы",
+ botName:"Помощник NeoWay",botSub:"Частые вопросы",
  botHello:"Привет 👋<br>Помогу подобрать курс, инструктора и удобное время. Задайте любой вопрос или выберите тему ниже.",
  botPh:"Напишите сообщение…",
  quick:[["cap","Подобрать курс"],["users","Найти инструктора"],["cal","Свободное время"],["tag","Стоимость"]],
@@ -400,7 +400,7 @@ en:{
  instNote:"Photo spots are left empty for now; names are samples.",
  howTitle:"How <em>learning</em> works",
  steps:["You leave a request","We match a program and instructor","You pick a convenient time","You start learning","You get your licence"],
- botName:"NEO assistant",botSub:"Frequently asked questions",
+ botName:"NeoWay assistant",botSub:"Frequently asked questions",
  botHello:"Hi 👋<br>I can help you pick a course, an instructor and a time. Ask anything or choose a topic below.",
  botPh:"Type a message…",
  quick:[["cap","Pick a course"],["users","Find an instructor"],["cal","Available times"],["tag","Prices"]],
@@ -428,7 +428,7 @@ const $=(s)=>document.querySelector(s);
 function render(){
  const t=T[lang];
  document.documentElement.lang=lang;
- document.title=({hy:"NEO Drive — Ավտոդպրոց Երևանում",ru:"NEO Drive — Автошкола в Ереване",en:"NEO Drive — Driving school in Yerevan"})[lang];
+ document.title=({hy:"NeoWay Drive — Ավտոդպրոց Երևանում",ru:"NeoWay Drive — Автошкола в Ереване",en:"NeoWay Drive — Driving school in Yerevan"})[lang];
  document.querySelectorAll("[data-t]").forEach(el=>{const v=t[el.dataset.t];if(typeof v==="string")el.innerHTML=v});
  document.querySelectorAll("[data-ph]").forEach(el=>el.placeholder=t[el.dataset.ph]);
  document.querySelectorAll(".lang").forEach(b=>{const on=b.dataset.lang===lang;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
@@ -479,7 +479,7 @@ $("#bookForm").addEventListener("submit",async e=>{
   try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)});
    if(!r.ok)throw 0;$("#ok").textContent=t.sent;form.reset();return}catch(_){}
  }
- const blob=new Blob([`NEO Drive\n${data.name}\n${data.phone}\n${data.course}\n${new Date().toISOString()}\n`],{type:"text/plain;charset=utf-8"});
+ const blob=new Blob([`NeoWay Drive\n${data.name}\n${data.phone}\n${data.course}\n${new Date().toISOString()}\n`],{type:"text/plain;charset=utf-8"});
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="neo-drive-request.txt";a.click();URL.revokeObjectURL(a.href);
  $("#ok").textContent=t.saved;form.reset();
 });
