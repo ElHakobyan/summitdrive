@@ -117,12 +117,27 @@ h2.sp{margin-top:34px}
 .tests[hidden]{display:none}
 .tests{border-radius:26px 26px 0 0;margin-top:-30px;position:relative;padding-top:30px}
 .tests+.programs{margin-top:0;border-radius:0}
+body.tmode .hero{min-height:0;padding-bottom:0;background-image:none}
+body.tmode .hero:before{display:none}
+body.tmode .hero-copy{display:none}
+body.tmode section:not(.hero):not(.tests),body.tmode footer{display:none}
+body.tmode .tests{margin-top:0;border-radius:0;min-height:80vh;padding-top:34px}
+.tests-head h2{font-size:clamp(26px,3vw,38px);margin:0 0 8px;text-align:center;flex:1}
+.tinfo{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;color:#555;font-size:15px;margin:6px 0 18px}
+.tcats{display:flex;justify-content:center;gap:6px;margin-bottom:22px}
+.tcats button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 20px;font-weight:700;font-size:15px}
+.tcats button.on{background:var(--red);border-color:var(--red);color:#fff}
+.tests.running .tests-head h2,.tests.running .tinfo,.tests.running .tcats{display:none}
+.ttimer{font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
+.ttimer.low{color:var(--red)}
 .tests-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .cat{display:inline-block;background:var(--red);color:#fff;font-weight:800;font-size:13px;letter-spacing:.5px;border-radius:999px;padding:5px 14px;margin-bottom:10px}
 .tclose{width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:16px}
 .tests{padding:34px 0 10px;background:#fff}
-.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(86px,1fr));gap:8px}
-.tgrid button{border:1px solid var(--line);background:#fff;border-radius:10px;padding:12px 6px;font-weight:700;font-size:14px}
+.tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.tgrid button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:14px;font-weight:700;font-size:15px;text-align:left;display:flex;align-items:center;gap:12px}
+.tgrid button b{display:inline-grid;place-items:center;min-width:40px;height:40px;border-radius:10px;background:#1b2a33;color:#fff}
+.tgrid button small{display:block;font-weight:500;color:#667;font-size:13px}
 .tgrid button:hover:not(:disabled){border-color:var(--red);color:var(--red)}
 .tgrid button:disabled{opacity:.5;cursor:default}
 .tgrid button.done{background:#e9f7ee;border-color:#9bd3ad}
@@ -272,10 +287,11 @@ dialog::backdrop{background:#0009}
 <section class="tests" id="tests" hidden>
  <div class="wrap">
   <div class="tests-head">
-   <div><span class="cat" data-t="tCat"></span><h2 data-t="tTitle"></h2></div>
+   <h2 data-t="tPick"></h2>
    <button type="button" class="tclose" id="testsClose" aria-label="Close">✕</button>
   </div>
-  <p class="thp" data-t="tText"></p>
+  <div class="tinfo"><span data-t="tQn"></span><span data-t="tMin"></span><span data-t="tMax"></span></div>
+  <div class="tcats" id="tCats" role="group"></div>
   <div id="testBox" aria-live="polite"></div>
  </div>
 </section>
@@ -407,7 +423,7 @@ hy:{
   "Արժեքը՝ B կարգ 180 000 ֏-ից, ավտոմատ 200 000 ֏-ից, մեխանիկա 180 000 ֏-ից, տեսություն 40 000 ֏-ից։"],
  thTitle:"Քննական հարցեր (ՃՈ պաշտոնական շարք)",thText:"Վարորդական իրավունքի տեսական քննության պաշտոնական հարցաշարերը (A, B, C կարգեր)՝ 10 խումբ։ Քննությանը տրվում է 20 հարց, թույլատրվում է մինչև 2 սխալ։",thSrc:"Աղբյուրը՝ ՀՀ ՆԳՆ Ճանապարհային ոստիկանություն՝",thGroup:"Խումբ",
  calTitle:"Ընտրեք օրը և ժամը",pickErr:"Ընտրեք ամսաթիվը և ժամը։",picked:"Ընտրված է՝",
- tCat:"A, B, C կարգերի հարցեր", tTitle:"Թեստեր",tText:"Վարորդական իրավունքի տեսական քննության թեստեր։ Յուրաքանչյուր թեստում 20 հարց է, թույլատրվում է մինչև 2 սխալ։",tName:"Թեստը",tNext:"Հաջորդը",tFinish:"Ավարտել",tRetry:"Նորից",tAll:"Բոլոր թեստերը",tPass:"Հանձնված է",tFailed:"Չի հանձնվել",tCorrect:"Ճիշտ պատասխաններ",tQ:"Հարց",tSoon:"Թեստերի հարցերը շուտով կավելացվեն։",
+ tPick:"Ընտրեք թեստը",tQn:"20 հարց",tMin:"30 րոպե",tMax:"Թույլատրելի է առավելագույնը 2 սխալ",tABC:"A, B, C կարգեր",tDT:"D, T կարգեր",tStDone:"Հանձնված",tStFail:"Չի հանձնվել",tStNew:"Չանցած",tTime:"Ժամանակն ավարտվեց", tCat:"A, B, C կարգերի հարցեր", tTitle:"Թեստեր",tText:"Վարորդական իրավունքի տեսական քննության թեստեր։ Յուրաքանչյուր թեստում 20 հարց է, թույլատրվում է մինչև 2 սխալ։",tName:"Թեստը",tNext:"Հաջորդը",tFinish:"Ավարտել",tRetry:"Նորից",tAll:"Բոլոր թեստերը",tPass:"Հանձնված է",tFailed:"Չի հանձնվել",tCorrect:"Ճիշտ պատասխաններ",tQ:"Հարց",tSoon:"Թեստերի հարցերը շուտով կավելացվեն։",
  fallback:"Շնորհակալություն հարցի համար։ Ճշգրիտ պատասխանի համար թողեք հայտ կամ զանգահարեք՝ +374 77 000 000։",
  kw:[["դասընթաց","ծրագիր","կարգ"],["հրահանգ"],["ժամ","ժամանակ","գրաֆիկ"],["արժե","գին","արժեք","թանկ"]],
  autoTitle:"Ժամանակակից <em>ավտոդրոմ</em> Երևանում",autoText:"Ընդարձակ հարթակ՝ քննությանը որակյալ նախապատրաստվելու համար անհրաժեշտ բոլոր տարրերով։",more:"Ավելին",
@@ -445,7 +461,7 @@ ru:{
   "Стоимость: категория B от 180 000 ֏, автомат от 200 000 ֏, механика от 180 000 ֏, теория от 40 000 ֏."],
  thTitle:"Экзаменационные вопросы (официальные)",thText:"Официальные вопросы теоретического экзамена (категории A, B, C): 10 групп. На экзамене 20 вопросов, допускается не более 2 ошибок.",thSrc:"Источник: Дорожная полиция МВД РА —",thGroup:"Группа",
  calTitle:"Выберите день и время",pickErr:"Выберите дату и время.",picked:"Выбрано:",
- tCat:"Вопросы категорий A, B, C", tTitle:"Тесты",tText:"Тесты по теоретическому экзамену на права. В каждом тесте 20 вопросов, допускается не более 2 ошибок.",tName:"Тест",tNext:"Далее",tFinish:"Завершить",tRetry:"Заново",tAll:"Все тесты",tPass:"Сдано",tFailed:"Не сдано",tCorrect:"Правильных ответов",tQ:"Вопрос",tSoon:"Вопросы тестов скоро появятся.",
+ tPick:"Выберите тест",tQn:"20 вопросов",tMin:"30 минут",tMax:"Допускается не более 2 ошибок",tABC:"Категории A, B, C",tDT:"Категории D, T",tStDone:"Сдан",tStFail:"Не сдан",tStNew:"Не пройден",tTime:"Время вышло", tCat:"Вопросы категорий A, B, C", tTitle:"Тесты",tText:"Тесты по теоретическому экзамену на права. В каждом тесте 20 вопросов, допускается не более 2 ошибок.",tName:"Тест",tNext:"Далее",tFinish:"Завершить",tRetry:"Заново",tAll:"Все тесты",tPass:"Сдано",tFailed:"Не сдано",tCorrect:"Правильных ответов",tQ:"Вопрос",tSoon:"Вопросы тестов скоро появятся.",
  fallback:"Спасибо за вопрос! Для точного ответа оставьте заявку или позвоните: +374 77 000 000.",
  kw:[["курс","программ","категор"],["инструктор"],["время","график","расписан"],["стоим","цена","сколько","цены"]],
  autoTitle:"Современный <em>автодром</em> в Ереване",autoText:"Просторная площадка, все необходимые элементы для качественной подготовки к экзамену.",more:"Подробнее",
@@ -483,7 +499,7 @@ en:{
   "Prices: Category B from 180,000 AMD, automatic from 200,000 AMD, manual from 180,000 AMD, theory from 40,000 AMD."],
  thTitle:"Exam questions (official)",thText:"Official theory exam questions (categories A, B, C): 10 groups. The exam has 20 questions and up to 2 mistakes are allowed.",thSrc:"Source: Road Police of the Ministry of Internal Affairs of Armenia —",thGroup:"Group",
  calTitle:"Choose a day and time",pickErr:"Please choose a date and a time.",picked:"Selected:",
- tCat:"Categories A, B, C questions", tTitle:"Tests",tText:"Practice tests for the driving theory exam. Each test has 20 questions and up to 2 mistakes are allowed.",tName:"Test",tNext:"Next",tFinish:"Finish",tRetry:"Retry",tAll:"All tests",tPass:"Passed",tFailed:"Not passed",tCorrect:"Correct answers",tQ:"Question",tSoon:"Test questions are coming soon.",
+ tPick:"Choose a test",tQn:"20 questions",tMin:"30 minutes",tMax:"Up to 2 mistakes allowed",tABC:"Categories A, B, C",tDT:"Categories D, T",tStDone:"Passed",tStFail:"Failed",tStNew:"Not taken",tTime:"Time is up", tCat:"Categories A, B, C questions", tTitle:"Tests",tText:"Practice tests for the driving theory exam. Each test has 20 questions and up to 2 mistakes are allowed.",tName:"Test",tNext:"Next",tFinish:"Finish",tRetry:"Retry",tAll:"All tests",tPass:"Passed",tFailed:"Not passed",tCorrect:"Correct answers",tQ:"Question",tSoon:"Test questions are coming soon.",
  fallback:"Thanks for your question! For an exact answer, leave a request or call +374 77 000 000.",
  kw:[["course","program","categor"],["instructor"],["time","schedule","when"],["price","cost","how much","pric"]],
  autoTitle:"A modern <em>training ground</em> in Yerevan",autoText:"A spacious area with every element needed to prepare properly for the exam.",more:"Learn more",
@@ -532,33 +548,42 @@ function drawPick(){
 }
 
 /* ---------- Tests ---------- */
-function openTests(){const el=$("#tests");el.hidden=false;el.scrollIntoView({behavior:"smooth",block:"start"})}
+function openTests(){document.body.classList.add("tmode");$("#tests").hidden=false;window.scrollTo(0,0)}
+function closeTests(){document.body.classList.remove("tmode");$("#tests").hidden=true;tState=null}
 const TEST_TOTAL=58,PASS_MISTAKES=2;
-let TESTS=null,tState=null;
-const tLoad=fetch("assets/questions.json").then(r=>r.ok?r.json():null).catch(()=>null).then(d=>{TESTS=d&&d.tests?d.tests:null;drawTests()});
+let TESTS=null,tState=null,tCatSel="abc";const TESTS_BY={abc:null,dt:null};
+const TFILE={abc:"assets/questions.json",dt:"assets/questions_dt.json"};
+const tLoad=Promise.all(Object.keys(TFILE).map(k=>fetch(TFILE[k]).then(r=>r.ok?r.json():null).catch(()=>null).then(d=>{TESTS_BY[k]=d&&d.tests&&d.tests.length?d.tests:null}))).then(()=>{TESTS=TESTS_BY[tCatSel];drawTests()});
+function setCat(c){tCatSel=c;TESTS=TESTS_BY[c];tState=null;drawTests()}
+const TLIMIT=30*60000;
+const newRun=i=>({i,q:0,ans:[],picked:null,end:Date.now()+TLIMIT});
+const fmt=ms=>{ms=Math.max(0,ms);const s=Math.ceil(ms/1000);return String(Math.floor(s/60)).padStart(2,"0")+":"+String(s%60).padStart(2,"0")};
+setInterval(()=>{if(!tState||!TESTS)return;const qs=TESTS[tState.i].questions;if(tState.q>=qs.length)return;const left=tState.end-Date.now();if(left<=0){tState.q=qs.length;tState.timeout=true;drawQuestion();return}const el=$("#tTimer");if(el){el.textContent=fmt(left);el.classList.toggle("low",left<5*60000)}},500);
 const tr=o=>typeof o==="string"?o:(o&&(o[lang]||o.hy||o.ru||o.en))||"";
+const tKey=id=>tCatSel==="abc"?id:tCatSel+id;
 const tDone=()=>{try{return JSON.parse(localStorage.getItem("tests-done")||"{}")}catch(e){return{}}};
-function tSave(id,ok){try{const d=tDone();d[id]=ok?"pass":"fail";localStorage.setItem("tests-done",JSON.stringify(d))}catch(e){}}
+function tSave(id,ok){try{const d=tDone();d[tKey(id)]=ok?"pass":"fail";localStorage.setItem("tests-done",JSON.stringify(d))}catch(e){}}
 function drawTests(){
  const box=$("#testBox");if(!box)return;const t=T[lang];
+ $("#tests").classList.toggle("running",!!(tState&&TESTS));
  if(tState&&TESTS){drawQuestion();return}
- const done=tDone();const n=TESTS?TESTS.length:TEST_TOTAL;
- let h=TESTS?"":`<div class="tnote">${t.tSoon}</div>`;
- h+='<div class="tgrid">';
- for(let i=0;i<n;i++){const id=TESTS?TESTS[i].id:i+1;const c=done[id]==="pass"?"done":done[id]==="fail"?"fail":"";h+=`<button type="button" data-t="${i}" class="${c}" ${TESTS?"":"disabled"}>${t.tName} ${id}</button>`}
+ const cats=$("#tCats");if(cats){cats.innerHTML=`<button type="button" data-c="abc" class="${tCatSel==="abc"?"on":""}">${t.tABC}</button><button type="button" data-c="dt" class="${tCatSel==="dt"?"on":""}">${t.tDT}</button>`;cats.querySelectorAll("button").forEach(b=>b.onclick=()=>setCat(b.dataset.c))}
+ if(!TESTS){box.innerHTML=`<div class="tnote">${t.tSoon}</div>`;return}
+ const done=tDone();let h='<div class="tgrid">';
+ for(let i=0;i<TESTS.length;i++){const id=TESTS[i].id;const st=done[tKey(id)];const lab=st==="pass"?t.tStDone:st==="fail"?t.tStFail:t.tStNew;const c=st==="pass"?"done":st==="fail"?"fail":"";h+=`<button type="button" data-t="${i}" class="${c}"><b>${id}</b><span>${t.tName} ${id}<small>${lab}</small></span></button>`}
  box.innerHTML=h+"</div>";
- box.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{tState={i:+b.dataset.t,q:0,ans:[],picked:null};drawTests();box.scrollIntoView({block:"nearest"})});
+ box.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{tState=newRun(+b.dataset.t);drawTests();window.scrollTo(0,0)});
 }
 function drawQuestion(){
  const box=$("#testBox"),t=T[lang],test=TESTS[tState.i],qs=test.questions;
  if(tState.q>=qs.length){
   const correct=tState.ans.filter(Boolean).length,mist=qs.length-correct,ok=mist<=PASS_MISTAKES;
   tSave(test.id,ok);
-  box.innerHTML=`<div class="qcard"><div class="res ${ok?"pass":"fail"}">${ok?t.tPass:t.tFailed}</div><p>${t.tCorrect}: <b>${correct}/${qs.length}</b></p><div class="qact"><button class="btn sm" id="tRetry">${t.tRetry}</button><button class="btn sm ghost" style="color:var(--ink);border-color:var(--line);background:#fff" id="tBack">${t.tAll}</button></div></div>`;
-  $("#tRetry").onclick=()=>{tState={i:tState.i,q:0,ans:[],picked:null};drawTests()};
+  box.innerHTML=`<div class="qcard"><div class="res ${ok?"pass":"fail"}">${ok?t.tPass:t.tFailed}</div>${tState.timeout?`<p>${t.tTime}</p>`:""}<p>${t.tCorrect}: <b>${correct}/${qs.length}</b></p><div class="qact"><button class="btn sm" id="tRetry">${t.tRetry}</button><button class="btn sm ghost" style="color:var(--ink);border-color:var(--line);background:#fff" id="tBack">${t.tAll}</button></div></div>`;
+  $("#tRetry").onclick=()=>{tState=newRun(tState.i);drawTests()};
   $("#tBack").onclick=()=>{tState=null;drawTests()};return}
  const q=qs[tState.q],pk=tState.picked;
- box.innerHTML=`<div class="qcard"><div class="qtop"><span>${t.tName} ${test.id} · ${t.tQ} ${tState.q+1}/${qs.length}</span><button type="button" id="tBack" style="border:0;background:none;color:var(--red);font-weight:700">${t.tAll}</button></div><div class="qbar"><i style="width:${tState.q/qs.length*100}%"></i></div><p class="qtext">${tr(q.q)}</p>${q.img?`<img class="qimg" src="${q.img}" alt="">`:""}<div class="opts">${q.a.map((a,i)=>`<button type="button" data-a="${i}" ${pk!==null?"disabled":""} class="${pk!==null?(i===q.c?"ok":i===pk?"bad":""):""}">${i+1}. ${tr(a)}</button>`).join("")}</div><div class="qact">${pk!==null?`<button class="btn sm" id="tNext">${tState.q+1>=qs.length?t.tFinish:t.tNext}</button>`:""}</div></div>`;
+ box.innerHTML=`<div class="qcard"><div class="qtop"><span>${t.tName} ${test.id} · ${t.tQ} ${tState.q+1}/${qs.length} · <span class="ttimer" id="tTimer">${fmt(tState.end-Date.now())}</span></span><button type="button" id="tBack" style="border:0;background:none;color:var(--red);font-weight:700">${t.tAll}</button></div><div class="qbar"><i style="width:${tState.q/qs.length*100}%"></i></div><p class="qtext">${tr(q.q)}</p>${q.img?`<img class="qimg" src="${q.img}" alt="">`:""}<div class="opts">${q.a.map((a,i)=>`<button type="button" data-a="${i}" ${pk!==null?"disabled":""} class="${pk!==null?(i===q.c?"ok":i===pk?"bad":""):""}">${i+1}. ${tr(a)}</button>`).join("")}</div><div class="qact">${pk!==null?`<button class="btn sm" id="tNext">${tState.q+1>=qs.length?t.tFinish:t.tNext}</button>`:""}</div></div>`;
  $("#tBack").onclick=()=>{tState=null;drawTests()};
  box.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{tState.picked=+b.dataset.a;tState.ans[tState.q]=tState.picked===q.c;drawQuestion()});
  const nx=$("#tNext");if(nx)nx.onclick=()=>{tState.q++;tState.picked=null;drawQuestion()};
@@ -587,7 +612,8 @@ function render(){
 function say(text,me){const d=document.createElement("div");d.className=me?"me":"bot-msg";d.textContent=text;$("#log").append(d);d.scrollIntoView({block:"nearest"})}
 document.addEventListener("click",e=>{
  const tl=e.target.closest('a[href="#tests"]');if(tl){e.preventDefault();openTests();return}
- if(e.target.closest("#testsClose")){$("#tests").hidden=true;window.scrollTo({top:0,behavior:"smooth"});return}
+ if(e.target.closest("#testsClose")){closeTests();window.scrollTo({top:0});return}
+ const ha=e.target.closest('a[href^="#"]');if(ha&&document.body.classList.contains("tmode")&&ha.getAttribute("href")!=="#tests"){const id=ha.getAttribute("href");e.preventDefault();closeTests();setTimeout(()=>{const el=id.length>1?document.querySelector(id):null;if(el)el.scrollIntoView({behavior:"smooth"});else window.scrollTo({top:0})},30);return}
  const l=e.target.closest(".lang");
  if(l){lang=l.dataset.lang;try{localStorage.setItem("neo-lang",lang)}catch(_){}render();return}
  const q=e.target.closest("[data-q]");
