@@ -1,0 +1,10 @@
+/
+  Cache-Control: no-cache
+/index.html
+  Cache-Control: no-cache
+/assets/questions.json
+  Cache-Control: no-cache
+/assets/questions_dt.json
+  Cache-Control: no-cache
+/assets/*
+  Cache-Control: public, max-age=3600
