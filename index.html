@@ -611,7 +611,8 @@ function render(){
  $("#steps").innerHTML=t.steps.map((s,i)=>`<div class="step"><div class="ring">${ico(["doc","head","cal","car","id"][i])}</div>${s}</div>`).join("");
  $("#quick").innerHTML=t.quick.map((q,i)=>`<button type="button" data-q="${i}">${ico(q[0])}${q[1]}</button>`).join("");
  $("#chips").innerHTML=t.chips.map(c=>`<div class="chip">${ico(c[0])}<span>${c[1]}</span></div>`).join("");
- $("#course").innerHTML=t.cards.map(c=>`<option>${c.n}</option>`).join("");
+ {const cw={hy:"կարգ",ru:"Категория",en:"Category"}[lang]||"կարգ";const cats=["A","B","C"].map(x=>lang==="hy"?`${x} ${cw}`:`${cw} ${x}`);
+ $("#course").innerHTML=cats.concat(t.cards.slice(1).map(c=>c.n)).map(n=>`<option>${n}</option>`).join("");}
  $("#groups").innerHTML=Array.from({length:10},(_,i)=>`<a href="https://roadpolice.am/exam/abc/${lang}/${i+1}.pdf" target="_blank" rel="noopener">${t.thGroup} ${i+1}${ico("arrow")}</a>`).join("");
  $("#log").innerHTML="";
  drawCal();drawSlots();drawPick();drawTests();
