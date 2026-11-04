@@ -210,6 +210,8 @@ dialog::backdrop{background:#0009}
 .tbox .tick{width:84px;height:84px;border-radius:50%;background:#e9f7ee;color:#1f9a4d;font-size:48px;font-weight:800;display:grid;place-items:center;margin:0 auto 14px}
 .tbox p{color:var(--ink,#111218);font-size:26px;font-weight:800;margin:0 0 22px;line-height:1.3}
 .tbox .tsub{font-size:16px;font-weight:600;color:#4a4f58;margin:-8px 0 18px}.tbox .btn{width:100%;margin-top:8px}.tbox .tg{background:#229ED9;box-shadow:none;text-decoration:none}.tbox .wa{background:#25D366;box-shadow:none;text-decoration:none}.tbox .btn.plain{background:#eceef2;color:var(--ink,#111218)}
+.ipick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.ipick button{border:1px solid #d9dce2;background:#fff;border-radius:10px;padding:10px 14px;font-weight:700;font-size:14px;cursor:pointer}.ipick button.sel{background:var(--red);border-color:var(--red);color:#fff}
+.slots .none{font-size:13px;color:var(--muted)}
 .ok{color:#1f7a3e;font-size:14px;margin-top:12px}
 
 /* calendar */
@@ -386,13 +388,14 @@ dialog::backdrop{background:#0009}
   <label><span data-t="fName"></span><input name="name" required autocomplete="name"></label>
   <label><span data-t="fPhone"></span><input name="phone" type="tel" required autocomplete="tel" placeholder="+374 ..."></label>
   <label><span data-t="fCourse"></span><select name="course" id="course"></select></label>
+  <div id="instRow" hidden><div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="instLabel"></div><div class="ipick" id="instPick"></div></div>
   <div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="calTitle"></div>
   <div class="cal" id="calBox"></div>
   <div class="slots" id="slots" role="group"></div>
   <div class="pick" id="pick" role="status"></div>
   <div class="row"><button type="button" class="btn plain" id="cancel" data-t="cancel"></button><button class="btn" value="ok" data-t="send"></button></div>
   <div class="ok" id="ok" role="status"></div>
-  <div class="thanks" id="thanks" role="alertdialog" aria-live="assertive"><div class="tbox"><div class="tick">✓</div><p id="thanksMsg"></p><p class="tsub" id="thanksSub"></p><button type="button" class="btn plain" id="thanksClose"></button></div></div>
+  <div class="thanks" id="thanks" role="alertdialog" aria-live="assertive"><div class="tbox"><div class="tick">✓</div><p id="thanksMsg"></p><p class="tsub" id="thanksSub"></p><a class="btn wa" id="thanksWa" target="_blank" rel="noopener" hidden></a><button type="button" class="btn plain" id="thanksClose"></button></div></div>
  </form>
 </dialog>
 
@@ -474,7 +477,7 @@ hy:{
   "Ժամանակացույցը ճկուն է՝ առավոտյան, ցերեկային և երեկոյան խմբեր։ Թողեք հայտ, և մենք կհամաձայնեցնենք ժամը։",
   "Արժեքը՝ B կարգ 180 000 ֏-ից, ավտոմատ 200 000 ֏-ից, տեսություն 40 000 ֏-ից։"],
  thTitle:"Քննական հարցեր (ՃՈ պաշտոնական շարք)",thText:"Վարորդական իրավունքի տեսական քննության պաշտոնական հարցաշարերը (A, B, C կարգեր)՝ 10 խումբ։ Քննությանը տրվում է 20 հարց, թույլատրվում է մինչև 2 սխալ։",thSrc:"Աղբյուրը՝ ՀՀ ՆԳՆ Ճանապարհային ոստիկանություն՝",thGroup:"Խումբ",
- calTitle:"Ընտրեք օրը և ժամը",pickErr:"Ընտրեք ամսաթիվը և ժամը։",picked:"Ընտրված է՝",
+ instLabel:"Հրահանգիչ", calTitle:"Ընտրեք օրը և ժամը",pickErr:"Ընտրեք ամսաթիվը և ժամը։",picked:"Ընտրված է՝",
  tPrev:"Նախորդը", tPick:"Ընտրեք թեստը",tQn:"20 հարց",tMin:"30 րոպե",tMax:"Թույլատրելի է առավելագույնը 2 սխալ",tABC:"A, B, C կարգեր",tDT:"D, T կարգեր",tStDone:"Հանձնված",tStFail:"Չի հանձնվել",tStNew:"Չանցած",tTime:"Ժամանակն ավարտվեց", tCat:"A, B, C կարգերի հարցեր", tTitle:"Թեստեր",tText:"Վարորդական իրավունքի տեսական քննության թեստեր։ Յուրաքանչյուր թեստում 20 հարց է, թույլատրվում է մինչև 2 սխալ։",tName:"Թեստը",tNext:"Հաջորդը",tFinish:"Ավարտել",tRetry:"Նորից",tAll:"Բոլոր թեստերը",tPass:"Հանձնված է",tFailed:"Չի հանձնվել",tCorrect:"Ճիշտ պատասխաններ",tQ:"Հարց",tSoon:"Թեստերի հարցերը շուտով կավելացվեն։",
  fallback:"Շնորհակալություն հարցի համար։ Ճշգրիտ պատասխանի համար թողեք հայտ կամ զանգահարեք՝ +374 77 000 000։",
  kw:[["դասընթաց","ծրագիր","կարգ"],["հրահանգ"],["ժամ","ժամանակ","գրաֆիկ"],["արժե","գին","արժեք","թանկ"]],
@@ -512,7 +515,7 @@ ru:{
   "График гибкий: утренние, дневные и вечерние группы. Оставьте заявку, и мы согласуем время.",
   "Стоимость: категория B от 180 000 ֏, автомат от 200 000 ֏, теория от 40 000 ֏."],
  thTitle:"Экзаменационные вопросы (официальные)",thText:"Официальные вопросы теоретического экзамена (категории A, B, C): 10 групп. На экзамене 20 вопросов, допускается не более 2 ошибок.",thSrc:"Источник: Дорожная полиция МВД РА —",thGroup:"Группа",
- calTitle:"Выберите день и время",pickErr:"Выберите дату и время.",picked:"Выбрано:",
+ instLabel:"Инструктор", calTitle:"Выберите день и время",pickErr:"Выберите дату и время.",picked:"Выбрано:",
  tPrev:"Назад", tPick:"Выберите тест",tQn:"20 вопросов",tMin:"30 минут",tMax:"Допускается не более 2 ошибок",tABC:"Категории A, B, C",tDT:"Категории D, T",tStDone:"Сдан",tStFail:"Не сдан",tStNew:"Не пройден",tTime:"Время вышло", tCat:"Вопросы категорий A, B, C", tTitle:"Тесты",tText:"Тесты по теоретическому экзамену на права. В каждом тесте 20 вопросов, допускается не более 2 ошибок.",tName:"Тест",tNext:"Далее",tFinish:"Завершить",tRetry:"Заново",tAll:"Все тесты",tPass:"Сдано",tFailed:"Не сдано",tCorrect:"Правильных ответов",tQ:"Вопрос",tSoon:"Вопросы тестов скоро появятся.",
  fallback:"Спасибо за вопрос! Для точного ответа оставьте заявку или позвоните: +374 77 000 000.",
  kw:[["курс","программ","категор"],["инструктор"],["время","график","расписан"],["стоим","цена","сколько","цены"]],
@@ -550,7 +553,7 @@ en:{
   "The schedule is flexible: morning, afternoon and evening groups. Leave a request and we will agree on a time.",
   "Prices: Category B from 180,000 AMD, automatic from 200,000 AMD, theory from 40,000 AMD."],
  thTitle:"Exam questions (official)",thText:"Official theory exam questions (categories A, B, C): 10 groups. The exam has 20 questions and up to 2 mistakes are allowed.",thSrc:"Source: Road Police of the Ministry of Internal Affairs of Armenia —",thGroup:"Group",
- calTitle:"Choose a day and time",pickErr:"Please choose a date and a time.",picked:"Selected:",
+ instLabel:"Instructor", calTitle:"Choose a day and time",pickErr:"Please choose a date and a time.",picked:"Selected:",
  tPrev:"Previous", tPick:"Choose a test",tQn:"20 questions",tMin:"30 minutes",tMax:"Up to 2 mistakes allowed",tABC:"Categories A, B, C",tDT:"Categories D, T",tStDone:"Passed",tStFail:"Failed",tStNew:"Not taken",tTime:"Time is up", tCat:"Categories A, B, C questions", tTitle:"Tests",tText:"Practice tests for the driving theory exam. Each test has 20 questions and up to 2 mistakes are allowed.",tName:"Test",tNext:"Next",tFinish:"Finish",tRetry:"Retry",tAll:"All tests",tPass:"Passed",tFailed:"Not passed",tCorrect:"Correct answers",tQ:"Question",tSoon:"Test questions are coming soon.",
  fallback:"Thanks for your question! For an exact answer, leave a request or call +374 77 000 000.",
  kw:[["course","program","categor"],["instructor"],["time","schedule","when"],["price","cost","how much","pric"]],
@@ -572,6 +575,26 @@ const CLOSED_DAYS=[0]; /* 0 = Sunday; փոխեք աշխատանքային օրե
 const SLOTS=["09:00","10:30","12:00","13:30","15:00","16:30","18:00"];
 const loc=()=>({hy:"hy-AM",ru:"ru-RU",en:"en-GB"})[lang];
 let calMonth=new Date();calMonth.setDate(1);let selDate=null,selSlot=null;
+let AV={instructors:[1,2,3].map(n=>({id:"i"+n,name:{hy:"Հրահանգիչ "+n,ru:"Инструктор "+n,en:"Instructor "+n},weekly:Object.fromEntries([1,2,3,4,5,6].map(d=>[d,SLOTS])),blocked:[]}))};
+let selInst=null;
+fetch("assets/availability.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.instructors&&j.instructors.length){AV=j;if(!AV.instructors.some(i=>i.id===selInst))selInst=null;onCourse()}}).catch(()=>{});
+const isPractical=()=>{const o=$("#course").selectedOptions[0];return !!o&&(o.dataset.cards||"").split(" ").includes("0")};
+const curInst=()=>AV.instructors.find(i=>i.id===selInst)||null;
+function slotsFor(inst,k){
+ if(!inst)return [];const [y,m,d]=k.split("-").map(Number),dt=new Date(y,m-1,d);
+ if((inst.blocked||[]).includes(k))return [];
+ const now=new Date(),isToday=dt.toDateString()===now.toDateString();
+ return (inst.weekly[dt.getDay()]||[]).filter(t=>!(inst.blocked||[]).includes(k+" "+t)).filter(t=>{if(!isToday)return true;const [h,mm]=t.split(":").map(Number);return h*60+mm>now.getHours()*60+now.getMinutes()+30});
+}
+function drawInst(){
+ const on=isPractical();$("#instRow").hidden=!on;if(!on){selInst=null;return}
+ if(!curInst())selInst=AV.instructors[0].id;
+ $("#instPick").innerHTML=AV.instructors.map(i=>`<button type="button" data-i="${i.id}" class="${i.id===selInst?"sel":""}">${i.name[lang]||i.name.hy}</button>`).join("");
+ $("#instPick").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{selInst=b.dataset.i;selDate=selSlot=null;drawInst();drawCal();drawSlots();drawPick()});
+}
+function onCourse(){selDate=selSlot=null;drawInst();drawCal();drawSlots();drawPick()}
+$("#course").addEventListener("change",onCourse);
+
 const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
 const CAL={
 hy:{m:["Հունվար","Փետրվար","Մարտ","Ապրիլ","Մայիս","Հունիս","Հուլիս","Օգոստոս","Սեպտեմբեր","Հոկտեմբեր","Նոյեմբեր","Դեկտեմբեր"],g:["հունվարի","փետրվարի","մարտի","ապրիլի","մայիսի","հունիսի","հուլիսի","օգոստոսի","սեպտեմբերի","հոկտեմբերի","նոյեմբերի","դեկտեմբերի"],s:["Երկ","Երք","Չրք","Հնգ","Ուրբ","Շբթ","Կիր"],l:["Երկուշաբթի","Երեքշաբթի","Չորեքշաբթի","Հինգշաբթի","Ուրբաթ","Շաբաթ","Կիրակի"]},
@@ -586,15 +609,16 @@ function drawCal(){
  let h=`<div class="cal-h"><button type="button" id="cPrev" aria-label="prev" ${y===today.getFullYear()&&m<=today.getMonth()?"disabled":""}>‹</button><b>${C.m[m]} ${y}</b><button type="button" id="cNext" aria-label="next">›</button></div><div class="cal-g">`;
  for(let i=0;i<7;i++){h+=`<span>${C.s[i]}</span>`}
  for(let i=0;i<startPad;i++)h+="<i></i>";
- for(let d=1;d<=days;d++){const dt=new Date(y,m,d);const off=dt<today||CLOSED_DAYS.includes(dt.getDay());const k=iso(dt);
+ for(let d=1;d<=days;d++){const dt=new Date(y,m,d);const k=iso(dt);const off=dt<today||(isPractical()?slotsFor(curInst(),k).length===0:CLOSED_DAYS.includes(dt.getDay()));
   h+=`<button type="button" data-d="${k}" ${off?"disabled":""} class="${selDate===k?"sel":""} ${dt.getTime()===today.getTime()?"today":""}">${d}</button>`}
  $("#calBox").innerHTML=h+"</div>";
  $("#cPrev").onclick=()=>{calMonth=new Date(y,m-1,1);drawCal()};
  $("#cNext").onclick=()=>{calMonth=new Date(y,m+1,1);drawCal()};
- $("#calBox").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDate=b.dataset.d;drawCal();drawPick()});
+ $("#calBox").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDate=b.dataset.d;if(isPractical())selSlot=null;drawCal();drawSlots();drawPick()});
 }
 function drawSlots(){
- $("#slots").innerHTML=SLOTS.map(t=>`<button type="button" data-s="${t}" class="${selSlot===t?"sel":""}">${t}</button>`).join("");
+ const list=isPractical()?(selDate?slotsFor(curInst(),selDate):[]):SLOTS;
+ $("#slots").innerHTML=list.map(t=>`<button type="button" data-s="${t}" class="${selSlot===t?"sel":""}">${t}</button>`).join("");
  $("#slots").querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{selSlot=b.dataset.s;drawSlots();drawPick()});
 }
 function drawPick(){
@@ -661,7 +685,7 @@ function render(){
  $("#chips").innerHTML=t.chips.map(c=>`<div class="chip">${ico(c[0])}<span>${c[1]}</span></div>`).join("");
  {const O={hy:["Տեսական դասընթաց A, B, C","Տեսական դասընթաց D, T","Գործնական վարում"],ru:["Теоретический курс A, B, C","Теоретический курс D, T","Практическое вождение"],en:["Theory course A, B, C","Theory course D, T","Practical driving"]}[lang];
  $("#course").innerHTML=`<option data-cards="2">${O[0]}</option><option>${O[1]}</option><option data-cards="0 1">${O[2]}</option>`;}
- drawCal();drawSlots();drawPick();drawTests();
+ drawInst();drawCal();drawSlots();drawPick();drawTests();
 }
 
 document.addEventListener("click",e=>{
@@ -672,13 +696,13 @@ document.addEventListener("click",e=>{
  const l=e.target.closest(".lang");
  if(l){lang=l.dataset.lang;try{localStorage.setItem("neo-lang",lang)}catch(_){}render();return}
  const b=e.target.closest("[data-book]");
- if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book)){const o=$("#course").querySelector(`option[data-cards~="${b.dataset.book}"]`);if(o)o.selected=true}$("#ok").textContent="";$("#thanks").classList.remove("show");$("#bookDlg").showModal();return}
+ if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book)){const o=$("#course").querySelector(`option[data-cards~="${b.dataset.book}"]`);if(o)o.selected=true}onCourse();$("#ok").textContent="";$("#thanks").classList.remove("show");$("#bookDlg").showModal();return}
 });
 const WA_NUM="37493838038";
-const WA={hy:{sub:"Մենք շուտով կկապվենք ձեզ հետ։",btn:"Գրել WhatsApp-ով",tg:"Գրել Telegram-ով",msg:"Բարև, ես հենց նոր գրանցվեցի ուսուցման համար (Summit Drive)։"},
-ru:{sub:"Мы скоро свяжемся с вами.",btn:"Написать в WhatsApp",tg:"Написать в Telegram",msg:"Здравствуйте, я только что оставил(а) заявку на обучение (Summit Drive)."},
-en:{sub:"We will contact you soon.",btn:"Message on WhatsApp",tg:"Message on Telegram",msg:"Hello, I just signed up for a course (Summit Drive)."}};
-function thanks(msg){const t=T[lang],w=WA[lang];$("#thanksSub").textContent=w.sub;$("#thanksMsg").textContent=msg;$("#thanksClose").textContent=t.cancel;$("#thanks").classList.add("show");$("#ok").textContent=""}
+const WA={hy:{sub:"Մենք շուտով կկապվենք ձեզ հետ։",paySub:"Ժամը ամրագրվում է վճարումից հետո։ Գրեք մեզ WhatsApp-ով՝ կուղարկենք վճարման տվյալները։",btn:"Գրել WhatsApp-ով՝ վճարման տվյալների համար",msg:(i,d,t)=>`Բարև, ես ամրագրել եմ գործնական վարում (${i}), ${d} ${t}։ Խնդրում եմ ուղարկել վճարման տվյալները։`},
+ru:{sub:"Мы скоро свяжемся с вами.",paySub:"Время закрепляется после оплаты. Напишите нам в WhatsApp — пришлём реквизиты для оплаты.",btn:"Написать в WhatsApp за реквизитами",msg:(i,d,t)=>`Здравствуйте, я записался(ась) на практическое вождение (${i}), ${d} ${t}. Пришлите, пожалуйста, реквизиты для оплаты.`},
+en:{sub:"We will contact you soon.",paySub:"The time is reserved after payment. Message us on WhatsApp and we will send the payment details.",btn:"Message on WhatsApp for payment details",msg:(i,d,t)=>`Hello, I booked practical driving (${i}) for ${d} ${t}. Please send the payment details.`}};
+function thanks(msg,bk){const t=T[lang],w=WA[lang];$("#thanksSub").textContent=bk?w.paySub:w.sub;const a=$("#thanksWa");a.hidden=!bk;if(bk){a.textContent=w.btn;a.href="https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(w.msg(bk.inst,bk.date,bk.time))}$("#thanksMsg").textContent=msg;$("#thanksClose").textContent=t.cancel;$("#thanks").classList.add("show");$("#ok").textContent=""}
 $("#thanksClose").onclick=()=>{$("#thanks").classList.remove("show");$("#bookDlg").close()};
 $("#cancel").onclick=()=>$("#bookDlg").close();
 $("#bookDlg").addEventListener("click",e=>{if(e.target.id==="bookDlg")e.target.close()});
@@ -687,17 +711,17 @@ $("#bookForm").addEventListener("submit",async e=>{
  const f=e.submitter&&e.submitter.value==="ok";
  if(!f)return;
  e.preventDefault();
- const form=e.currentTarget,data=Object.fromEntries(new FormData(form));data.date=selDate;data.time=selSlot;
+ const form=e.currentTarget,data=Object.fromEntries(new FormData(form));data.date=selDate;data.time=selSlot;const prac=isPractical(),ci=curInst();if(prac&&ci){data.instructor=ci.name.hy+" ("+ci.id+")";data.status="AWAITING PAYMENT - confirm after payment, then add the slot to blocked in availability.json"}const bk=prac&&ci?{inst:ci.name[lang]||ci.name.hy,date:selDate,time:selSlot}:null;
  const t=T[lang];
  if(!form.reportValidity())return;
  if(!selDate||!selSlot){const el=$("#pick");el.textContent=t.pickErr;el.classList.add("err");return}
  if(FORM_ENDPOINT){
-  try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(WEB3FORMS_KEY?{access_key:WEB3FORMS_KEY,subject:"Summit Drive: new sign-up request",from_name:"Summit Drive website",...data}:data)});
-   if(!r.ok)throw 0;if(WEB3FORMS_KEY){const j=await r.json().catch(()=>({}));if(j.success===false)throw 0}thanks(t.sent);form.reset();selDate=selSlot=null;drawCal();drawSlots();drawPick();return}catch(_){}
+  try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(WEB3FORMS_KEY?{access_key:WEB3FORMS_KEY,subject:(bk?"Summit Drive: NEW BOOKING (awaiting payment)":"Summit Drive: new sign-up request"),from_name:"Summit Drive website",...data}:data)});
+   if(!r.ok)throw 0;if(WEB3FORMS_KEY){const j=await r.json().catch(()=>({}));if(j.success===false)throw 0}thanks(t.sent,bk);form.reset();onCourse();return}catch(_){}
  }
  const blob=new Blob([`Summit\n${data.name}\n${data.phone}\n${data.course}\n${data.date} ${data.time}\n${new Date().toISOString()}\n`],{type:"text/plain;charset=utf-8"});
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="neo-drive-request.txt";a.click();URL.revokeObjectURL(a.href);
- thanks(t.saved);form.reset();selDate=selSlot=null;drawCal();drawSlots();drawPick();
+ thanks(t.saved,bk);form.reset();onCourse();
 });
 
 render();
