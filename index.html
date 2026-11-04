@@ -230,7 +230,9 @@ dialog::backdrop{background:#0009}
  .hero{background-position:100% bottom,0 0}
  .hero:before{background:linear-gradient(90deg,#1a110fd9 0%,#1a110fa6 55%,#1a110f33 100%)}
 }
-@media(max-width:1500px){header{flex-wrap:wrap}.nav{order:3;width:100%;justify-content:flex-start}}
+@media(min-width:1341px){.nav{flex-wrap:nowrap}.ddb{white-space:nowrap}}
+@media(max-width:1500px){.brand img{height:118px}header{gap:14px}.tools{gap:8px}}
+@media(max-width:1340px){header{flex-wrap:wrap}.nav{order:3;width:100%;justify-content:flex-start}}
 @media(max-width:1020px){header{flex-wrap:wrap}.nav{order:3;width:100%;gap:14px;justify-content:flex-start;font-size:15px}}
 @media(max-width:640px){
  .hero{min-height:700px;background:#4a3338 url(assets/hero.webp?v=3) 78% bottom/auto 360px no-repeat}
