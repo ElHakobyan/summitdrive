@@ -222,7 +222,8 @@ dialog::backdrop{background:#0009}
 .ctopts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:340px;margin:0 auto}
 .ctopts button{border:1px solid #d9dce2;background:#fff;border-radius:10px;padding:12px;font-size:20px;font-weight:800;cursor:pointer}.ctopts button:hover{border-color:var(--red);color:var(--red)}
 .ctopts button.none{grid-column:1/-1;font-size:14px;font-weight:600;color:#4a4f58}
-.ctres{font-size:18px;font-weight:800;margin:6px 0 8px}.ctlist{margin:10px auto 6px;max-width:380px;text-align:left;font-size:14px}.ctlist>div>span:first-child{white-space:nowrap}.ctlist>div{display:flex;justify-content:space-between;gap:10px;padding:6px 8px;border-bottom:1px solid var(--line)}.ctlist .ok{color:#1f7a3e}.ctlist .bad{color:#c4161c;background:#fff1f1}
+.ctres{font-size:18px;font-weight:800;margin:6px 0 8px}.ctsub{text-align:center;margin:26px 0 12px;font-size:20px}
+.ctlist{margin:10px auto 6px;max-width:380px;text-align:left;font-size:14px}.ctlist>div>span:first-child{white-space:nowrap}.ctlist>div{display:flex;justify-content:space-between;gap:10px;padding:6px 8px;border-bottom:1px solid var(--line)}.ctlist .ok{color:#1f7a3e}.ctlist .bad{color:#c4161c;background:#fff1f1}
 .ctnote{font-size:13px;color:#5d6472;margin:8px 0 14px}
 .ctbox .btn{margin-top:4px}
 .ok{color:#1f7a3e;font-size:14px;margin-top:12px}
@@ -626,9 +627,9 @@ function drawInst(){
 }
 
 const CTP=[{n:"12",c:1,o:["12","17","21","71"]},{n:"8",o:["3","8","6","9"]},{n:"6",o:["5","8","9","6"]},{n:"29",o:["70","26","29","20"]},{n:"5",o:["3","5","6","8"]},{n:"74",o:["21","71","24","74"]}];
-const CTS={hy:{tab:"Գույների թեստ",h:"Դալտոնիզմի թեստ (գույների տարբերակում)",p:"Արագ ստուգում՝ կարո՞ղ եք տարբերել գույները։ Յուրաքանչյուր նկարում թիվ կա՝ նշեք, թե որն եք տեսնում։ Սա միայն նախնական ստուգում է և բժշկական եզրակացություն չէ։",start:"Սկսել թեստը",q:"Ի՞նչ թիվ եք տեսնում",none:"Ոչ մի թիվ չեմ տեսնում",pr:(i,n)=>`Նկար ${i} / ${n}`,ok:"Գույները տարբերում եք նորմալ",mid:"Հնարավոր են գույների տարբերակման թույլ դժվարություններ",bad:"Հնարավոր է դալտոնիզմ (կարմիր–կանաչ գույների տարբերակման դժվարություն)",ctrl:"Առաջին նկարը պետք է տեսնեն բոլորը։ Ստուգեք էկրանի պայծառությունը և փորձեք կրկին։",note:"Արդյունքը կախված է էկրանից և լուսավորությունից։ Վարորդական իրավունք ստանալու համար անհրաժեշտ է բժշկական զննում, ստույգ արդյունքը կտա ակնաբույժը։",again:"Կրկնել",yours:"Ձեր պատասխանը",right:"ճիշտը",nn:"չեմ տեսնում",sc:(c,w)=>`Ճիշտ՝ <b>${c}</b>, սխալ՝ <b>${w}</b>`},
-ru:{tab:"Тест цветов",h:"Тест на дальтонизм (различение цветов)",p:"Быстрая проверка: различаете ли вы цвета. На каждой картинке есть число — укажите, какое вы видите. Это лишь предварительный тест, а не медицинское заключение.",start:"Начать тест",q:"Какое число вы видите?",none:"Я не вижу числа",pr:(i,n)=>`Картинка ${i} / ${n}`,ok:"Цвета вы различаете нормально",mid:"Возможны слабые затруднения с различением цветов",bad:"Возможен дальтонизм (трудности с красно-зелёными цветами)",ctrl:"Первую картинку видят все. Проверьте яркость экрана и попробуйте снова.",note:"Результат зависит от экрана и освещения. Для получения прав нужен медосмотр; точный ответ даст офтальмолог.",again:"Пройти ещё раз",yours:"Ваш ответ",right:"верно",nn:"не вижу",sc:(c,w)=>`Верно: <b>${c}</b>, ошибок: <b>${w}</b>`},
-en:{tab:"Colour test",h:"Colour blindness test",p:"A quick check of your colour vision. Each picture hides a number — pick the one you see. This is only a screening, not a medical diagnosis.",start:"Start the test",q:"Which number do you see?",none:"I can't see a number",pr:(i,n)=>`Plate ${i} / ${n}`,ok:"Your colour vision looks normal",mid:"You may have slight difficulty telling some colours apart",bad:"Possible colour blindness (red–green difficulty)",ctrl:"Everyone should see the first plate. Check your screen brightness and try again.",note:"Results depend on your screen and lighting. A medical exam is required for a licence; an eye doctor can give a definite answer.",again:"Try again",yours:"Your answer",right:"correct",nn:"can't see",sc:(c,w)=>`Correct: <b>${c}</b>, wrong: <b>${w}</b>`}};
+const CTS={hy:{qh:"Գույները երթևեկության մեջ՝ հարցեր (ՃԵԿ)",tab:"Գույների թեստ",h:"Դալտոնիզմի թեստ (գույների տարբերակում)",p:"Արագ ստուգում՝ կարո՞ղ եք տարբերել գույները։ Յուրաքանչյուր նկարում թիվ կա՝ նշեք, թե որն եք տեսնում։ Սա միայն նախնական ստուգում է և բժշկական եզրակացություն չէ։",start:"Սկսել թեստը",q:"Ի՞նչ թիվ եք տեսնում",none:"Ոչ մի թիվ չեմ տեսնում",pr:(i,n)=>`Նկար ${i} / ${n}`,ok:"Գույները տարբերում եք նորմալ",mid:"Հնարավոր են գույների տարբերակման թույլ դժվարություններ",bad:"Հնարավոր է դալտոնիզմ (կարմիր–կանաչ գույների տարբերակման դժվարություն)",ctrl:"Առաջին նկարը պետք է տեսնեն բոլորը։ Ստուգեք էկրանի պայծառությունը և փորձեք կրկին։",note:"Արդյունքը կախված է էկրանից և լուսավորությունից։ Վարորդական իրավունք ստանալու համար անհրաժեշտ է բժշկական զննում, ստույգ արդյունքը կտա ակնաբույժը։",again:"Կրկնել",yours:"Ձեր պատասխանը",right:"ճիշտը",nn:"չեմ տեսնում",sc:(c,w)=>`Ճիշտ՝ <b>${c}</b>, սխալ՝ <b>${w}</b>`},
+ru:{qh:"Цвета в дорожном движении: вопросы (ПДД)",tab:"Тест цветов",h:"Тест на дальтонизм (различение цветов)",p:"Быстрая проверка: различаете ли вы цвета. На каждой картинке есть число — укажите, какое вы видите. Это лишь предварительный тест, а не медицинское заключение.",start:"Начать тест",q:"Какое число вы видите?",none:"Я не вижу числа",pr:(i,n)=>`Картинка ${i} / ${n}`,ok:"Цвета вы различаете нормально",mid:"Возможны слабые затруднения с различением цветов",bad:"Возможен дальтонизм (трудности с красно-зелёными цветами)",ctrl:"Первую картинку видят все. Проверьте яркость экрана и попробуйте снова.",note:"Результат зависит от экрана и освещения. Для получения прав нужен медосмотр; точный ответ даст офтальмолог.",again:"Пройти ещё раз",yours:"Ваш ответ",right:"верно",nn:"не вижу",sc:(c,w)=>`Верно: <b>${c}</b>, ошибок: <b>${w}</b>`},
+en:{qh:"Colours in traffic: questions (Traffic Rules)",tab:"Colour test",h:"Colour blindness test",p:"A quick check of your colour vision. Each picture hides a number — pick the one you see. This is only a screening, not a medical diagnosis.",start:"Start the test",q:"Which number do you see?",none:"I can't see a number",pr:(i,n)=>`Plate ${i} / ${n}`,ok:"Your colour vision looks normal",mid:"You may have slight difficulty telling some colours apart",bad:"Possible colour blindness (red–green difficulty)",ctrl:"Everyone should see the first plate. Check your screen brightness and try again.",note:"Results depend on your screen and lighting. A medical exam is required for a licence; an eye doctor can give a definite answer.",again:"Try again",yours:"Your answer",right:"correct",nn:"can't see",sc:(c,w)=>`Correct: <b>${c}</b>, wrong: <b>${w}</b>`}};
 let ct={i:-1,score:0,ctrl:true,a:[]};
 function ctPlate(cv,txt,seed,isCtrl){
  const S=400,ctx=cv.getContext("2d");cv.width=cv.height=S;
@@ -649,7 +650,7 @@ function ctPlate(cv,txt,seed,isCtrl){
  ctx.restore();
 }
 function drawCT(){
- const L=CTS[lang],box=$("#testBox");if(!box||tCatSel!=="color")return;
+ const L=CTS[lang],box=$("#ctHost");if(!box||tCatSel!=="color")return;
  const n=CTP.length;
  if(ct.i<0){box.innerHTML=`<div class="ctbox"><h3 style="margin:0 0 8px">${L.h}</h3><p class="ctnote" style="margin-top:0">${L.p}</p><button type="button" class="btn" id="ctStart">${L.start}</button></div>`;$("#ctStart").onclick=()=>{ct={i:0,score:0,ctrl:true,a:[]};drawCT()};return}
  if(ct.i>=n){
@@ -703,8 +704,8 @@ function drawPick(){
 function openTests(){document.body.classList.add("tmode");$("#tests").hidden=false;window.scrollTo(0,0)}
 function closeTests(){document.body.classList.remove("tmode");$("#tests").hidden=true;tState=null}
 const TEST_TOTAL=58,PASS_MISTAKES=2;
-let TESTS=null,tState=null,tCatSel="abc";const TESTS_BY={abc:null,dt:null};
-const TFILE={abc:"assets/questions.json",dt:"assets/questions_dt.json"};
+let TESTS=null,tState=null,tCatSel="abc";const TESTS_BY={abc:null,dt:null,color:null};
+const TFILE={abc:"assets/questions.json",dt:"assets/questions_dt.json",color:"assets/questions_colors.json"};
 const tLoad=Promise.all(Object.keys(TFILE).map(k=>fetch(TFILE[k]).then(r=>r.ok?r.json():null).catch(()=>null).then(d=>{TESTS_BY[k]=d&&d.tests&&d.tests.length?d.tests:null}))).then(()=>{TESTS=TESTS_BY[tCatSel];drawTests()});
 function setCat(c){tCatSel=c;TESTS=TESTS_BY[c];tState=null;drawTests()}
 const TLIMIT=30*60000;
@@ -721,12 +722,12 @@ function drawTests(){
  $("#tests").classList.toggle("running",!!(tState&&TESTS));
  if(tState&&TESTS){drawQuestion();return}
  const cats=$("#tCats");if(cats){cats.innerHTML=`<button type="button" data-c="abc" class="${tCatSel==="abc"?"on":""}">${t.tABC}</button><button type="button" data-c="dt" class="${tCatSel==="dt"?"on":""}">${t.tDT}</button><button type="button" data-c="color" class="${tCatSel==="color"?"on":""}">${CTS[lang].tab}</button>`;cats.querySelectorAll("button").forEach(b=>b.onclick=()=>setCat(b.dataset.c))}
- if(tCatSel==="color"){drawCT();return}
- if(!TESTS){box.innerHTML=`<div class="tnote">${t.tSoon}</div>`;return}
+ let host=box;if(tCatSel==="color"){box.innerHTML=`<div id="ctHost"></div><h3 class="ctsub">${CTS[lang].qh}</h3><div id="ctQuiz"></div>`;drawCT();host=$("#ctQuiz")}
+ if(!TESTS){host.innerHTML=`<div class="tnote">${t.tSoon}</div>`;return}
  const done=tDone();let h='<div class="tgrid">';
  for(let i=0;i<TESTS.length;i++){const id=TESTS[i].id;const st=done[tKey(id)];const lab=st==="pass"?t.tStDone:st==="fail"?t.tStFail:t.tStNew;const c=st==="pass"?"done":st==="fail"?"fail":"";h+=`<button type="button" data-t="${i}" class="${c}"><b>${id}</b><span>${t.tName} ${id}<small>${lab}</small></span></button>`}
- box.innerHTML=h+"</div>";
- box.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{tState=newRun(+b.dataset.t);drawTests();window.scrollTo(0,0)});
+ host.innerHTML=h+"</div>";
+ host.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{tState=newRun(+b.dataset.t);drawTests();window.scrollTo(0,0)});
 }
 function drawQuestion(){
  const box=$("#testBox"),t=T[lang],test=TESTS[tState.i],qs=test.questions;
