@@ -93,6 +93,8 @@ h2{font-size:clamp(25px,3vw,32px);line-height:1.2;margin:0;letter-spacing:-.5px;
 .adv .ic{width:48px;height:48px;border-radius:50%;background:#ffc21a1c;color:var(--gold);display:grid;place-items:center;font-size:24px;flex-shrink:0}
 .about{margin-top:26px;padding-top:20px;border-top:1px solid #ffffff22}.about p{margin:0 0 8px;padding-left:26px;position:relative;font-size:17px;font-weight:600;color:#fff}
 .about p:before{content:"✓";position:absolute;left:0;top:0;color:var(--gold);font-weight:800}
+.nsbox{display:flex;align-items:center;gap:18px;margin-top:22px;padding:14px 20px;border:1px solid #e5251d66;background:#e5251d14;border-radius:16px;max-width:900px}.nsbox h3{margin:0 0 4px;font-size:17px;color:#fff}.nsbox p{margin:0;font-size:14px;color:#d5d8de;line-height:1.4}.nsic{flex:none;line-height:0;color:var(--gold)}
+@media(max-width:600px){.nsbox{flex-direction:column;align-items:flex-start}}
 .adv h3{margin:0 0 4px;font-size:15px;line-height:1.2}.adv p{margin:0;font-size:12.5px;color:#b9bec7;line-height:1.4}
 
 .mid{padding:34px 0 20px;background:#fff}
@@ -367,7 +369,8 @@ dialog::backdrop{background:#0009}
  <div class="wrap">
   <h2 data-t="advTitle"></h2>
   <div class="adv" id="adv"></div>
-  <div class="about"><p data-t="aboutA"></p><p data-t="aboutB"></p><p data-t="aboutC"></p><p data-t="aboutD"></p></div>
+  <div class="nsbox" id="nsBox"></div>
+  <div class="about"><p data-t="aboutA"></p><p data-t="aboutB"></p><p data-t="aboutC"></p></div>
  </div>
 </section>
 
@@ -490,9 +493,9 @@ hy:{
   {n:"Ավտոմատ",s:"",l:["Հարմար սկսնակների համար","Հանգիստ ուսուցում","Ճկուն ժամանակացույց","Նախապատրաստում քննությանը"],p:"8 000",f:"1 ժամ"},
   {n:"Տեսական դասընթաց",s:"",l:["ՃԿԿ, ճանապարհային իրավիճակներ","Օնլայն ձևաչափ","Դասախոսի աջակցություն","Հարմար ժամանակացույց"],p:"40 000",f:""}],
  from:"սկսած",cur:"֏",
- aboutA:"Մեր մոտ դասերը անցկացվում են ամեն օր՝ Ձեզ հարմար ժամին։",aboutB:"Խմբային դասերում մասնակիցների առավելագույն քանակը 5 կամ 6 հոգի է։",aboutC:"Մեր ավտոմեքենաները միշտ մաքուր են և խնամված։",aboutD:"Մեր հրահանգիչները ծխող չեն. ավտոմեքենայի մեջ ծխելը խստիվ արգելվում է։",
+ aboutA:"Մեր մոտ դասերը անցկացվում են ամեն օր՝ Ձեզ հարմար ժամին։",aboutB:"Խմբային դասերում մասնակիցների առավելագույն քանակը 5 կամ 6 հոգի է։",aboutC:"Մեր ավտոմեքենաները միշտ մաքուր են և խնամված։",
  advTitle:"Մեր <em>առավելությունները</em>",
- adv:[["Փորձառու հրահանգիչներ","Պրոֆեսիոնալներ՝ մեծ փորձով"],["Ժամանակակից ավտոմեքենաներ","Անվտանգ և հարմար ուսուցման համար"],["Հարմար ժամանակացույց","Առավոտյան, ցերեկային և երեկոյան խմբեր"],["Աջակցություն մինչև վարորդական իրավունք ստանալը","Ուղեկցում բոլոր փուլերում"]],
+ adv:[["Փորձառու հրահանգիչներ","Պրոֆեսիոնալներ՝ մեծ փորձով"],["Ժամանակակից ավտոմեքենաներ","Անվտանգ և հարմար ուսուցման համար"],["Ծխելն արգելվում է","Մեր հրահանգիչները ծխող չեն. ավտոմեքենայի մեջ ծխելը խստիվ արգելվում է։"],["Հարմար ժամանակացույց","Առավոտյան, ցերեկային և երեկոյան խմբեր"],["Աջակցություն մինչև վարորդական իրավունք ստանալը","Ուղեկցում բոլոր փուլերում"]],
  instTitle:"Մեր <em>հրահանգիչները</em>",
  inst:[["Արմեն","Փորձառու հրահանգիչ",["ՌՈՒՍ","ՀԱՅ","ENG"]],["Աննա","Հանգիստ և համբերատար մոտեցում",["ՌՈՒՍ","ՀԱՅ"]],["Տիգրան","Նախապատրաստում քննությանը",["ՌՈՒՍ","ՀԱՅ","ENG"]]],
  instNote:"Լուսանկարների տեղերը դեռ դատարկ են․ անունները՝ օրինակելի։",
@@ -528,9 +531,9 @@ ru:{
   {n:"Автомат",s:"",l:["Удобно для начинающих","Спокойное обучение","Гибкий график","Подготовка к экзамену"],p:"8 000",f:"1 час"},
   {n:"Теоретический курс",s:"",l:["ПДД, дорожные ситуации","Онлайн формат","Поддержка преподавателя","Удобный график"],p:"40 000",f:""}],
  from:"от",cur:"֏",
- aboutA:"Занятия проходят каждый день в удобное для вас время.",aboutB:"В групповых занятиях максимальное количество участников — 5 или 6 человек.",aboutC:"Наши автомобили всегда чистые и ухоженные.",aboutD:"Наши инструкторы не курят; курение в автомобиле строго запрещено.",
+ aboutA:"Занятия проходят каждый день в удобное для вас время.",aboutB:"В групповых занятиях максимальное количество участников — 5 или 6 человек.",aboutC:"Наши автомобили всегда чистые и ухоженные.",
  advTitle:"Наши <em>преимущества</em>",
- adv:[["Опытные инструкторы","Профессионалы с большим опытом"],["Современные автомобили","Безопасные и удобные для обучения"],["Удобное расписание","Утренние, дневные и вечерние группы"],["Поддержка до получения прав","Сопровождение на всех этапах"]],
+ adv:[["Опытные инструкторы","Профессионалы с большим опытом"],["Современные автомобили","Безопасные и удобные для обучения"],["Курение запрещено","Наши инструкторы не курят; курение в автомобиле строго запрещено."],["Удобное расписание","Утренние, дневные и вечерние группы"],["Поддержка до получения прав","Сопровождение на всех этапах"]],
  instTitle:"Наши <em>инструкторы</em>",
  inst:[["Армен","Опытный инструктор",["РУС","АРМ","ENG"]],["Анна","Спокойный и терпеливый подход",["РУС","АРМ"]],["Тигран","Подготовка к экзамену",["РУС","АРМ","ENG"]]],
  instNote:"Места для фото пока пустые; имена — примеры.",
@@ -566,9 +569,9 @@ en:{
   {n:"Automatic",s:"",l:["Great for beginners","Calm, relaxed learning","Flexible schedule","Exam preparation"],p:"8,000",f:"1 hour"},
   {n:"Theory course",s:"",l:["Traffic rules, road situations","Online format","Teacher support","Flexible schedule"],p:"40,000",f:""}],
  from:"from",cur:"AMD",
- aboutA:"Classes are held every day at a time that suits you.",aboutB:"In group classes, the maximum number of participants is 5 or 6.",aboutC:"Our cars are always clean and well maintained.",aboutD:"Our instructors do not smoke; smoking in the car is strictly forbidden.",
+ aboutA:"Classes are held every day at a time that suits you.",aboutB:"In group classes, the maximum number of participants is 5 or 6.",aboutC:"Our cars are always clean and well maintained.",
  advTitle:"Our <em>advantages</em>",
- adv:[["Experienced instructors","Professionals with years of practice"],["Modern cars","Safe and comfortable for learning"],["Flexible schedule","Morning, afternoon and evening groups"],["Support until you get your licence","Guidance at every stage"]],
+ adv:[["Experienced instructors","Professionals with years of practice"],["Modern cars","Safe and comfortable for learning"],["No smoking","Our instructors do not smoke; smoking in the car is strictly forbidden."],["Flexible schedule","Morning, afternoon and evening groups"],["Support until you get your licence","Guidance at every stage"]],
  instTitle:"Our <em>instructors</em>",
  inst:[["Armen","Experienced instructor",["RUS","ARM","ENG"]],["Anna","Calm and patient approach",["RUS","ARM"]],["Tigran","Exam preparation",["RUS","ARM","ENG"]]],
  instNote:"Photo spots are left empty for now; names are samples.",
@@ -596,6 +599,7 @@ en:{
 };
 
 const NAV={hy:["Գլխավոր","Մեր մասին","Թեստեր","Կապ"],ru:["Главная","О нас","Тесты","Контакты"],en:["Home","About us","Tests","Contact"]};
+const NSI=`<svg class="nsi" viewBox="0 0 84 44" width="126" height="66" aria-hidden="true"><svg class="i" x="0" y="4" width="36" height="36" viewBox="0 0 24 24"><use href="#car"/></svg><circle cx="64" cy="22" r="15" fill="none" stroke="#e5251d" stroke-width="3"/><g transform="rotate(-35 64 22)"><rect x="52" y="19.5" width="6" height="5" fill="#ff9a3c"/><rect x="58" y="19.5" width="14" height="5" fill="#f2f2f2"/><rect x="72" y="19.5" width="3" height="5" fill="#8b8f98"/></g><path d="M69 9c-3 2 3 4 0 6" fill="none" stroke="#9aa0ab" stroke-width="1.4" stroke-linecap="round"/><line x1="53" y1="11" x2="75" y2="33" stroke="#e5251d" stroke-width="3.2" stroke-linecap="round"/></svg>`;
 const ico=(n)=>`<svg class="i"><use href="#${n}"/></svg>`;
 let lang="hy";
 try{const s=localStorage.getItem("neo-lang");if(T[s])lang=s}catch(e){}
@@ -779,7 +783,8 @@ function render(){
  $("#nav").innerHTML=NAV[lang].map((n,i)=>`<a href="#${["top","advantages","tests","contact"][i]}">${n}</a>`).join("")+`<div class="dd"><button type="button" class="ddb" aria-expanded="false">${UNITS[lang].t}<span aria-hidden="true"> ▾</span></button><div class="ddp" role="list">${UNITS[lang].r.map(r=>`<div class="ddr" role="listitem"><b>${r[0]}</b><span>${r[1]}</span></div>`).join("")}</div></div>`;
  $("#perks").innerHTML=t.perks.map((p,i)=>`<div class="perk">${ico(["cap","car","shield"][i])}<span>${p}</span></div>`).join("");
  $("#cards").innerHTML=t.cards.map((c,i)=>`<article class="card"><div class="card-top"><span class="ico">${ico(["wheel","gear","book"][i])}</span><h3>${c.n}${c.s?`<small>${c.s}</small>`:""}</h3></div><ul>${c.l.map(x=>`<li>${x}</li>`).join("")}</ul><div class="card-bot">${c.p?`<span class="price"><small>${c.f!==undefined?c.f:t.from}</small>${c.p} ${t.cur}</span>`:"<span></span>"}<button class="go" data-book="${i}" aria-label="${c.n}">${ico("arrow")}</button></div></article>`).join("");
- $("#adv").innerHTML=t.adv.map((a,i)=>`<div><span class="ic">${ico(["users","car","cal","shield"][i])}</span><span><h3>${a[0]}</h3><p>${a[1]}</p></span></div>`).join("");
+ $("#adv").innerHTML=t.adv.map((a,i)=>i===2?"":`<div><span class="ic">${ico(["users","car","","cal","shield"][i])}</span><span><h3>${a[0]}</h3><p>${a[1]}</p></span></div>`).join("");
+ $("#nsBox").innerHTML=`<span class="nsic">${NSI}</span><span><h3>${t.adv[2][0]}</h3><p>${t.adv[2][1]}</p></span>`;
  $("#inst").innerHTML=t.inst.map((p,i)=>`<div class="person"><span class="ph" aria-hidden="true">${ico("users")}</span><div><p>${p[1]}</p></div></div>`).join("");
  $("#steps").innerHTML=t.steps.map((s,i)=>`<div class="step"><div class="ring">${ico(["doc","head","cal","car","id"][i])}</div>${s}</div>`).join("");
  $("#chips").innerHTML=t.chips.map(c=>`<div class="chip">${ico(c[0])}<span>${c[1]}</span></div>`).join("");
