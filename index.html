@@ -600,7 +600,7 @@ function drawInst(){
  if(!curInst())selInst=AV.instructors[0].id;
  $("#instPick").innerHTML=AV.instructors.map(i=>`<button type="button" data-i="${i.id}" class="${i.id===selInst?"sel":""}">${i.name[lang]||i.name.hy}</button>`).join("");
  $("#instPick").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{selInst=b.dataset.i;selDate=selSlot=null;drawInst();drawCal();drawSlots();drawPick()});
- const hw={hy:"ժամ",ru:"ч",en:"h"}[lang],MAXH=3;
+ const hw={hy:"ժամ",ru:"ч",en:"h"}[lang],MAXH=12;
  $("#durPick").innerHTML=`<button type="button" class="stp" data-d="-1" aria-label="-" ${selDur<=1?"disabled":""}>−</button><b class="dv">${selDur} ${hw}</b><button type="button" class="stp" data-d="1" aria-label="+" ${selDur>=MAXH?"disabled":""}>+</button><span class="amt">${money(selDur*PRICE_H)} ${T[lang].cur}</span>`;
  $("#durPick").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDur=Math.min(MAXH,Math.max(1,selDur+ +b.dataset.d));selSlot=null;drawInst();drawCal();drawSlots();drawPick()});
 }
