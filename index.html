@@ -36,7 +36,7 @@ svg.i{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:1.9;stroke
 .hero:before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,#090c11a8 0,#090c1100 150px),linear-gradient(90deg,#090c11cc 0%,#090c1170 28%,#090c1100 50%),linear-gradient(0deg,#0c1016 0%,#0c101600 22%)}
 .hero>.wrap{position:relative}
 header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0}
-.brand{display:inline-block;line-height:0}.brand img{height:150px;margin:-24px 0;width:auto;display:block}
+.brand{display:inline-block;line-height:0}.brand img{height:150px;margin:0;width:auto;display:block;border-radius:16px;box-shadow:0 8px 28px #0009,0 0 0 1px #ffffff1f}
 .tools{display:flex;align-items:center;gap:14px}
 .search{width:38px;height:38px;border-radius:9px;border:0;background:#ffffff2e;color:#fff;font-size:18px;display:grid;place-items:center}
 .langs{display:flex;gap:4px}
@@ -222,7 +222,7 @@ dialog::backdrop{background:#0009}
 @media(max-width:640px){
  .hero{min-height:700px;background:#0c1016 url(assets/hero.webp?v=3) 78% bottom/auto 360px no-repeat}
  .hero:before{background:linear-gradient(180deg,#090c11f2 0%,#090c11d9 52%,#0c101600 78%)}
- .brand img{height:92px;margin:-10px 0}
+ .brand img{height:92px;margin:0;border-radius:12px}
  .search{display:none}.tools .btn{display:none}
  .hero-copy{padding-top:12px}.lead b{font-size:17px}
  .perks{gap:14px}.perk .i{font-size:24px}
@@ -267,7 +267,7 @@ dialog::backdrop{background:#0009}
 <section class="hero" id="top">
  <div class="wrap">
   <header>
-   <a href="#" class="brand" aria-label="Summit"><img src="assets/logo.png?v=6" alt="Summit — Driving School"></a>
+   <a href="#" class="brand" aria-label="Summit"><img src="assets/logo.webp?v=7" alt="Summit — Driving School"></a>
    <nav class="nav" id="nav" aria-label="Main"></nav>
    <div class="tools">
     <button class="search" aria-label="Search" data-open-chat><svg class="i"><use href="#search"/></svg></button>
