@@ -333,15 +333,6 @@ dialog::backdrop{background:#0009}
  </div>
 </section>
 
-<section class="theory" id="theory">
- <div class="wrap">
-  <h2 data-t="thTitle"></h2>
-  <p class="thp" data-t="thText"></p>
-  <div class="groups" id="groups"></div>
-  <p class="note"><span data-t="thSrc"></span> <a href="https://roadpolice.am/hy/viv-exam" target="_blank" rel="noopener">roadpolice.am</a></p>
- </div>
-</section>
-
 <section class="auto" id="autodrom">
  <div class="wrap auto-grid">
   <div>
@@ -598,7 +589,6 @@ function render(){
  $("#chips").innerHTML=t.chips.map(c=>`<div class="chip">${ico(c[0])}<span>${c[1]}</span></div>`).join("");
  {const cw={hy:"կարգ",ru:"Категория",en:"Category"}[lang]||"կարգ";const cats=["A","B","C"].map(x=>lang==="hy"?`${x} ${cw}`:`${cw} ${x}`);
  $("#course").innerHTML=cats.concat(t.cards.slice(1).map(c=>c.n)).map(n=>`<option>${n}</option>`).join("");}
- $("#groups").innerHTML=Array.from({length:10},(_,i)=>`<a href="https://roadpolice.am/exam/abc/${lang}/${i+1}.pdf" target="_blank" rel="noopener">${t.thGroup} ${i+1}${ico("arrow")}</a>`).join("");
  drawCal();drawSlots();drawPick();drawTests();
 }
 
