@@ -86,7 +86,7 @@ h2{font-size:clamp(25px,3vw,32px);line-height:1.2;margin:0;letter-spacing:-.5px;
 .adv h3{margin:0 0 4px;font-size:15px;line-height:1.2}.adv p{margin:0;font-size:12.5px;color:#b9bec7;line-height:1.4}
 
 .mid{padding:34px 0 20px;background:#fff}
-.mid-grid{display:grid;grid-template-columns:1.55fr 1fr;gap:34px;align-items:start}
+.mid-grid{display:grid;grid-template-columns:1fr;gap:34px;align-items:start}
 .inst{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .person{display:flex;gap:10px;border:1px solid var(--line);border-radius:12px;padding:10px;background:#fff;box-shadow:0 3px 12px #1112180a}
 .ph{width:64px;height:92px;border-radius:8px;flex-shrink:0;background:#f1f2f5;border:1px dashed #c9cdd5;color:#b4b9c3;display:grid;place-items:center;font-size:26px}
@@ -274,7 +274,6 @@ dialog::backdrop{background:#0009}
    <a href="#" class="brand" aria-label="Summit"><img src="assets/logo.webp?v=9" alt="Summit — Driving School"></a>
    <nav class="nav" id="nav" aria-label="Main"></nav>
    <div class="tools">
-    <button class="search" aria-label="Search" data-open-chat><svg class="i"><use href="#search"/></svg></button>
     <div class="langs" role="group" aria-label="Language">
      <button class="lang" data-lang="hy">ARM</button><button class="lang" data-lang="ru">RU</button><button class="lang" data-lang="en">ENG</button>
     </div>
@@ -331,19 +330,6 @@ dialog::backdrop{background:#0009}
    <div class="steps" id="steps"></div>
   </div>
 
-  <aside class="chat" aria-label="Assistant" id="chat">
-   <div class="chat-head">
-    <span class="bot"><svg class="i"><use href="#robot"/></svg></span>
-    <div><b data-t="botName"></b><small data-t="botSub"></small></div>
-   </div>
-   <div class="bubble" data-t="botHello"></div>
-   <div class="log" id="log" aria-live="polite"></div>
-   <div class="quick" id="quick"></div>
-   <form id="chatForm" autocomplete="off">
-    <input id="chatInput" type="text" data-ph="botPh" aria-label="Message">
-    <button aria-label="Send"><svg class="i"><use href="#send"/></svg></button>
-   </form>
-  </aside>
  </div>
 </section>
 
@@ -609,40 +595,24 @@ function render(){
  $("#adv").innerHTML=t.adv.map((a,i)=>`<div><span class="ic">${ico(["users","car","cal","shield"][i])}</span><span><h3>${a[0]}</h3><p>${a[1]}</p></span></div>`).join("");
  $("#inst").innerHTML=t.inst.map((p,i)=>`<div class="person"><span class="ph" aria-hidden="true">${ico("users")}</span><div><h3>${p[0]}</h3><p>${p[1]}</p><div class="tags">${p[2].map(l=>`<span>${l}</span>`).join("")}</div></div></div>`).join("");
  $("#steps").innerHTML=t.steps.map((s,i)=>`<div class="step"><div class="ring">${ico(["doc","head","cal","car","id"][i])}</div>${s}</div>`).join("");
- $("#quick").innerHTML=t.quick.map((q,i)=>`<button type="button" data-q="${i}">${ico(q[0])}${q[1]}</button>`).join("");
  $("#chips").innerHTML=t.chips.map(c=>`<div class="chip">${ico(c[0])}<span>${c[1]}</span></div>`).join("");
  {const cw={hy:"կարգ",ru:"Категория",en:"Category"}[lang]||"կարգ";const cats=["A","B","C"].map(x=>lang==="hy"?`${x} ${cw}`:`${cw} ${x}`);
  $("#course").innerHTML=cats.concat(t.cards.slice(1).map(c=>c.n)).map(n=>`<option>${n}</option>`).join("");}
  $("#groups").innerHTML=Array.from({length:10},(_,i)=>`<a href="https://roadpolice.am/exam/abc/${lang}/${i+1}.pdf" target="_blank" rel="noopener">${t.thGroup} ${i+1}${ico("arrow")}</a>`).join("");
- $("#log").innerHTML="";
  drawCal();drawSlots();drawPick();drawTests();
 }
 
-function say(text,me){const d=document.createElement("div");d.className=me?"me":"bot-msg";d.textContent=text;$("#log").append(d);d.scrollIntoView({block:"nearest"})}
 document.addEventListener("click",e=>{
  const tl=e.target.closest('a[href="#tests"]');if(tl){e.preventDefault();openTests();return}
  if(e.target.closest("#testsClose")){closeTests();window.scrollTo({top:0});return}
  const ha=e.target.closest('a[href^="#"]');if(ha&&document.body.classList.contains("tmode")&&ha.getAttribute("href")!=="#tests"){const id=ha.getAttribute("href");e.preventDefault();closeTests();setTimeout(()=>{const el=id.length>1?document.querySelector(id):null;if(el)el.scrollIntoView({behavior:"smooth"});else window.scrollTo({top:0})},30);return}
  const l=e.target.closest(".lang");
  if(l){lang=l.dataset.lang;try{localStorage.setItem("neo-lang",lang)}catch(_){}render();return}
- const q=e.target.closest("[data-q]");
- if(q){const i=+q.dataset.q,t=T[lang];say(t.quick[i][1],true);say(t.answers[i]);return}
  const b=e.target.closest("[data-book]");
  if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book))$("#course").selectedIndex=+b.dataset.book;$("#ok").textContent="";$("#bookDlg").showModal();return}
- if(e.target.closest("[data-open-chat]")){$("#chat").scrollIntoView({behavior:"smooth"});$("#chatInput").focus({preventScroll:true})}
 });
 $("#cancel").onclick=()=>$("#bookDlg").close();
 $("#bookDlg").addEventListener("click",e=>{if(e.target.id==="bookDlg")e.target.close()});
-
-$("#chatForm").addEventListener("submit",e=>{
- e.preventDefault();
- const inp=$("#chatInput"),v=inp.value.trim();if(!v)return;
- const t=T[lang],low=v.toLowerCase();
- say(v,true);
- const i=t.kw.findIndex(ws=>ws.some(w=>low.includes(w)));
- say(i>=0?t.answers[i]:t.fallback);
- inp.value="";
-});
 
 $("#bookForm").addEventListener("submit",async e=>{
  const f=e.submitter&&e.submitter.value==="ok";
