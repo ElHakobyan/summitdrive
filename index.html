@@ -389,7 +389,8 @@ dialog::backdrop{background:#0009}
 
 <script>
 /* Բանաձևի endpoint (օր.՝ Formspree). Դատարկ թողնելու դեպքում հայտը միայն ներբեռնվում է սարքում։ */
-const FORM_ENDPOINT = "";
+const WEB3FORMS_KEY = "";   // paste the Access Key from web3forms.com here
+const FORM_ENDPOINT = WEB3FORMS_KEY ? "https://api.web3forms.com/submit" : "";
 
 const UNITS={
 hy:{t:"Հաշվառման-քննական ստորաբաժանումներ",r:[
@@ -672,8 +673,8 @@ $("#bookForm").addEventListener("submit",async e=>{
  if(!form.reportValidity())return;
  if(!selDate||!selSlot){const el=$("#pick");el.textContent=t.pickErr;el.classList.add("err");return}
  if(FORM_ENDPOINT){
-  try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(data)});
-   if(!r.ok)throw 0;$("#ok").textContent=t.sent;form.reset();selDate=selSlot=null;drawCal();drawSlots();drawPick();return}catch(_){}
+  try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(WEB3FORMS_KEY?{access_key:WEB3FORMS_KEY,subject:"Summit Drive: new sign-up request",from_name:"Summit Drive website",...data}:data)});
+   if(!r.ok)throw 0;if(WEB3FORMS_KEY){const j=await r.json().catch(()=>({}));if(j.success===false)throw 0}$("#ok").textContent=t.sent;form.reset();selDate=selSlot=null;drawCal();drawSlots();drawPick();return}catch(_){}
  }
  const blob=new Blob([`Summit\n${data.name}\n${data.phone}\n${data.course}\n${data.date} ${data.time}\n${new Date().toISOString()}\n`],{type:"text/plain;charset=utf-8"});
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="neo-drive-request.txt";a.click();URL.revokeObjectURL(a.href);
