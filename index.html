@@ -93,6 +93,7 @@ h2{font-size:clamp(25px,3vw,32px);line-height:1.2;margin:0;letter-spacing:-.5px;
 .adv div{display:flex;gap:12px}
 .adv .ic{width:48px;height:48px;border-radius:50%;background:#e5251d14;color:var(--red);display:grid;place-items:center;font-size:24px;flex-shrink:0}
 .about{margin-top:26px;padding-top:20px;border-top:1px solid var(--line)}.about p{margin:0 0 8px;padding-left:26px;position:relative;font-size:17px;font-weight:600;color:var(--ink)}
+.priv{font-size:12px;color:var(--muted);margin:4px 0 10px;line-height:1.4}
 .about p:before{content:"✓";position:absolute;left:0;top:0;color:var(--red);font-weight:800}
 .adv h3{margin:0 0 4px;font-size:15px;line-height:1.2}.adv p{margin:0;font-size:12.5px;color:#5d6472;line-height:1.4}
 
@@ -416,14 +417,16 @@ dialog::backdrop{background:#0009}
  <form method="dialog" class="m" id="bookForm">
   <h2 data-t="formTitle"></h2>
   <p data-t="formText"></p>
-  <label><span data-t="fName"></span><input name="name" required autocomplete="name"></label>
-  <label><span data-t="fPhone"></span><input name="phone" type="tel" required autocomplete="tel" placeholder="+374 ..."></label>
+  <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden"><label>Website<input type="text" name="company_website" tabindex="-1" autocomplete="off"></label></div>
+  <label><span data-t="fName"></span><input name="name" required autocomplete="name" maxlength="80"></label>
+  <label><span data-t="fPhone"></span><input name="phone" type="tel" required autocomplete="tel" placeholder="+374 ..." maxlength="30"></label>
   <label><span data-t="fCourse"></span><select name="course" id="course"></select></label>
   <div id="instRow" hidden><div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="instLabel"></div><div class="ipick" id="instPick"></div><div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="durLabel"></div><div class="ipick dur" id="durPick"></div></div>
   <div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="calTitle"></div>
   <div class="cal" id="calBox"></div>
   <div class="slots" id="slots" role="group"></div>
   <div class="pick" id="pick" role="status"></div>
+  <p class="priv" data-t="formPriv"></p>
   <div class="row"><button type="button" class="btn plain" id="cancel" data-t="cancel"></button><button class="btn" value="ok" data-t="send"></button></div>
   <div class="ok" id="ok" role="status"></div>
   <div class="thanks" id="thanks" role="alertdialog" aria-live="assertive"><div class="tbox"><div class="tick">✓</div><p id="thanksMsg"></p><p class="tsub" id="thanksSub"></p><a class="btn wa" id="thanksWa" target="_blank" rel="noopener" hidden></a><button type="button" class="btn plain" id="thanksClose"></button></div></div>
@@ -433,7 +436,8 @@ dialog::backdrop{background:#0009}
 <script>
 /* Բանաձևի endpoint (օր.՝ Formspree). Դատարկ թողնելու դեպքում հայտը միայն ներբեռնվում է սարքում։ */
 const WEB3FORMS_KEY = "3122e35a-7be8-4cc5-b304-17c6d3bdb1ff";   // paste the Access Key from web3forms.com here
-const FORM_ENDPOINT = WEB3FORMS_KEY ? "https://api.web3forms.com/submit" : "";
+const FORM_PROXY = "";   // after deploying worker/index.js on Cloudflare, put its URL here (then the Web3Forms key is no longer needed in this file)
+const FORM_ENDPOINT = FORM_PROXY || (WEB3FORMS_KEY ? "https://api.web3forms.com/submit" : "");
 
 const UNITS={
 hy:{t:"Հաշվառման-քննական ստորաբաժանումներ",r:[
@@ -514,7 +518,7 @@ hy:{
  kw:[["դասընթաց","ծրագիր","կարգ"],["հրահանգ"],["ժամ","ժամանակ","գրաֆիկ"],["արժե","գին","արժեք","թանկ"]],
  autoTitle:"Ժամանակակից <em>ավտոդրոմ</em> Երևանում",autoText:"Ընդարձակ հարթակ՝ քննությանը որակյալ նախապատրաստվելու համար անհրաժեշտ բոլոր տարրերով։",more:"Ավելին",
  chips:[["wheel","Քննության բոլոր տարրերը"],["pin","Հարմար դիրք"],["shield","Անվտանգ հարթակ"]],
- formTitle:"Գրանցում ուսուցման",formText:"Թողեք տվյալները, և մենք կկապվենք ձեզ հետ։",fName:"Անուն",fPhone:"Հեռախոսահամար",fCourse:"Ծրագիր",cancel:"Փակել",send:"Ուղարկել",
+ formPriv:"Ձեր տվյալներն օգտագործվում են միայն գրանցման հետ կապվելու համար։",formTitle:"Գրանցում ուսուցման",formText:"Թողեք տվյալները, և մենք կկապվենք ձեզ հետ։",fName:"Անուն",fPhone:"Հեռախոսահամար",fCourse:"Ծրագիր",cancel:"Փակել",send:"Ուղարկել",
  sent:"Շնորհակալություն։ Հայտն ընդունված է։",saved:"Հայտը պատրաստ է և պահվել է ձեր սարքում․ կայքը դեռ չի միացված ավտոդպրոցի հետ։"},
 ru:{
  signup:"Записаться",h1:"Уверенность начинается <em>здесь</em>",leadTitle:"Современная автошкола в Ереване",
@@ -551,7 +555,7 @@ ru:{
  kw:[["курс","программ","категор"],["инструктор"],["время","график","расписан"],["стоим","цена","сколько","цены"]],
  autoTitle:"Современный <em>автодром</em> в Ереване",autoText:"Просторная площадка, все необходимые элементы для качественной подготовки к экзамену.",more:"Подробнее",
  chips:[["wheel","Все элементы для экзамена"],["pin","Удобное расположение"],["shield","Безопасная площадка"]],
- formTitle:"Запись на обучение",formText:"Оставьте данные, и мы свяжемся с вами.",fName:"Имя",fPhone:"Номер телефона",fCourse:"Программа",cancel:"Закрыть",send:"Отправить",
+ formPriv:"Ваши данные используются только для связи по записи.",formTitle:"Запись на обучение",formText:"Оставьте данные, и мы свяжемся с вами.",fName:"Имя",fPhone:"Номер телефона",fCourse:"Программа",cancel:"Закрыть",send:"Отправить",
  sent:"Спасибо! Заявка принята.",saved:"Заявка подготовлена и сохранена на вашем устройстве: сайт пока не подключён к автошколе."},
 en:{
  signup:"Sign up",h1:"Confidence starts <em>here</em>",leadTitle:"A modern driving school in Yerevan",
@@ -588,7 +592,7 @@ en:{
  kw:[["course","program","categor"],["instructor"],["time","schedule","when"],["price","cost","how much","pric"]],
  autoTitle:"A modern <em>training ground</em> in Yerevan",autoText:"A spacious area with every element needed to prepare properly for the exam.",more:"Learn more",
  chips:[["wheel","All exam elements"],["pin","Convenient location"],["shield","Safe area"]],
- formTitle:"Sign up for lessons",formText:"Leave your details and we will contact you.",fName:"Name",fPhone:"Phone number",fCourse:"Program",cancel:"Close",send:"Send",
+ formPriv:"Your details are used only to contact you about your booking.",formTitle:"Sign up for lessons",formText:"Leave your details and we will contact you.",fName:"Name",fPhone:"Phone number",fCourse:"Program",cancel:"Close",send:"Send",
  sent:"Thank you! Your request has been received.",saved:"Your request is saved on your device: the site is not connected to the school yet."}
 };
 
@@ -794,8 +798,9 @@ document.addEventListener("click",e=>{
  const l=e.target.closest(".lang");
  if(l){lang=l.dataset.lang;try{localStorage.setItem("neo-lang",lang)}catch(_){}render();return}
  const b=e.target.closest("[data-book]");
- if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book)){const o=$("#course").querySelector(`option[data-cards~="${b.dataset.book}"]`);if(o)o.selected=true}onCourse();$("#ok").textContent="";$("#thanks").classList.remove("show");$("#bookDlg").showModal();return}
+ if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book)){const o=$("#course").querySelector(`option[data-cards~="${b.dataset.book}"]`);if(o)o.selected=true}onCourse();$("#ok").textContent="";$("#thanks").classList.remove("show");bookOpenAt=Date.now();$("#bookDlg").showModal();return}
 });
+let bookOpenAt=0;
 const WA_NUM="37493838038";
 const WA={hy:{sub:"Մենք շուտով կկապվենք ձեզ հետ։",paySub:"Ժամը ամրագրվում է վճարումից հետո։ Գրեք մեզ WhatsApp-ով՝ կուղարկենք վճարման տվյալները։",btn:"Գրել WhatsApp-ով՝ վճարման տվյալների համար",msg:b=>`Բարև, ես ամրագրել եմ գործնական վարում (${b.inst}), ${b.date} ${b.time}, ${b.dur} ժամ, ${b.price}։ Խնդրում եմ ուղարկել վճարման տվյալները։`},
 ru:{sub:"Мы скоро свяжемся с вами.",paySub:"Время закрепляется после оплаты. Напишите нам в WhatsApp — пришлём реквизиты для оплаты.",btn:"Написать в WhatsApp за реквизитами",msg:b=>`Здравствуйте, я записался(ась) на практическое вождение (${b.inst}), ${b.date} ${b.time}, ${b.dur} ч, ${b.price}. Пришлите, пожалуйста, реквизиты для оплаты.`},
@@ -809,13 +814,14 @@ $("#bookForm").addEventListener("submit",async e=>{
  const f=e.submitter&&e.submitter.value==="ok";
  if(!f)return;
  e.preventDefault();
- const form=e.currentTarget,data=Object.fromEntries(new FormData(form));data.date=selDate;data.time=selSlot;const prac=isPractical(),ci=curInst();if(prac&&ci){data.instructor=ci.name.hy+" ("+ci.id+")";data.duration_hours=selDur;data.end_time=mh(hm(selSlot)+selDur*60);data.price_amd=selDur*PRICE_H;data.status="AWAITING PAYMENT - after payment add to blocked: \""+selDate+" "+selSlot+(selDur>1?" "+selDur+"h":"")+"\""}const bk=prac&&ci?{inst:ci.name[lang]||ci.name.hy,date:selDate,time:selSlot,dur:selDur,price:money(selDur*PRICE_H)+" "+T[lang].cur}:null;
+ const form=e.currentTarget,data=Object.fromEntries(new FormData(form));const trap=data.company_website;delete data.company_website;data.date=selDate;data.time=selSlot;const prac=isPractical(),ci=curInst();if(prac&&ci){data.instructor=ci.name.hy+" ("+ci.id+")";data.duration_hours=selDur;data.end_time=mh(hm(selSlot)+selDur*60);data.price_amd=selDur*PRICE_H;data.status="AWAITING PAYMENT - after payment add to blocked: \""+selDate+" "+selSlot+(selDur>1?" "+selDur+"h":"")+"\""}const bk=prac&&ci?{inst:ci.name[lang]||ci.name.hy,date:selDate,time:selSlot,dur:selDur,price:money(selDur*PRICE_H)+" "+T[lang].cur}:null;
  const t=T[lang];
  if(!form.reportValidity())return;
  if(!selDate||!selSlot){const el=$("#pick");el.textContent=t.pickErr;el.classList.add("err");return}
+ if(trap||(Date.now()-bookOpenAt<3000)){thanks(t.sent,bk);form.reset();onCourse();return}   // bot (honeypot filled or submitted too fast): pretend success, send nothing
  if(FORM_ENDPOINT){
-  try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(WEB3FORMS_KEY?{access_key:WEB3FORMS_KEY,subject:(bk?"Summit Drive: NEW BOOKING (awaiting payment)":"Summit Drive: new sign-up request"),from_name:"Summit Drive website",...data}:data)});
-   if(!r.ok)throw 0;if(WEB3FORMS_KEY){const j=await r.json().catch(()=>({}));if(j.success===false)throw 0}thanks(t.sent,bk);form.reset();onCourse();return}catch(_){}
+  try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(FORM_PROXY?data:WEB3FORMS_KEY?{access_key:WEB3FORMS_KEY,subject:(bk?"Summit Drive: NEW BOOKING (awaiting payment)":"Summit Drive: new sign-up request"),from_name:"Summit Drive website",...data}:data)});
+   if(!r.ok)throw 0;if(WEB3FORMS_KEY||FORM_PROXY){const j=await r.json().catch(()=>({}));if(j.success===false)throw 0}thanks(t.sent,bk);form.reset();onCourse();return}catch(_){}
  }
  const blob=new Blob([`Summit\n${data.name}\n${data.phone}\n${data.course}\n${data.date} ${data.time}\n${new Date().toISOString()}\n`],{type:"text/plain;charset=utf-8"});
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="neo-drive-request.txt";a.click();URL.revokeObjectURL(a.href);
