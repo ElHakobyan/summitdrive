@@ -659,9 +659,8 @@ function render(){
  $("#inst").innerHTML=t.inst.map((p,i)=>`<div class="person"><span class="ph" aria-hidden="true">${ico("users")}</span><div><p>${p[1]}</p></div></div>`).join("");
  $("#steps").innerHTML=t.steps.map((s,i)=>`<div class="step"><div class="ring">${ico(["doc","head","cal","car","id"][i])}</div>${s}</div>`).join("");
  $("#chips").innerHTML=t.chips.map(c=>`<div class="chip">${ico(c[0])}<span>${c[1]}</span></div>`).join("");
- {const cw={hy:"կարգ",ru:"Категория",en:"Category"}[lang]||"կարգ",G={hy:["Կարգեր A, B, C","Կարգեր D, T"],ru:["Категории A, B, C","Категории D, T"],en:["Categories A, B, C","Categories D, T"]}[lang];
- const nm=x=>lang==="hy"?`${x} ${cw}`:`${cw} ${x}`,op=(x,c)=>`<option${c!==undefined?` data-card="${c}"`:""}>${x}</option>`;
- $("#course").innerHTML=`<optgroup label="${G[0]}">${op(nm("A"))}${op(nm("B"),0)}${op(nm("C"))}</optgroup><optgroup label="${G[1]}">${op(nm("D"))}${op(nm("T"))}</optgroup>${op(t.cards[1].n,1)}${op(t.cards[2].n,2)}`;}
+ {const O={hy:["Տեսական դասընթաց A, B, C","Տեսական դասընթաց D, T","Գործնական վարում"],ru:["Теоретический курс A, B, C","Теоретический курс D, T","Практическое вождение"],en:["Theory course A, B, C","Theory course D, T","Practical driving"]}[lang];
+ $("#course").innerHTML=`<option data-cards="2">${O[0]}</option><option>${O[1]}</option><option data-cards="0 1">${O[2]}</option>`;}
  drawCal();drawSlots();drawPick();drawTests();
 }
 
@@ -673,7 +672,7 @@ document.addEventListener("click",e=>{
  const l=e.target.closest(".lang");
  if(l){lang=l.dataset.lang;try{localStorage.setItem("neo-lang",lang)}catch(_){}render();return}
  const b=e.target.closest("[data-book]");
- if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book)){const o=$("#course").querySelector(`option[data-card="${b.dataset.book}"]`);if(o)o.selected=true}$("#ok").textContent="";$("#thanks").classList.remove("show");$("#bookDlg").showModal();return}
+ if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book)){const o=$("#course").querySelector(`option[data-cards~="${b.dataset.book}"]`);if(o)o.selected=true}$("#ok").textContent="";$("#thanks").classList.remove("show");$("#bookDlg").showModal();return}
 });
 const WA_NUM="37493838038";
 const WA={hy:{sub:"Մենք շուտով կկապվենք ձեզ հետ։",btn:"Գրել WhatsApp-ով",tg:"Գրել Telegram-ով",msg:"Բարև, ես հենց նոր գրանցվեցի ուսուցման համար (Summit Drive)։"},
