@@ -388,7 +388,7 @@ dialog::backdrop{background:#0009}
   <label><span data-t="fName"></span><input name="name" required autocomplete="name"></label>
   <label><span data-t="fPhone"></span><input name="phone" type="tel" required autocomplete="tel" placeholder="+374 ..."></label>
   <label><span data-t="fCourse"></span><select name="course" id="course"></select></label>
-  <div id="instRow" hidden><div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="instLabel"></div><div class="ipick" id="instPick"></div></div>
+  <div id="instRow" hidden><div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="instLabel"></div><div class="ipick" id="instPick"></div><div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="durLabel"></div><div class="ipick" id="durPick"></div></div>
   <div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="calTitle"></div>
   <div class="cal" id="calBox"></div>
   <div class="slots" id="slots" role="group"></div>
@@ -477,7 +477,7 @@ hy:{
   "Ժամանակացույցը ճկուն է՝ առավոտյան, ցերեկային և երեկոյան խմբեր։ Թողեք հայտ, և մենք կհամաձայնեցնենք ժամը։",
   "Արժեքը՝ B կարգ 180 000 ֏-ից, ավտոմատ 200 000 ֏-ից, տեսություն 40 000 ֏-ից։"],
  thTitle:"Քննական հարցեր (ՃՈ պաշտոնական շարք)",thText:"Վարորդական իրավունքի տեսական քննության պաշտոնական հարցաշարերը (A, B, C կարգեր)՝ 10 խումբ։ Քննությանը տրվում է 20 հարց, թույլատրվում է մինչև 2 սխալ։",thSrc:"Աղբյուրը՝ ՀՀ ՆԳՆ Ճանապարհային ոստիկանություն՝",thGroup:"Խումբ",
- instLabel:"Հրահանգիչ", calTitle:"Ընտրեք օրը և ժամը",pickErr:"Ընտրեք ամսաթիվը և ժամը։",picked:"Ընտրված է՝",
+ durLabel:"Տևողություն և գին", instLabel:"Հրահանգիչ", calTitle:"Ընտրեք օրը և ժամը",pickErr:"Ընտրեք ամսաթիվը և ժամը։",picked:"Ընտրված է՝",
  tPrev:"Նախորդը", tPick:"Ընտրեք թեստը",tQn:"20 հարց",tMin:"30 րոպե",tMax:"Թույլատրելի է առավելագույնը 2 սխալ",tABC:"A, B, C կարգեր",tDT:"D, T կարգեր",tStDone:"Հանձնված",tStFail:"Չի հանձնվել",tStNew:"Չանցած",tTime:"Ժամանակն ավարտվեց", tCat:"A, B, C կարգերի հարցեր", tTitle:"Թեստեր",tText:"Վարորդական իրավունքի տեսական քննության թեստեր։ Յուրաքանչյուր թեստում 20 հարց է, թույլատրվում է մինչև 2 սխալ։",tName:"Թեստը",tNext:"Հաջորդը",tFinish:"Ավարտել",tRetry:"Նորից",tAll:"Բոլոր թեստերը",tPass:"Հանձնված է",tFailed:"Չի հանձնվել",tCorrect:"Ճիշտ պատասխաններ",tQ:"Հարց",tSoon:"Թեստերի հարցերը շուտով կավելացվեն։",
  fallback:"Շնորհակալություն հարցի համար։ Ճշգրիտ պատասխանի համար թողեք հայտ կամ զանգահարեք՝ +374 77 000 000։",
  kw:[["դասընթաց","ծրագիր","կարգ"],["հրահանգ"],["ժամ","ժամանակ","գրաֆիկ"],["արժե","գին","արժեք","թանկ"]],
@@ -515,7 +515,7 @@ ru:{
   "График гибкий: утренние, дневные и вечерние группы. Оставьте заявку, и мы согласуем время.",
   "Стоимость: категория B от 180 000 ֏, автомат от 200 000 ֏, теория от 40 000 ֏."],
  thTitle:"Экзаменационные вопросы (официальные)",thText:"Официальные вопросы теоретического экзамена (категории A, B, C): 10 групп. На экзамене 20 вопросов, допускается не более 2 ошибок.",thSrc:"Источник: Дорожная полиция МВД РА —",thGroup:"Группа",
- instLabel:"Инструктор", calTitle:"Выберите день и время",pickErr:"Выберите дату и время.",picked:"Выбрано:",
+ durLabel:"Длительность и цена", instLabel:"Инструктор", calTitle:"Выберите день и время",pickErr:"Выберите дату и время.",picked:"Выбрано:",
  tPrev:"Назад", tPick:"Выберите тест",tQn:"20 вопросов",tMin:"30 минут",tMax:"Допускается не более 2 ошибок",tABC:"Категории A, B, C",tDT:"Категории D, T",tStDone:"Сдан",tStFail:"Не сдан",tStNew:"Не пройден",tTime:"Время вышло", tCat:"Вопросы категорий A, B, C", tTitle:"Тесты",tText:"Тесты по теоретическому экзамену на права. В каждом тесте 20 вопросов, допускается не более 2 ошибок.",tName:"Тест",tNext:"Далее",tFinish:"Завершить",tRetry:"Заново",tAll:"Все тесты",tPass:"Сдано",tFailed:"Не сдано",tCorrect:"Правильных ответов",tQ:"Вопрос",tSoon:"Вопросы тестов скоро появятся.",
  fallback:"Спасибо за вопрос! Для точного ответа оставьте заявку или позвоните: +374 77 000 000.",
  kw:[["курс","программ","категор"],["инструктор"],["время","график","расписан"],["стоим","цена","сколько","цены"]],
@@ -553,7 +553,7 @@ en:{
   "The schedule is flexible: morning, afternoon and evening groups. Leave a request and we will agree on a time.",
   "Prices: Category B from 180,000 AMD, automatic from 200,000 AMD, theory from 40,000 AMD."],
  thTitle:"Exam questions (official)",thText:"Official theory exam questions (categories A, B, C): 10 groups. The exam has 20 questions and up to 2 mistakes are allowed.",thSrc:"Source: Road Police of the Ministry of Internal Affairs of Armenia —",thGroup:"Group",
- instLabel:"Instructor", calTitle:"Choose a day and time",pickErr:"Please choose a date and a time.",picked:"Selected:",
+ durLabel:"Duration and price", instLabel:"Instructor", calTitle:"Choose a day and time",pickErr:"Please choose a date and a time.",picked:"Selected:",
  tPrev:"Previous", tPick:"Choose a test",tQn:"20 questions",tMin:"30 minutes",tMax:"Up to 2 mistakes allowed",tABC:"Categories A, B, C",tDT:"Categories D, T",tStDone:"Passed",tStFail:"Failed",tStNew:"Not taken",tTime:"Time is up", tCat:"Categories A, B, C questions", tTitle:"Tests",tText:"Practice tests for the driving theory exam. Each test has 20 questions and up to 2 mistakes are allowed.",tName:"Test",tNext:"Next",tFinish:"Finish",tRetry:"Retry",tAll:"All tests",tPass:"Passed",tFailed:"Not passed",tCorrect:"Correct answers",tQ:"Question",tSoon:"Test questions are coming soon.",
  fallback:"Thanks for your question! For an exact answer, leave a request or call +374 77 000 000.",
  kw:[["course","program","categor"],["instructor"],["time","schedule","when"],["price","cost","how much","pric"]],
@@ -575,22 +575,33 @@ const CLOSED_DAYS=[0]; /* 0 = Sunday; փոխեք աշխատանքային օրե
 const SLOTS=["09:00","10:30","12:00","13:30","15:00","16:30","18:00"];
 const loc=()=>({hy:"hy-AM",ru:"ru-RU",en:"en-GB"})[lang];
 let calMonth=new Date();calMonth.setDate(1);let selDate=null,selSlot=null;
-let AV={instructors:[1,2,3].map(n=>({id:"i"+n,name:{hy:"Հրահանգիչ "+n,ru:"Инструктор "+n,en:"Instructor "+n},weekly:Object.fromEntries([1,2,3,4,5,6].map(d=>[d,SLOTS])),blocked:[]}))};
+const PRICE_H=8000;
+let AV={instructors:[1,2,3].map(n=>({id:"i"+n,name:{hy:"Հրահանգիչ "+n,ru:"Инструктор "+n,en:"Instructor "+n},weekly:Object.fromEntries([1,2,3,4,5,6].map(d=>[d,["07:00","21:00"]])),blocked:[]}))};
+let selDur=1;
 let selInst=null;
 fetch("assets/availability.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(j=>{if(j&&j.instructors&&j.instructors.length){AV=j;if(!AV.instructors.some(i=>i.id===selInst))selInst=null;onCourse()}}).catch(()=>{});
 const isPractical=()=>{const o=$("#course").selectedOptions[0];return !!o&&(o.dataset.cards||"").split(" ").includes("0")};
 const curInst=()=>AV.instructors.find(i=>i.id===selInst)||null;
-function slotsFor(inst,k){
- if(!inst)return [];const [y,m,d]=k.split("-").map(Number),dt=new Date(y,m-1,d);
- if((inst.blocked||[]).includes(k))return [];
- const now=new Date(),isToday=dt.toDateString()===now.toDateString();
- return (inst.weekly[dt.getDay()]||[]).filter(t=>!(inst.blocked||[]).includes(k+" "+t)).filter(t=>{if(!isToday)return true;const [h,mm]=t.split(":").map(Number);return h*60+mm>now.getHours()*60+now.getMinutes()+30});
+const hm=t=>{const [h,m]=t.split(":").map(Number);return h*60+m};
+const mh=n=>String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0");
+const money=n=>lang==="en"?n.toLocaleString("en-US"):n.toLocaleString("en-US").replace(/,/g," ");
+function slotsFor(inst,k,dur){
+ if(!inst)return [];dur=dur||selDur;const [y,m,d]=k.split("-").map(Number),dt=new Date(y,m-1,d);
+ const win=(inst.weekly||{})[dt.getDay()];if(!win)return [];
+ const bl=inst.blocked||[];if(bl.includes(k))return [];
+ const busy=bl.filter(x=>x.startsWith(k+" ")).map(x=>{const p=x.split(" "),st=hm(p[1]),h=p[2]?parseInt(p[2]):1;return [st,st+h*60+30]});
+ const blk=dur*60+30,lo=hm(win[0]),hi=hm(win[1]),now=new Date(),isToday=dt.toDateString()===now.toDateString(),nm=now.getHours()*60+now.getMinutes()+30;
+ const out=[];for(let s0=lo;s0+dur*60<=hi;s0+=blk){if(isToday&&s0<nm)continue;if(busy.some(([a,b])=>s0<b&&s0+blk>a))continue;out.push(mh(s0))}
+ return out;
 }
 function drawInst(){
  const on=isPractical();$("#instRow").hidden=!on;if(!on){selInst=null;return}
  if(!curInst())selInst=AV.instructors[0].id;
  $("#instPick").innerHTML=AV.instructors.map(i=>`<button type="button" data-i="${i.id}" class="${i.id===selInst?"sel":""}">${i.name[lang]||i.name.hy}</button>`).join("");
  $("#instPick").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{selInst=b.dataset.i;selDate=selSlot=null;drawInst();drawCal();drawSlots();drawPick()});
+ const hw={hy:"ժամ",ru:"ч",en:"h"}[lang];
+ $("#durPick").innerHTML=[1,2,3].map(h=>`<button type="button" data-h="${h}" class="${h===selDur?"sel":""}">${h} ${hw} · ${money(h*PRICE_H)} ${T[lang].cur}</button>`).join("");
+ $("#durPick").querySelectorAll("[data-h]").forEach(b=>b.onclick=()=>{selDur=+b.dataset.h;selSlot=null;drawInst();drawCal();drawSlots();drawPick()});
 }
 function onCourse(){selDate=selSlot=null;drawInst();drawCal();drawSlots();drawPick()}
 $("#course").addEventListener("change",onCourse);
@@ -609,7 +620,7 @@ function drawCal(){
  let h=`<div class="cal-h"><button type="button" id="cPrev" aria-label="prev" ${y===today.getFullYear()&&m<=today.getMonth()?"disabled":""}>‹</button><b>${C.m[m]} ${y}</b><button type="button" id="cNext" aria-label="next">›</button></div><div class="cal-g">`;
  for(let i=0;i<7;i++){h+=`<span>${C.s[i]}</span>`}
  for(let i=0;i<startPad;i++)h+="<i></i>";
- for(let d=1;d<=days;d++){const dt=new Date(y,m,d);const k=iso(dt);const off=dt<today||(isPractical()?slotsFor(curInst(),k).length===0:CLOSED_DAYS.includes(dt.getDay()));
+ for(let d=1;d<=days;d++){const dt=new Date(y,m,d);const k=iso(dt);const off=dt<today||(isPractical()?slotsFor(curInst(),k,selDur).length===0:CLOSED_DAYS.includes(dt.getDay()));
   h+=`<button type="button" data-d="${k}" ${off?"disabled":""} class="${selDate===k?"sel":""} ${dt.getTime()===today.getTime()?"today":""}">${d}</button>`}
  $("#calBox").innerHTML=h+"</div>";
  $("#cPrev").onclick=()=>{calMonth=new Date(y,m-1,1);drawCal()};
@@ -617,13 +628,13 @@ function drawCal(){
  $("#calBox").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDate=b.dataset.d;if(isPractical())selSlot=null;drawCal();drawSlots();drawPick()});
 }
 function drawSlots(){
- const list=isPractical()?(selDate?slotsFor(curInst(),selDate):[]):SLOTS;
+ const list=isPractical()?(selDate?slotsFor(curInst(),selDate,selDur):[]):SLOTS;
  $("#slots").innerHTML=list.map(t=>`<button type="button" data-s="${t}" class="${selSlot===t?"sel":""}">${t}</button>`).join("");
  $("#slots").querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{selSlot=b.dataset.s;drawSlots();drawPick()});
 }
 function drawPick(){
  const el=$("#pick");el.classList.remove("err");
- if(selDate&&selSlot){const [y,m,d]=selDate.split("-").map(Number);el.textContent=T[lang].picked+" "+(()=>{const C=CAL[lang],dt=new Date(y,m-1,d);return C.l[wdi(dt)]+", "+d+" "+C.g[m-1]})()+", "+selSlot}
+ if(selDate&&selSlot){const [y,m,d]=selDate.split("-").map(Number);const C=CAL[lang];const dt=new Date(y,m-1,d);const rng=isPractical()?selSlot+"–"+mh(hm(selSlot)+selDur*60):selSlot;el.textContent=T[lang].picked+" "+C.l[wdi(dt)]+", "+d+" "+C.g[m-1]+", "+rng+(isPractical()?" · "+money(selDur*PRICE_H)+" "+T[lang].cur:"")}
  else el.textContent="";
 }
 
@@ -699,10 +710,10 @@ document.addEventListener("click",e=>{
  if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book)){const o=$("#course").querySelector(`option[data-cards~="${b.dataset.book}"]`);if(o)o.selected=true}onCourse();$("#ok").textContent="";$("#thanks").classList.remove("show");$("#bookDlg").showModal();return}
 });
 const WA_NUM="37493838038";
-const WA={hy:{sub:"Մենք շուտով կկապվենք ձեզ հետ։",paySub:"Ժամը ամրագրվում է վճարումից հետո։ Գրեք մեզ WhatsApp-ով՝ կուղարկենք վճարման տվյալները։",btn:"Գրել WhatsApp-ով՝ վճարման տվյալների համար",msg:(i,d,t)=>`Բարև, ես ամրագրել եմ գործնական վարում (${i}), ${d} ${t}։ Խնդրում եմ ուղարկել վճարման տվյալները։`},
-ru:{sub:"Мы скоро свяжемся с вами.",paySub:"Время закрепляется после оплаты. Напишите нам в WhatsApp — пришлём реквизиты для оплаты.",btn:"Написать в WhatsApp за реквизитами",msg:(i,d,t)=>`Здравствуйте, я записался(ась) на практическое вождение (${i}), ${d} ${t}. Пришлите, пожалуйста, реквизиты для оплаты.`},
-en:{sub:"We will contact you soon.",paySub:"The time is reserved after payment. Message us on WhatsApp and we will send the payment details.",btn:"Message on WhatsApp for payment details",msg:(i,d,t)=>`Hello, I booked practical driving (${i}) for ${d} ${t}. Please send the payment details.`}};
-function thanks(msg,bk){const t=T[lang],w=WA[lang];$("#thanksSub").textContent=bk?w.paySub:w.sub;const a=$("#thanksWa");a.hidden=!bk;if(bk){a.textContent=w.btn;a.href="https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(w.msg(bk.inst,bk.date,bk.time))}$("#thanksMsg").textContent=msg;$("#thanksClose").textContent=t.cancel;$("#thanks").classList.add("show");$("#ok").textContent=""}
+const WA={hy:{sub:"Մենք շուտով կկապվենք ձեզ հետ։",paySub:"Ժամը ամրագրվում է վճարումից հետո։ Գրեք մեզ WhatsApp-ով՝ կուղարկենք վճարման տվյալները։",btn:"Գրել WhatsApp-ով՝ վճարման տվյալների համար",msg:b=>`Բարև, ես ամրագրել եմ գործնական վարում (${b.inst}), ${b.date} ${b.time}, ${b.dur} ժամ, ${b.price}։ Խնդրում եմ ուղարկել վճարման տվյալները։`},
+ru:{sub:"Мы скоро свяжемся с вами.",paySub:"Время закрепляется после оплаты. Напишите нам в WhatsApp — пришлём реквизиты для оплаты.",btn:"Написать в WhatsApp за реквизитами",msg:b=>`Здравствуйте, я записался(ась) на практическое вождение (${b.inst}), ${b.date} ${b.time}, ${b.dur} ч, ${b.price}. Пришлите, пожалуйста, реквизиты для оплаты.`},
+en:{sub:"We will contact you soon.",paySub:"The time is reserved after payment. Message us on WhatsApp and we will send the payment details.",btn:"Message on WhatsApp for payment details",msg:b=>`Hello, I booked practical driving (${b.inst}) for ${b.date} ${b.time}, ${b.dur} h, ${b.price}. Please send the payment details.`}};
+function thanks(msg,bk){const t=T[lang],w=WA[lang];$("#thanksSub").textContent=bk?w.paySub:w.sub;const a=$("#thanksWa");a.hidden=!bk;if(bk){a.textContent=w.btn;a.href="https://wa.me/"+WA_NUM+"?text="+encodeURIComponent(w.msg(bk))}$("#thanksMsg").textContent=msg;$("#thanksClose").textContent=t.cancel;$("#thanks").classList.add("show");$("#ok").textContent=""}
 $("#thanksClose").onclick=()=>{$("#thanks").classList.remove("show");$("#bookDlg").close()};
 $("#cancel").onclick=()=>$("#bookDlg").close();
 $("#bookDlg").addEventListener("click",e=>{if(e.target.id==="bookDlg")e.target.close()});
@@ -711,7 +722,7 @@ $("#bookForm").addEventListener("submit",async e=>{
  const f=e.submitter&&e.submitter.value==="ok";
  if(!f)return;
  e.preventDefault();
- const form=e.currentTarget,data=Object.fromEntries(new FormData(form));data.date=selDate;data.time=selSlot;const prac=isPractical(),ci=curInst();if(prac&&ci){data.instructor=ci.name.hy+" ("+ci.id+")";data.status="AWAITING PAYMENT - confirm after payment, then add the slot to blocked in availability.json"}const bk=prac&&ci?{inst:ci.name[lang]||ci.name.hy,date:selDate,time:selSlot}:null;
+ const form=e.currentTarget,data=Object.fromEntries(new FormData(form));data.date=selDate;data.time=selSlot;const prac=isPractical(),ci=curInst();if(prac&&ci){data.instructor=ci.name.hy+" ("+ci.id+")";data.duration_hours=selDur;data.end_time=mh(hm(selSlot)+selDur*60);data.price_amd=selDur*PRICE_H;data.status="AWAITING PAYMENT - after payment add to blocked: \""+selDate+" "+selSlot+(selDur>1?" "+selDur+"h":"")+"\""}const bk=prac&&ci?{inst:ci.name[lang]||ci.name.hy,date:selDate,time:selSlot,dur:selDur,price:money(selDur*PRICE_H)+" "+T[lang].cur}:null;
  const t=T[lang];
  if(!form.reportValidity())return;
  if(!selDate||!selSlot){const el=$("#pick");el.textContent=t.pickErr;el.classList.add("err");return}
