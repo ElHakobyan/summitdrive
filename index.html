@@ -204,6 +204,10 @@ dialog::backdrop{background:#0009}
 .m input,.m select{width:100%;margin-top:5px;padding:12px;border:1px solid #d9dce2;border-radius:8px;background:#fff}
 .m .row{display:flex;gap:10px;margin-top:6px}.m .row .btn{flex:1}
 .m .btn.plain{background:#eceef2;color:var(--ink);box-shadow:none}
+.thanks{position:fixed;inset:0;display:none;place-items:center;background:#000a;z-index:50;padding:16px}.thanks.show{display:grid}
+.tbox{background:#fff;border-radius:18px;padding:30px 26px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px #0007}
+.tbox .tick{width:64px;height:64px;border-radius:50%;background:#e9f7ee;color:#1f9a4d;font-size:36px;font-weight:800;display:grid;place-items:center;margin:0 auto 14px}
+.tbox p{color:var(--ink,#111218);font-size:18px;font-weight:700;margin:0 0 18px;line-height:1.35}
 .ok{color:#1f7a3e;font-size:14px;margin-top:12px}
 
 /* calendar */
@@ -384,6 +388,7 @@ dialog::backdrop{background:#0009}
   <div class="pick" id="pick" role="status"></div>
   <div class="row"><button type="button" class="btn plain" id="cancel" data-t="cancel"></button><button class="btn" value="ok" data-t="send"></button></div>
   <div class="ok" id="ok" role="status"></div>
+  <div class="thanks" id="thanks" role="alertdialog" aria-live="assertive"><div class="tbox"><div class="tick">✓</div><p id="thanksMsg"></p><button type="button" class="btn" id="thanksClose"></button></div></div>
  </form>
 </dialog>
 
@@ -659,8 +664,10 @@ document.addEventListener("click",e=>{
  const l=e.target.closest(".lang");
  if(l){lang=l.dataset.lang;try{localStorage.setItem("neo-lang",lang)}catch(_){}render();return}
  const b=e.target.closest("[data-book]");
- if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book))$("#course").selectedIndex=+b.dataset.book;$("#ok").textContent="";$("#bookDlg").showModal();return}
+ if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book))$("#course").selectedIndex=+b.dataset.book;$("#ok").textContent="";$("#thanks").classList.remove("show");$("#bookDlg").showModal();return}
 });
+function thanks(msg){const t=T[lang];$("#thanksMsg").textContent=msg;$("#thanksClose").textContent=t.cancel;$("#thanks").classList.add("show");$("#ok").textContent=""}
+$("#thanksClose").onclick=()=>{$("#thanks").classList.remove("show");$("#bookDlg").close()};
 $("#cancel").onclick=()=>$("#bookDlg").close();
 $("#bookDlg").addEventListener("click",e=>{if(e.target.id==="bookDlg")e.target.close()});
 
@@ -674,11 +681,11 @@ $("#bookForm").addEventListener("submit",async e=>{
  if(!selDate||!selSlot){const el=$("#pick");el.textContent=t.pickErr;el.classList.add("err");return}
  if(FORM_ENDPOINT){
   try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(WEB3FORMS_KEY?{access_key:WEB3FORMS_KEY,subject:"Summit Drive: new sign-up request",from_name:"Summit Drive website",...data}:data)});
-   if(!r.ok)throw 0;if(WEB3FORMS_KEY){const j=await r.json().catch(()=>({}));if(j.success===false)throw 0}$("#ok").textContent=t.sent;form.reset();selDate=selSlot=null;drawCal();drawSlots();drawPick();return}catch(_){}
+   if(!r.ok)throw 0;if(WEB3FORMS_KEY){const j=await r.json().catch(()=>({}));if(j.success===false)throw 0}thanks(t.sent);form.reset();selDate=selSlot=null;drawCal();drawSlots();drawPick();return}catch(_){}
  }
  const blob=new Blob([`Summit\n${data.name}\n${data.phone}\n${data.course}\n${data.date} ${data.time}\n${new Date().toISOString()}\n`],{type:"text/plain;charset=utf-8"});
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="neo-drive-request.txt";a.click();URL.revokeObjectURL(a.href);
- $("#ok").textContent=t.saved;form.reset();selDate=selSlot=null;drawCal();drawSlots();drawPick();
+ thanks(t.saved);form.reset();selDate=selSlot=null;drawCal();drawSlots();drawPick();
 });
 
 render();
