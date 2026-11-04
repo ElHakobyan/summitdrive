@@ -51,11 +51,11 @@ h1{font-size:clamp(30px,3.9vw,50px);line-height:1.08;letter-spacing:-1px;margin:
 .perk{display:flex;align-items:center;gap:10px}
 .perk .i{font-size:30px;color:var(--gold)}
 
-.nav{display:flex;gap:30px;font-size:21px;font-weight:800;}
-.nav a{position:relative;padding:6px 0;font-weight:700;letter-spacing:.2px;color:#fff;text-shadow:0 1px 4px #000c,0 0 10px #0008;transition:color .2s,opacity .2s}
-.nav a:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:#fff;box-shadow:0 1px 3px #0008;transform:scaleX(0);transform-origin:left;transition:transform .25s}
-.nav a:hover{color:var(--gold)}
-.nav a:hover:after{background:var(--gold)}
+.nav{display:flex;gap:30px;font-size:21px;font-weight:800;background:#FFF3B0;border-radius:999px;padding:4px 26px;box-shadow:0 4px 16px #0004}
+.nav a{position:relative;white-space:nowrap;padding:6px 0;font-weight:700;letter-spacing:.2px;color:#000;text-shadow:none;transition:color .2s,opacity .2s}
+.nav a:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:#000;transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.nav a:hover{color:var(--red)}
+.nav a:hover:after{background:var(--red)}
 .nav a.on{opacity:.88}
 .nav a:hover:after,.nav a.on:after,body.tmode .nav a[href="#tests"]:after{transform:scaleX(1)}
 /* sections */
@@ -124,10 +124,6 @@ h2.sp{margin-top:34px}
 body.tmode,body.tmode .hero,body.tmode .tests{background:#FFF3B0}
 body.tmode .hero{min-height:0;padding-bottom:0;background-image:none}
 body.tmode .hero:before{display:none}
-body.tmode .nav a{color:#000;text-shadow:none}
-body.tmode .nav a:after{background:#000;box-shadow:none}
-body.tmode .nav a:hover{color:var(--red)}
-body.tmode .nav a:hover:after{background:var(--red)}
 body.tmode .hero-copy{display:none}
 body.tmode section:not(.hero):not(.tests),body.tmode footer{display:none}
 body.tmode .tests{margin-top:0;border-radius:0;min-height:80vh;padding-top:34px}
@@ -226,7 +222,7 @@ dialog::backdrop{background:#0009}
  .hero{background:#4a3338 url(assets/hero2.webp?v=4) 72% bottom/cover no-repeat}
  .hero:before{display:none}
 }
-@media(max-width:1020px){header{flex-wrap:wrap}.nav{order:3;width:100%;gap:18px;justify-content:flex-start;font-size:16px}}
+@media(max-width:1020px){header{flex-wrap:wrap}.nav{order:3;width:100%;gap:14px;justify-content:flex-start;font-size:15px;padding:4px 16px}}
 @media(max-width:640px){
  .hero{min-height:700px;background:#4a3338 url(assets/hero.webp?v=3) 78% bottom/auto 360px no-repeat}
  .hero:before{display:block;left:0;aspect-ratio:auto;max-width:none;-webkit-mask-image:none;mask-image:none;background:linear-gradient(180deg,#4a3338f2 0%,#4a3338d9 52%,#4a333800 78%)}
