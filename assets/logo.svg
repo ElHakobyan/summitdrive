@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="410" viewBox="0 0 800 410">
+<defs>
+<linearGradient id="arc" x1="0.1" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#fff07a"/><stop offset=".4" stop-color="#ffc21f"/><stop offset=".78" stop-color="#ff5f16"/><stop offset="1" stop-color="#e8101e"/></linearGradient>
+<linearGradient id="face" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#23232a"/><stop offset=".5" stop-color="#07070a"/><stop offset="1" stop-color="#000"/></linearGradient>
+<linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".30"/><stop offset=".4" stop-color="#fff" stop-opacity=".07"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
+<linearGradient id="red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5a3a"/><stop offset=".55" stop-color="#ee1c1c"/><stop offset="1" stop-color="#c30d17"/></linearGradient>
+<linearGradient id="rim" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffe23a"/><stop offset="1" stop-color="#ffb020"/></linearGradient>
+<filter id="halo" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="13"/></filter>
+<filter id="neon" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="4"/></filter>
+</defs>
+<style>.f{font-family:"Inter","Arial Black",sans-serif;font-weight:900}</style>
+<!-- soft glow -->
+<g filter="url(#halo)" opacity=".85">
+ <path d="M440 125 C 505 36, 650 36, 722 160 C 740 195, 745 225, 743 248 L 688 248 C 688 205, 680 182, 655 158 C 625 118, 540 116, 500 156 Z" fill="#ffb81f"/>
+ <text class="f" x="50" y="218" font-size="116" letter-spacing="1" fill="#ffb818" stroke="#ffb818" stroke-width="20" stroke-linejoin="round">SUMMIT</text>
+ <path d="M16 270 C 180 238, 400 222, 570 232 C 650 238, 720 258, 780 295 L 40 295 Z" fill="#ffb81f"/>
+</g>
+<!-- crisp neon edge -->
+<g filter="url(#neon)" opacity=".9"><text class="f" x="50" y="218" font-size="116" letter-spacing="1" fill="none" stroke="#ff9a1a" stroke-width="9" stroke-linejoin="round">SUMMIT</text></g>
+<!-- arc -->
+<path d="M440 125 C 505 36, 650 36, 722 160 C 740 195, 745 225, 743 248 L 688 248 C 688 205, 680 182, 655 158 C 625 118, 540 116, 500 156 Z" fill="url(#arc)" stroke="#fff3a0" stroke-opacity=".55" stroke-width="1.4"/>
+<!-- letters: gold rim + black face -->
+<text class="f" x="50" y="218" font-size="116" letter-spacing="1" fill="#ffd21a" stroke="url(#rim)" stroke-width="7" stroke-linejoin="round">SUMMIT</text>
+<text class="f" x="50" y="218" font-size="116" letter-spacing="1" fill="url(#face)">SUMMIT</text>
+<text class="f" x="50" y="218" font-size="116" letter-spacing="1" fill="url(#gloss)">SUMMIT</text>
+<!-- road -->
+<path d="M12 266 C 180 230, 400 212, 570 222 C 655 228, 715 246, 760 282 C 690 266, 630 258, 560 258 C 400 256, 200 284, 90 296 C 52 299, 26 282, 16 270 Z" fill="#ffd21a"/>
+<path d="M44 275 C 200 246, 410 234, 570 244 C 650 249, 705 260, 742 278 C 680 268, 625 262, 555 262 C 400 262, 210 286, 105 294 Z" fill="#050506"/>
+<path d="M110 280 C 250 258, 420 248, 560 252 C 620 254, 670 262, 710 276" stroke="#fff" stroke-width="3.2" stroke-dasharray="17 12" fill="none" stroke-linecap="round"/>
+<!-- DRIVE -->
+<text class="f" x="745" y="356" text-anchor="end" font-size="84" letter-spacing="3" fill="#000" stroke="#000" stroke-width="12" stroke-linejoin="round">DRIVE</text>
+<text class="f" x="745" y="356" text-anchor="end" font-size="84" letter-spacing="3" fill="none" stroke="#ffd21a" stroke-width="7" stroke-linejoin="round">DRIVE</text>
+<text class="f" x="745" y="356" text-anchor="end" font-size="84" letter-spacing="3" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round">DRIVE</text>
+<text class="f" x="745" y="356" text-anchor="end" font-size="84" letter-spacing="3" fill="url(#red)">DRIVE</text>
+<text class="f" x="745" y="356" text-anchor="end" font-size="84" letter-spacing="3" fill="url(#gloss)">DRIVE</text>
+<!-- subtitle -->
+<path d="M58 388 L128 384" stroke="#ffd21a" stroke-width="5" stroke-linecap="round"/>
+<text x="150" y="395" font-family="Montserrat,Poppins,Inter,sans-serif" font-weight="700" font-size="26" letter-spacing="10" fill="#fff" stroke="#0b0e14" stroke-width="6" stroke-linejoin="round" paint-order="stroke">DRIVING SCHOOL</text>
+<path d="M538 384 L608 388" stroke="#ffd21a" stroke-width="5" stroke-linecap="round"/>
+</svg>
