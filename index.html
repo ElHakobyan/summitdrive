@@ -155,6 +155,7 @@ body.tmode .tests{margin-top:0;border-radius:0;min-height:80vh;padding-top:34px}
 .tests{padding:34px 0 10px;background:#fff}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
 .tgrid button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:14px;font-weight:700;font-size:15px;text-align:left;display:flex;align-items:center;gap:12px}
+.tgrid .tsc{display:block;font-style:normal;font-weight:800;color:#c4161c;font-size:13px}.tgrid button.done .tsc{color:#1f7a3e}
 .tgrid button b{display:inline-grid;place-items:center;min-width:40px;height:40px;border-radius:10px;background:#1b2a33;color:#fff}
 .tgrid button small{display:block;font-weight:500;color:#667;font-size:13px}
 .tgrid button:hover:not(:disabled){border-color:var(--red);color:var(--red)}
@@ -728,7 +729,8 @@ setInterval(()=>{if(!tState||!TESTS)return;const qs=TESTS[tState.i].questions;if
 const tr=o=>typeof o==="string"?o:(o&&(o[lang]||o.hy||o.ru||o.en))||"";
 const tKey=id=>tCatSel==="abc"?id:tCatSel+id;
 const tDone=()=>{try{return JSON.parse(localStorage.getItem("tests-done")||"{}")}catch(e){return{}}};
-function tSave(id,ok){try{const d=tDone();d[tKey(id)]=ok?"pass":"fail";localStorage.setItem("tests-done",JSON.stringify(d))}catch(e){}}
+function tSave(id,ok,c,n){try{const d=tDone();d[tKey(id)]=ok?"pass":"fail";localStorage.setItem("tests-done",JSON.stringify(d));const sc=JSON.parse(localStorage.getItem("tests-score")||"{}");sc[tKey(id)]=[c,n];localStorage.setItem("tests-score",JSON.stringify(sc))}catch(e){}}
+const tScore=k=>{try{return(JSON.parse(localStorage.getItem("tests-score")||"{}"))[k]||null}catch(e){return null}};
 function drawTests(){
  const box=$("#testBox");if(!box)return;const t=T[lang];
  $("#tests").classList.toggle("cmode",tCatSel==="color");
@@ -738,7 +740,7 @@ function drawTests(){
  let host=box;if(tCatSel==="color"){box.innerHTML=`<div id="ctHost"></div><h3 class="ctsub">${CTS[lang].qh}</h3><div id="ctQuiz"></div>`;drawCT();host=$("#ctQuiz")}
  if(!TESTS){host.innerHTML=`<div class="tnote">${t.tSoon}</div>`;return}
  const done=tDone();let h='<div class="tgrid">';
- for(let i=0;i<TESTS.length;i++){const id=TESTS[i].id;const st=done[tKey(id)];const lab=st==="pass"?t.tStDone:st==="fail"?t.tStFail:t.tStNew;const c=st==="pass"?"done":st==="fail"?"fail":"";h+=`<button type="button" data-t="${i}" class="${c}"><b>${id}</b><span>${t.tName} ${id}<small>${lab}</small></span></button>`}
+ for(let i=0;i<TESTS.length;i++){const id=TESTS[i].id;const st=done[tKey(id)];const lab=st==="pass"?t.tStDone:st==="fail"?t.tStFail:t.tStNew;const sc=tScore(tKey(id));const c=st==="pass"?"done":st==="fail"?"fail":"";h+=`<button type="button" data-t="${i}" class="${c}"><b>${id}</b><span>${t.tName} ${id}<small>${lab}${sc&&st?`<em class="tsc">${sc[0]} / ${sc[1]}</em>`:""}</small></span></button>`}
  host.innerHTML=h+"</div>";
  host.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{tState=newRun(+b.dataset.t);drawTests();window.scrollTo(0,0)});
 }
@@ -749,7 +751,7 @@ function drawQuestion(){
  const box=$("#testBox"),t=T[lang],test=TESTS[tState.i],qs=test.questions;
  if(tState.q>=qs.length){
    const N=qs.length,correct=tState.ans.filter(Boolean).length,skipped=qs.filter((_,i)=>tState.pick[i]===undefined).length,wrong=N-correct-skipped,mist=N-correct,ok=mist<=PASS_MISTAKES,R=RS[lang];
-   if(!tState.saved){tState.saved=1;tState.el=Math.min(TLIMIT,Date.now()-(tState.end-TLIMIT));tSave(test.id,ok)}
+   if(!tState.saved){tState.saved=1;tState.el=Math.min(TLIMIT,Date.now()-(tState.end-TLIMIT));tSave(test.id,ok,correct,N)}
    const tab=tState.tab||(mist?"err":"all"),list=qs.map((q,i)=>i).filter(i=>tab==="all"||!tState.ans[i]);
    const rev=list.map(i=>{const q=qs[i],pk=tState.pick[i],good=!!tState.ans[i];return `<div class="rv ${good?"g":"b"}"><div class="rvh">${good?"✓":"✕"} ${R.q} ${i+1} / ${N} · ${good?R.okL:pk===undefined?R.skL:R.badL}</div><p class="qtext">${tr(q.q)}</p>${q.img?`<img class="qimg" src="${q.img}" alt="">`:""}<div class="opts">${q.a.map((a,j)=>`<div class="ro ${j===q.c?"ok":j===pk?"bad":""}">${j+1}. ${tr(a)}${j===q.c?` <em>✓ ${R.right}</em>`:j===pk?` <em>✕ ${R.yours}</em>`:""}</div>`).join("")}</div></div>`}).join("");
    const mm=Math.floor(tState.el/60000),ss=String(Math.floor(tState.el/1000)%60).padStart(2,"0");
