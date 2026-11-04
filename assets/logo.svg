@@ -1,40 +1,42 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="800" height="410" viewBox="0 0 800 410">
 <defs>
-<linearGradient id="arc" x1="0.1" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#fff07a"/><stop offset=".4" stop-color="#ffc21f"/><stop offset=".78" stop-color="#ff5f16"/><stop offset="1" stop-color="#e8101e"/></linearGradient>
-<linearGradient id="face" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#23232a"/><stop offset=".5" stop-color="#07070a"/><stop offset="1" stop-color="#000"/></linearGradient>
-<linearGradient id="gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".30"/><stop offset=".4" stop-color="#fff" stop-opacity=".07"/><stop offset=".5" stop-color="#fff" stop-opacity="0"/></linearGradient>
-<linearGradient id="red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5a3a"/><stop offset=".55" stop-color="#ee1c1c"/><stop offset="1" stop-color="#c30d17"/></linearGradient>
-<linearGradient id="rim" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffe23a"/><stop offset="1" stop-color="#ffb020"/></linearGradient>
-<filter id="halo" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="13"/></filter>
-<filter id="neon" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="4"/></filter>
+<linearGradient id="arc" x1="0.1" y1="0" x2="0.9" y2="1"><stop offset="0" stop-color="#ffe24a"/><stop offset=".42" stop-color="#ffb11a"/><stop offset=".78" stop-color="#ff5a12"/><stop offset="1" stop-color="#e5101c"/></linearGradient>
+<linearGradient id="arcd" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d98a08"/><stop offset=".6" stop-color="#b8420a"/><stop offset="1" stop-color="#7d0b12"/></linearGradient>
+<linearGradient id="face" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4a4a4f"/><stop offset=".45" stop-color="#2b2b2f"/><stop offset="1" stop-color="#17171a"/></linearGradient>
+<linearGradient id="red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff4a2e"/><stop offset=".6" stop-color="#f01a14"/><stop offset="1" stop-color="#cf0e12"/></linearGradient>
+<filter id="b30" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="14"/></filter>
+<filter id="b8" x="-30%" y="-60%" width="160%" height="220%"><feGaussianBlur stdDeviation="5"/></filter>
+<path id="arcp" d="M440 125 C 505 36, 650 36, 722 160 C 740 195, 745 225, 743 248 L 688 248 C 688 205, 680 182, 655 158 C 625 118, 540 116, 500 156 Z"/>
+<text id="sum" class="f" x="50" y="218" font-size="116" letter-spacing="5">SUMMIT</text>
+<text id="drv" class="f" x="745" y="356" text-anchor="end" font-size="84" letter-spacing="4">DRIVE</text>
+<path id="road" d="M12 266 C 180 230, 400 212, 570 222 C 655 228, 715 246, 760 282 C 690 266, 630 258, 560 258 C 400 256, 200 284, 90 296 C 52 299, 26 282, 16 270 Z"/>
 </defs>
 <style>.f{font-family:"Inter","Arial Black",sans-serif;font-weight:900}</style>
-<!-- soft glow -->
-<g filter="url(#halo)" opacity=".85">
- <path d="M440 125 C 505 36, 650 36, 722 160 C 740 195, 745 225, 743 248 L 688 248 C 688 205, 680 182, 655 158 C 625 118, 540 116, 500 156 Z" fill="#ffb81f"/>
- <text class="f" x="50" y="218" font-size="116" letter-spacing="1" fill="#ffb818" stroke="#ffb818" stroke-width="20" stroke-linejoin="round">SUMMIT</text>
- <path d="M16 270 C 180 238, 400 222, 570 232 C 650 238, 720 258, 780 295 L 40 295 Z" fill="#ffb81f"/>
+<!-- backlight glow -->
+<g filter="url(#b30)" opacity=".95">
+ <use href="#sum" fill="none" stroke="#ff9a14" stroke-width="30" stroke-linejoin="round" x="-4" y="6"/>
+ <use href="#arcp" fill="#ffae1a"/>
+ <use href="#road" fill="#ffb81f"/>
+ <use href="#drv" fill="none" stroke="#ff4a14" stroke-width="14" stroke-linejoin="round" opacity=".55"/>
 </g>
-<!-- crisp neon edge -->
-<g filter="url(#neon)" opacity=".9"><text class="f" x="50" y="218" font-size="116" letter-spacing="1" fill="none" stroke="#ff9a1a" stroke-width="9" stroke-linejoin="round">SUMMIT</text></g>
-<!-- arc -->
-<path d="M440 125 C 505 36, 650 36, 722 160 C 740 195, 745 225, 743 248 L 688 248 C 688 205, 680 182, 655 158 C 625 118, 540 116, 500 156 Z" fill="url(#arc)" stroke="#fff3a0" stroke-opacity=".55" stroke-width="1.4"/>
-<!-- letters: gold rim + black face -->
-<text class="f" x="50" y="218" font-size="116" letter-spacing="1" fill="#ffd21a" stroke="url(#rim)" stroke-width="7" stroke-linejoin="round">SUMMIT</text>
-<text class="f" x="50" y="218" font-size="116" letter-spacing="1" fill="url(#face)">SUMMIT</text>
-<text class="f" x="50" y="218" font-size="116" letter-spacing="1" fill="url(#gloss)">SUMMIT</text>
+<g filter="url(#b8)" opacity=".95">
+ <use href="#sum" fill="none" stroke="#ffc83a" stroke-width="12" stroke-linejoin="round" x="-5" y="8"/>
+</g>
+<!-- arc with depth -->
+<use href="#arcp" x="-12.60" y="15.40" fill="url(#arcd)" /><use href="#arcp" x="-11.70" y="14.30" fill="url(#arcd)" /><use href="#arcp" x="-10.80" y="13.20" fill="url(#arcd)" /><use href="#arcp" x="-9.90" y="12.10" fill="url(#arcd)" /><use href="#arcp" x="-9.00" y="11.00" fill="url(#arcd)" /><use href="#arcp" x="-8.10" y="9.90" fill="url(#arcd)" /><use href="#arcp" x="-7.20" y="8.80" fill="url(#arcd)" /><use href="#arcp" x="-6.30" y="7.70" fill="url(#arcd)" /><use href="#arcp" x="-5.40" y="6.60" fill="url(#arcd)" /><use href="#arcp" x="-4.50" y="5.50" fill="url(#arcd)" /><use href="#arcp" x="-3.60" y="4.40" fill="url(#arcd)" /><use href="#arcp" x="-2.70" y="3.30" fill="url(#arcd)" /><use href="#arcp" x="-1.80" y="2.20" fill="url(#arcd)" /><use href="#arcp" x="-0.90" y="1.10" fill="url(#arcd)" />
+<use href="#arcp" fill="url(#arc)" stroke="#fff0a0" stroke-opacity=".5" stroke-width="1.2"/>
+<!-- SUMMIT 3D -->
+<use href="#sum" x="-12.80" y="16.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-12.00" y="15.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-11.20" y="14.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-10.40" y="13.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-9.60" y="12.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-8.80" y="11.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-8.00" y="10.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-7.20" y="9.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-6.40" y="8.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-5.60" y="7.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-4.80" y="6.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-4.00" y="5.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-3.20" y="4.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-2.40" y="3.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-1.60" y="2.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/><use href="#sum" x="-0.80" y="1.00" fill="#101012" stroke="#101012" stroke-width="1.5" stroke-linejoin="round"/>
+<use href="#sum" fill="url(#face)"/>
 <!-- road -->
-<path d="M12 266 C 180 230, 400 212, 570 222 C 655 228, 715 246, 760 282 C 690 266, 630 258, 560 258 C 400 256, 200 284, 90 296 C 52 299, 26 282, 16 270 Z" fill="#ffd21a"/>
-<path d="M44 275 C 200 246, 410 234, 570 244 C 650 249, 705 260, 742 278 C 680 268, 625 262, 555 262 C 400 262, 210 286, 105 294 Z" fill="#050506"/>
-<path d="M110 280 C 250 258, 420 248, 560 252 C 620 254, 670 262, 710 276" stroke="#fff" stroke-width="3.2" stroke-dasharray="17 12" fill="none" stroke-linecap="round"/>
-<!-- DRIVE -->
-<text class="f" x="745" y="356" text-anchor="end" font-size="84" letter-spacing="3" fill="#000" stroke="#000" stroke-width="12" stroke-linejoin="round">DRIVE</text>
-<text class="f" x="745" y="356" text-anchor="end" font-size="84" letter-spacing="3" fill="none" stroke="#ffd21a" stroke-width="7" stroke-linejoin="round">DRIVE</text>
-<text class="f" x="745" y="356" text-anchor="end" font-size="84" letter-spacing="3" fill="#000" stroke="#000" stroke-width="3" stroke-linejoin="round">DRIVE</text>
-<text class="f" x="745" y="356" text-anchor="end" font-size="84" letter-spacing="3" fill="url(#red)">DRIVE</text>
-<text class="f" x="745" y="356" text-anchor="end" font-size="84" letter-spacing="3" fill="url(#gloss)">DRIVE</text>
+<use href="#road" fill="#ffd21a"/>
+<path d="M44 275 C 200 246, 410 234, 570 244 C 650 249, 705 260, 742 278 C 680 268, 625 262, 555 262 C 400 262, 210 286, 105 294 Z" fill="#2b2b2e"/>
+<path d="M110 281 C 250 259, 420 249, 560 253 C 620 255, 670 263, 710 277" stroke="#fff" stroke-width="3" stroke-dasharray="17 12" fill="none" stroke-linecap="round"/>
+<!-- DRIVE 3D red -->
+<use href="#drv" x="-9.60" y="12.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/><use href="#drv" x="-8.80" y="11.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/><use href="#drv" x="-8.00" y="10.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/><use href="#drv" x="-7.20" y="9.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/><use href="#drv" x="-6.40" y="8.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/><use href="#drv" x="-5.60" y="7.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/><use href="#drv" x="-4.80" y="6.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/><use href="#drv" x="-4.00" y="5.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/><use href="#drv" x="-3.20" y="4.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/><use href="#drv" x="-2.40" y="3.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/><use href="#drv" x="-1.60" y="2.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/><use href="#drv" x="-0.80" y="1.00" fill="#6e0b0e" stroke="#6e0b0e" stroke-width="3" stroke-linejoin="round"/>
+<use href="#drv" fill="url(#red)"/>
 <!-- subtitle -->
 <path d="M58 388 L128 384" stroke="#ffd21a" stroke-width="5" stroke-linecap="round"/>
-<text x="150" y="395" font-family="Montserrat,Poppins,Inter,sans-serif" font-weight="700" font-size="26" letter-spacing="10" fill="#fff" stroke="#0b0e14" stroke-width="6" stroke-linejoin="round" paint-order="stroke">DRIVING SCHOOL</text>
+<text x="150" y="395" font-family="Montserrat,Poppins,Inter,sans-serif" font-weight="600" font-size="26" letter-spacing="10" fill="#f4f4f6">DRIVING SCHOOL</text>
 <path d="M538 384 L608 388" stroke="#ffd21a" stroke-width="5" stroke-linecap="round"/>
 </svg>
