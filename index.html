@@ -51,11 +51,18 @@ h1{font-size:clamp(30px,3.9vw,50px);line-height:1.08;letter-spacing:-1px;margin:
 .perk{display:flex;align-items:center;gap:10px}
 .perk .i{font-size:30px;color:var(--gold)}
 
-.nav{display:flex;gap:30px;font-size:21px;font-weight:800}
+.nav{display:flex;gap:16px;font-size:16px;font-weight:800;align-items:center}
 .nav a{position:relative;white-space:nowrap;padding:6px 0;font-weight:700;letter-spacing:.2px;color:var(--red);text-shadow:0 1px 2px #0008;transition:color .2s,opacity .2s}
 .nav a:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .25s}
 .nav a:hover{color:#ffd400}
 .nav a:hover:after{background:#ffd400}
+.dd{position:relative}
+.dd{max-width:100%}.nav{flex-wrap:wrap;row-gap:4px}.ddb{font:inherit;text-align:left;font-size:15px;font-weight:700;letter-spacing:.2px;color:var(--red);background:none;border:0;padding:6px 0;cursor:pointer;text-shadow:0 1px 2px #0008}
+.ddb:hover,.dd.open .ddb{color:#ffd400}
+.ddp{display:none;position:absolute;left:0;top:calc(100% + 8px);width:min(560px,92vw);max-height:70vh;overflow:auto;background:#fff;color:#111218;border-radius:14px;box-shadow:0 14px 44px #0006;padding:6px;z-index:60;font-size:15px;font-weight:500}
+.dd.open .ddp{display:block}
+.ddr{padding:10px 12px;border-bottom:1px solid #eceef2}.ddr:last-child{border:0}
+.ddr b{display:block;font-size:14px;font-weight:700}.ddr span{display:block;color:#5d6472;font-size:13.5px;margin-top:2px}
 .nav a.on{opacity:.88}
 .nav a:hover:after,.nav a.on:after,body.tmode .nav a[href="#tests"]:after{transform:scaleX(1)}
 /* sections */
@@ -223,6 +230,7 @@ dialog::backdrop{background:#0009}
  .hero{background-position:100% bottom,0 0}
  .hero:before{background:linear-gradient(90deg,#1a110fd9 0%,#1a110fa6 55%,#1a110f33 100%)}
 }
+@media(max-width:1500px){header{flex-wrap:wrap}.nav{order:3;width:100%;justify-content:flex-start}}
 @media(max-width:1020px){header{flex-wrap:wrap}.nav{order:3;width:100%;gap:14px;justify-content:flex-start;font-size:15px}}
 @media(max-width:640px){
  .hero{min-height:700px;background:#4a3338 url(assets/hero.webp?v=3) 78% bottom/auto 360px no-repeat}
@@ -379,6 +387,49 @@ dialog::backdrop{background:#0009}
 /* Բանաձևի endpoint (օր.՝ Formspree). Դատարկ թողնելու դեպքում հայտը միայն ներբեռնվում է սարքում։ */
 const FORM_ENDPOINT = "";
 
+const UNITS={
+hy:{t:"Հաշվառման-քննական ստորաբաժանումներ",r:[
+["Երևանի հաշվառման-քննական բաժին","ք. Երևան, Էրեբունի վարչական շրջան, Գազեգործների փողոց, 76 շենք"],
+["Շիրակի մարզի հաշվառման-քննական բաժին","ք. Գյումրի, Թբիլիսյան խճ. 2/14, Գյումրիի ՀՔ ՀԿ-ի տարածք"],
+["Լոռու մարզի հաշվառման-քննական բաժին","ք. Վանաձոր, Լոռվա-1 ՀՔԲ-ի տարածք"],
+["Արմավիրի մարզի հաշվառման-քննական բաժին","ք. Մեծամոր, վարչական շենք 1"],
+["Կոտայքի մարզի հաշվառման-քննական բաժին","Կոտայքի մարզ, Ակունք համայնք, Նոր Գյուղ գյուղ, 1-ին փողոց, 7/1 շենք"],
+["Արարատի մարզի հաշվառման-քննական բաժին","Արարատի մարզ, Մխչյան-Հովտաշեն 1"],
+["Արագածոտնի մարզի հաշվառման-քննական բաժին","ք. Աշտարակ, Էջմիածնի խճուղի 2/1"],
+["Սյունիքի մարզի հաշվառման-քննական բաժին","ք. Կապան, Գ. Արզումանյան 128բ"],
+["Տավուշի մարզի հաշվառման-քննական բաժին","ք. Իջևան, Վասիլյան 3"],
+["Գեղարքունիքի մարզի հաշվառման-քննական բաժին","ք. Սևան, գ. Լճաշեն խաչմերուկ"],
+["Գեղարքունիքի մարզի հաշվառման-քննական բաժին","ք. Մարտունի, Մյասնիկյան 100/1"],
+["Սյունիքի մարզի հաշվառման-քննական բաժին","ք. Գորիս, Երևանյան խճ. 17/1"],
+["Վայոց ձորի մարզի հաշվառման-քննական բաժին","ք. Եղեգնաձոր, Երևանյան խճուղի 3/2"]]},
+ru:{t:"Регистрационно-экзаменационные подразделения",r:[
+["Регистрационно-экзаменационный отдел Еревана","г. Ереван, адм. район Эребуни, ул. Газегорцнери, здание 76"],
+["Регистрационно-экзаменационный отдел Ширакской области","г. Гюмри, Тбилисское шоссе 2/14, территория Гюмрийского РЭО"],
+["Регистрационно-экзаменационный отдел Лорийской области","г. Ванадзор, территория Лори-1"],
+["Регистрационно-экзаменационный отдел Армавирской области","г. Мецамор, административное здание 1"],
+["Регистрационно-экзаменационный отдел Котайкской области","Котайкская область, община Акунк, с. Нор Гюх, 1-я улица, здание 7/1"],
+["Регистрационно-экзаменационный отдел Араратской области","Араратская область, Мхчян-Ховташен 1"],
+["Регистрационно-экзаменационный отдел Арагацотнской области","г. Аштарак, Эчмиадзинское шоссе 2/1"],
+["Регистрационно-экзаменационный отдел Сюникской области","г. Капан, Г. Арзуманяна 128б"],
+["Регистрационно-экзаменационный отдел Тавушской области","г. Иджеван, Васильяна 3"],
+["Регистрационно-экзаменационный отдел Гегаркуникской области","г. Севан, с. Лчашен, перекрёсток"],
+["Регистрационно-экзаменационный отдел Гегаркуникской области","г. Мартуни, Мясникяна 100/1"],
+["Регистрационно-экзаменационный отдел Сюникской области","г. Горис, Ереванское шоссе 17/1"],
+["Регистрационно-экзаменационный отдел Вайоцдзорской области","г. Ехегнадзор, Ереванское шоссе 3/2"]]},
+en:{t:"Registration & exam units",r:[
+["Yerevan registration and exam unit","Yerevan, Erebuni district, Gazegortsneri St., building 76"],
+["Shirak region registration and exam unit","Gyumri, Tbilisyan Hwy 2/14, Gyumri Road Police area"],
+["Lori region registration and exam unit","Vanadzor, Lori-1 Road Police area"],
+["Armavir region registration and exam unit","Metsamor, administrative building 1"],
+["Kotayk region registration and exam unit","Kotayk region, Akunk community, Nor Gyugh village, 1st St., building 7/1"],
+["Ararat region registration and exam unit","Ararat region, Mkhchyan-Hovtashen 1"],
+["Aragatsotn region registration and exam unit","Ashtarak, Echmiadzin Hwy 2/1"],
+["Syunik region registration and exam unit","Kapan, G. Arzumanyan St. 128b"],
+["Tavush region registration and exam unit","Ijevan, Vasilyan St. 3"],
+["Gegharkunik region registration and exam unit","Sevan, Lchashen village, intersection"],
+["Gegharkunik region registration and exam unit","Martuni, Myasnikyan St. 100/1"],
+["Syunik region registration and exam unit","Goris, Yerevanyan Hwy 17/1"],
+["Vayots Dzor region registration and exam unit","Yeghegnadzor, Yerevanyan Hwy 3/2"]]}};
 const T = {
 hy:{
  signup:"Գրանցվել",h1:"Վստահությունը սկսվում է <em>այստեղ</em>",leadTitle:"Ժամանակակից ավտոդպրոց Երևանում",
@@ -580,7 +631,7 @@ function render(){
  document.querySelectorAll("[data-t]").forEach(el=>{const v=t[el.dataset.t];if(typeof v==="string")el.innerHTML=v});
  document.querySelectorAll("[data-ph]").forEach(el=>el.placeholder=t[el.dataset.ph]);
  document.querySelectorAll(".lang").forEach(b=>{const on=b.dataset.lang===lang;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
- $("#nav").innerHTML=NAV[lang].map((n,i)=>`<a href="#${["top","advantages","tests","contact"][i]}">${n}</a>`).join("");
+ $("#nav").innerHTML=NAV[lang].map((n,i)=>`<a href="#${["top","advantages","tests","contact"][i]}">${n}</a>`).join("")+`<div class="dd"><button type="button" class="ddb" aria-expanded="false">${UNITS[lang].t}<span aria-hidden="true"> ▾</span></button><div class="ddp" role="list">${UNITS[lang].r.map(r=>`<div class="ddr" role="listitem"><b>${r[0]}</b><span>${r[1]}</span></div>`).join("")}</div></div>`;
  $("#perks").innerHTML=t.perks.map((p,i)=>`<div class="perk">${ico(["cap","car","shield"][i])}<span>${p}</span></div>`).join("");
  $("#cards").innerHTML=t.cards.map((c,i)=>`<article class="card"><div class="card-top"><span class="ico">${ico(["wheel","gear","book"][i])}</span><h3>${c.n}${c.s?`<small>${c.s}</small>`:""}</h3></div><ul>${c.l.map(x=>`<li>${x}</li>`).join("")}</ul><div class="card-bot">${c.p?`<span class="price"><small>${c.f!==undefined?c.f:t.from}</small>${c.p} ${t.cur}</span>`:"<span></span>"}<button class="go" data-book="${i}" aria-label="${c.n}">${ico("arrow")}</button></div></article>`).join("");
  $("#adv").innerHTML=t.adv.map((a,i)=>`<div><span class="ic">${ico(["users","car","cal","shield"][i])}</span><span><h3>${a[0]}</h3><p>${a[1]}</p></span></div>`).join("");
@@ -593,6 +644,7 @@ function render(){
 }
 
 document.addEventListener("click",e=>{
+ const ddb=e.target.closest(".ddb");document.querySelectorAll(".dd").forEach(d=>{const on=ddb&&d===ddb.parentNode?!d.classList.contains("open"):false;d.classList.toggle("open",on);const b=d.querySelector(".ddb");if(b)b.setAttribute("aria-expanded",on)});if(ddb)return;
  const tl=e.target.closest('a[href="#tests"]');if(tl){e.preventDefault();openTests();return}
  if(e.target.closest("#testsClose")){closeTests();window.scrollTo({top:0});return}
  const ha=e.target.closest('a[href^="#"]');if(ha&&document.body.classList.contains("tmode")&&ha.getAttribute("href")!=="#tests"){const id=ha.getAttribute("href");e.preventDefault();closeTests();setTimeout(()=>{const el=id.length>1?document.querySelector(id):null;if(el)el.scrollIntoView({behavior:"smooth"});else window.scrollTo({top:0})},30);return}
