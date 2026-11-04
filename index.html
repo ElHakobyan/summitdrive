@@ -205,9 +205,9 @@ dialog::backdrop{background:#0009}
 .m .row{display:flex;gap:10px;margin-top:6px}.m .row .btn{flex:1}
 .m .btn.plain{background:#eceef2;color:var(--ink);box-shadow:none}
 .thanks{position:fixed;inset:0;display:none;place-items:center;background:#000a;z-index:50;padding:16px}.thanks.show{display:grid}
-.tbox{background:#fff;border-radius:18px;padding:30px 26px;max-width:380px;width:100%;text-align:center;box-shadow:0 20px 60px #0007}
-.tbox .tick{width:64px;height:64px;border-radius:50%;background:#e9f7ee;color:#1f9a4d;font-size:36px;font-weight:800;display:grid;place-items:center;margin:0 auto 14px}
-.tbox p{color:var(--ink,#111218);font-size:18px;font-weight:700;margin:0 0 18px;line-height:1.35}
+.tbox{background:#fff;border-radius:20px;padding:38px 30px;max-width:460px;width:100%;text-align:center;box-shadow:0 20px 60px #0007}
+.tbox .tick{width:84px;height:84px;border-radius:50%;background:#e9f7ee;color:#1f9a4d;font-size:48px;font-weight:800;display:grid;place-items:center;margin:0 auto 14px}
+.tbox p{color:var(--ink,#111218);font-size:26px;font-weight:800;margin:0 0 22px;line-height:1.3}
 .ok{color:#1f7a3e;font-size:14px;margin-top:12px}
 
 /* calendar */
@@ -569,14 +569,18 @@ const SLOTS=["09:00","10:30","12:00","13:30","15:00","16:30","18:00"];
 const loc=()=>({hy:"hy-AM",ru:"ru-RU",en:"en-GB"})[lang];
 let calMonth=new Date();calMonth.setDate(1);let selDate=null,selSlot=null;
 const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+const CAL={
+hy:{m:["Հունվար","Փետրվար","Մարտ","Ապրիլ","Մայիս","Հունիս","Հուլիս","Օգոստոս","Սեպտեմբեր","Հոկտեմբեր","Նոյեմբեր","Դեկտեմբեր"],g:["հունվարի","փետրվարի","մարտի","ապրիլի","մայիսի","հունիսի","հուլիսի","օգոստոսի","սեպտեմբերի","հոկտեմբերի","նոյեմբերի","դեկտեմբերի"],s:["Երկ","Երք","Չրք","Հնգ","Ուրբ","Շբթ","Կիր"],l:["Երկուշաբթի","Երեքշաբթի","Չորեքշաբթի","Հինգշաբթի","Ուրբաթ","Շաբաթ","Կիրակի"]},
+ru:{m:["Январь","Февраль","Март","Апрель","Май","Июнь","Июль","Август","Сентябрь","Октябрь","Ноябрь","Декабрь"],g:["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"],s:["Пн","Вт","Ср","Чт","Пт","Сб","Вс"],l:["Понедельник","Вторник","Среда","Четверг","Пятница","Суббота","Воскресенье"]},
+en:{m:["January","February","March","April","May","June","July","August","September","October","November","December"],g:["January","February","March","April","May","June","July","August","September","October","November","December"],s:["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],l:["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"]}};
+const wdi=d=>(d.getDay()+6)%7;
 function drawCal(){
  const today=new Date();today.setHours(0,0,0,0);
  const y=calMonth.getFullYear(),m=calMonth.getMonth();
  const first=new Date(y,m,1),startPad=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate();
- const fmt=new Intl.DateTimeFormat(loc(),{month:"long",year:"numeric"});
- const wd=new Intl.DateTimeFormat(loc(),{weekday:"short"});
- let h=`<div class="cal-h"><button type="button" id="cPrev" aria-label="prev" ${y===today.getFullYear()&&m<=today.getMonth()?"disabled":""}>‹</button><b>${fmt.format(first)}</b><button type="button" id="cNext" aria-label="next">›</button></div><div class="cal-g">`;
- for(let i=0;i<7;i++){h+=`<span>${wd.format(new Date(2024,0,1+i))}</span>`}
+ const C=CAL[lang];
+ let h=`<div class="cal-h"><button type="button" id="cPrev" aria-label="prev" ${y===today.getFullYear()&&m<=today.getMonth()?"disabled":""}>‹</button><b>${C.m[m]} ${y}</b><button type="button" id="cNext" aria-label="next">›</button></div><div class="cal-g">`;
+ for(let i=0;i<7;i++){h+=`<span>${C.s[i]}</span>`}
  for(let i=0;i<startPad;i++)h+="<i></i>";
  for(let d=1;d<=days;d++){const dt=new Date(y,m,d);const off=dt<today||CLOSED_DAYS.includes(dt.getDay());const k=iso(dt);
   h+=`<button type="button" data-d="${k}" ${off?"disabled":""} class="${selDate===k?"sel":""} ${dt.getTime()===today.getTime()?"today":""}">${d}</button>`}
@@ -591,7 +595,7 @@ function drawSlots(){
 }
 function drawPick(){
  const el=$("#pick");el.classList.remove("err");
- if(selDate&&selSlot){const [y,m,d]=selDate.split("-").map(Number);el.textContent=T[lang].picked+" "+new Intl.DateTimeFormat(loc(),{weekday:"long",day:"numeric",month:"long"}).format(new Date(y,m-1,d))+", "+selSlot}
+ if(selDate&&selSlot){const [y,m,d]=selDate.split("-").map(Number);el.textContent=T[lang].picked+" "+(()=>{const C=CAL[lang],dt=new Date(y,m-1,d);return C.l[wdi(dt)]+", "+d+" "+C.g[m-1]})()+", "+selSlot}
  else el.textContent="";
 }
 
