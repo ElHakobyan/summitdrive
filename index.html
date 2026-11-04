@@ -387,9 +387,9 @@ hy:{
  perks:["Փորձառու հրահանգիչներ","Ժամանակակից ավտոմեքենաներ","Հարմար ժամանակացույց"],
  progTitle:"Ընտրիր <em>ուսուցման ծրագիրը</em>",all:"Բոլոր ծրագրերը",
  cards:[
-  {n:"B կարգ",s:"Թեթև ավտոմեքենաներ",l:["Տեսություն և պրակտիկա","Նախապատրաստում քննությանը","Ժամանակակից ավտոմեքենաներ","Անհատական մոտեցում"],p:"180 000"},
-  {n:"Ավտոմատ (ԱԿՓ)",s:"",l:["Հարմար սկսնակների համար","Հանգիստ ուսուցում","Ճկուն ժամանակացույց","Նախապատրաստում քննությանը"],p:"200 000"},
-  {n:"Տեսական դասընթաց",s:"",l:["ՃԿԿ, ճանապարհային իրավիճակներ","Օնլայն և օֆլայն ձևաչափ","Դասախոսի աջակցություն","Հարմար ժամանակացույց"],p:"40 000"}],
+  {n:"B կարգ",s:"Թեթև ավտոմեքենաներ",l:["Տեսություն և պրակտիկա","Նախապատրաստում քննությանը","Ժամանակակից ավտոմեքենաներ","Անհատական մոտեցում"],p:""},
+  {n:"Ավտոմատ (ԱԿՓ)",s:"",l:["Հարմար սկսնակների համար","Հանգիստ ուսուցում","Ճկուն ժամանակացույց","Նախապատրաստում քննությանը"],p:"8 000",f:"1 ժամ"},
+  {n:"Տեսական դասընթաց",s:"",l:["ՃԿԿ, ճանապարհային իրավիճակներ","Օնլայն ձևաչափ","Դասախոսի աջակցություն","Հարմար ժամանակացույց"],p:"40 000",f:""}],
  from:"սկսած",cur:"֏",
  advTitle:"Մեր <em>առավելությունները</em>",
  adv:[["Փորձառու հրահանգիչներ","Պրոֆեսիոնալներ՝ մեծ փորձով"],["Ժամանակակից ավտոմեքենաներ","Անվտանգ և հարմար ուսուցման համար"],["Հարմար ժամանակացույց","Առավոտյան, ցերեկային և երեկոյան խմբեր"],["Աջակցություն մինչև վարորդական իրավունք ստանալը","Ուղեկցում բոլոր փուլերում"]],
@@ -424,9 +424,9 @@ ru:{
  perks:["Опытные инструкторы","Современные автомобили","Удобный график занятий"],
  progTitle:"Выберите <em>программу</em> обучения",all:"Все программы",
  cards:[
-  {n:"Категория B",s:"Легковые автомобили",l:["Теория и практика","Подготовка к экзамену","Современные автомобили","Индивидуальный подход"],p:"180 000"},
-  {n:"Автомат (АКПП)",s:"",l:["Удобно для начинающих","Спокойное обучение","Гибкий график","Подготовка к экзамену"],p:"200 000"},
-  {n:"Теоретический курс",s:"",l:["ПДД, дорожные ситуации","Онлайн и офлайн формат","Поддержка преподавателя","Удобный график"],p:"40 000"}],
+  {n:"Категория B",s:"Легковые автомобили",l:["Теория и практика","Подготовка к экзамену","Современные автомобили","Индивидуальный подход"],p:""},
+  {n:"Автомат (АКПП)",s:"",l:["Удобно для начинающих","Спокойное обучение","Гибкий график","Подготовка к экзамену"],p:"8 000",f:"1 час"},
+  {n:"Теоретический курс",s:"",l:["ПДД, дорожные ситуации","Онлайн формат","Поддержка преподавателя","Удобный график"],p:"40 000",f:""}],
  from:"от",cur:"֏",
  advTitle:"Наши <em>преимущества</em>",
  adv:[["Опытные инструкторы","Профессионалы с большим опытом"],["Современные автомобили","Безопасные и удобные для обучения"],["Удобное расписание","Утренние, дневные и вечерние группы"],["Поддержка до получения прав","Сопровождение на всех этапах"]],
@@ -461,9 +461,9 @@ en:{
  perks:["Experienced instructors","Modern cars","Flexible schedule"],
  progTitle:"Choose your <em>program</em>",all:"All programs",
  cards:[
-  {n:"Category B",s:"Passenger cars",l:["Theory and practice","Exam preparation","Modern cars","Individual approach"],p:"180,000"},
-  {n:"Automatic",s:"",l:["Great for beginners","Calm, relaxed learning","Flexible schedule","Exam preparation"],p:"200,000"},
-  {n:"Theory course",s:"",l:["Traffic rules, road situations","Online and offline","Teacher support","Flexible schedule"],p:"40,000"}],
+  {n:"Category B",s:"Passenger cars",l:["Theory and practice","Exam preparation","Modern cars","Individual approach"],p:""},
+  {n:"Automatic",s:"",l:["Great for beginners","Calm, relaxed learning","Flexible schedule","Exam preparation"],p:"8,000",f:"1 hour"},
+  {n:"Theory course",s:"",l:["Traffic rules, road situations","Online format","Teacher support","Flexible schedule"],p:"40,000",f:""}],
  from:"from",cur:"AMD",
  advTitle:"Our <em>advantages</em>",
  adv:[["Experienced instructors","Professionals with years of practice"],["Modern cars","Safe and comfortable for learning"],["Flexible schedule","Morning, afternoon and evening groups"],["Support until you get your licence","Guidance at every stage"]],
@@ -582,7 +582,7 @@ function render(){
  document.querySelectorAll(".lang").forEach(b=>{const on=b.dataset.lang===lang;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
  $("#nav").innerHTML=NAV[lang].map((n,i)=>`<a href="#${["top","advantages","tests","contact"][i]}">${n}</a>`).join("");
  $("#perks").innerHTML=t.perks.map((p,i)=>`<div class="perk">${ico(["cap","car","shield"][i])}<span>${p}</span></div>`).join("");
- $("#cards").innerHTML=t.cards.map((c,i)=>`<article class="card"><div class="card-top"><span class="ico">${ico(["wheel","gear","book"][i])}</span><h3>${c.n}${c.s?`<small>${c.s}</small>`:""}</h3></div><ul>${c.l.map(x=>`<li>${x}</li>`).join("")}</ul><div class="card-bot"><span class="price"><small>${t.from}</small>${c.p} ${t.cur}</span><button class="go" data-book="${i}" aria-label="${c.n}">${ico("arrow")}</button></div></article>`).join("");
+ $("#cards").innerHTML=t.cards.map((c,i)=>`<article class="card"><div class="card-top"><span class="ico">${ico(["wheel","gear","book"][i])}</span><h3>${c.n}${c.s?`<small>${c.s}</small>`:""}</h3></div><ul>${c.l.map(x=>`<li>${x}</li>`).join("")}</ul><div class="card-bot">${c.p?`<span class="price"><small>${c.f!==undefined?c.f:t.from}</small>${c.p} ${t.cur}</span>`:"<span></span>"}<button class="go" data-book="${i}" aria-label="${c.n}">${ico("arrow")}</button></div></article>`).join("");
  $("#adv").innerHTML=t.adv.map((a,i)=>`<div><span class="ic">${ico(["users","car","cal","shield"][i])}</span><span><h3>${a[0]}</h3><p>${a[1]}</p></span></div>`).join("");
  $("#inst").innerHTML=t.inst.map((p,i)=>`<div class="person"><span class="ph" aria-hidden="true">${ico("users")}</span><div><p>${p[1]}</p></div></div>`).join("");
  $("#steps").innerHTML=t.steps.map((s,i)=>`<div class="step"><div class="ring">${ico(["doc","head","cal","car","id"][i])}</div>${s}</div>`).join("");
