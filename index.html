@@ -211,6 +211,7 @@ dialog::backdrop{background:#0009}
 .tbox p{color:var(--ink,#111218);font-size:26px;font-weight:800;margin:0 0 22px;line-height:1.3}
 .tbox .tsub{font-size:16px;font-weight:600;color:#4a4f58;margin:-8px 0 18px}.tbox .btn{width:100%;margin-top:8px}.tbox .tg{background:#229ED9;box-shadow:none;text-decoration:none}.tbox .wa{background:#25D366;box-shadow:none;text-decoration:none}.tbox .btn.plain{background:#eceef2;color:var(--ink,#111218)}
 .ipick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.ipick button{border:1px solid #d9dce2;background:#fff;border-radius:10px;padding:10px 14px;font-weight:700;font-size:14px;cursor:pointer}.ipick button.sel{background:var(--red);border-color:var(--red);color:#fff}
+.ipick.dur{align-items:center;gap:12px}.stp{width:40px;height:40px;border-radius:50%;border:1px solid #d9dce2;background:#fff;font-size:24px;font-weight:700;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}.stp:disabled{opacity:.35;cursor:default}.stp:not(:disabled):hover{border-color:var(--red);color:var(--red)}.dv{font-size:18px;min-width:64px;text-align:center}.amt{margin-left:auto;font-size:18px;font-weight:800;color:var(--red)}
 .slots .none{font-size:13px;color:var(--muted)}
 .ok{color:#1f7a3e;font-size:14px;margin-top:12px}
 
@@ -388,7 +389,7 @@ dialog::backdrop{background:#0009}
   <label><span data-t="fName"></span><input name="name" required autocomplete="name"></label>
   <label><span data-t="fPhone"></span><input name="phone" type="tel" required autocomplete="tel" placeholder="+374 ..."></label>
   <label><span data-t="fCourse"></span><select name="course" id="course"></select></label>
-  <div id="instRow" hidden><div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="instLabel"></div><div class="ipick" id="instPick"></div><div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="durLabel"></div><div class="ipick" id="durPick"></div></div>
+  <div id="instRow" hidden><div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="instLabel"></div><div class="ipick" id="instPick"></div><div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="durLabel"></div><div class="ipick dur" id="durPick"></div></div>
   <div class="lbl" style="font-size:12px;font-weight:700;margin-bottom:6px" data-t="calTitle"></div>
   <div class="cal" id="calBox"></div>
   <div class="slots" id="slots" role="group"></div>
@@ -599,9 +600,9 @@ function drawInst(){
  if(!curInst())selInst=AV.instructors[0].id;
  $("#instPick").innerHTML=AV.instructors.map(i=>`<button type="button" data-i="${i.id}" class="${i.id===selInst?"sel":""}">${i.name[lang]||i.name.hy}</button>`).join("");
  $("#instPick").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{selInst=b.dataset.i;selDate=selSlot=null;drawInst();drawCal();drawSlots();drawPick()});
- const hw={hy:"ժամ",ru:"ч",en:"h"}[lang];
- $("#durPick").innerHTML=[1,2,3].map(h=>`<button type="button" data-h="${h}" class="${h===selDur?"sel":""}">${h} ${hw} · ${money(h*PRICE_H)} ${T[lang].cur}</button>`).join("");
- $("#durPick").querySelectorAll("[data-h]").forEach(b=>b.onclick=()=>{selDur=+b.dataset.h;selSlot=null;drawInst();drawCal();drawSlots();drawPick()});
+ const hw={hy:"ժամ",ru:"ч",en:"h"}[lang],MAXH=3;
+ $("#durPick").innerHTML=`<button type="button" class="stp" data-d="-1" aria-label="-" ${selDur<=1?"disabled":""}>−</button><b class="dv">${selDur} ${hw}</b><button type="button" class="stp" data-d="1" aria-label="+" ${selDur>=MAXH?"disabled":""}>+</button><span class="amt">${money(selDur*PRICE_H)} ${T[lang].cur}</span>`;
+ $("#durPick").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDur=Math.min(MAXH,Math.max(1,selDur+ +b.dataset.d));selSlot=null;drawInst();drawCal();drawSlots();drawPick()});
 }
 function onCourse(){selDate=selSlot=null;drawInst();drawCal();drawSlots();drawPick()}
 $("#course").addEventListener("change",onCourse);
@@ -625,7 +626,7 @@ function drawCal(){
  $("#calBox").innerHTML=h+"</div>";
  $("#cPrev").onclick=()=>{calMonth=new Date(y,m-1,1);drawCal()};
  $("#cNext").onclick=()=>{calMonth=new Date(y,m+1,1);drawCal()};
- $("#calBox").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDate=b.dataset.d;if(isPractical())selSlot=null;drawCal();drawSlots();drawPick()});
+ $("#calBox").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDate=b.dataset.d;if(isPractical())selSlot=null;drawCal();drawSlots();drawPick();setTimeout(()=>$("#slots").scrollIntoView({block:"center",behavior:"smooth"}),60)});
 }
 function drawSlots(){
  const list=isPractical()?(selDate?slotsFor(curInst(),selDate,selDur):[]):SLOTS;
