@@ -142,6 +142,7 @@ body.tmode .tests{margin-top:0;border-radius:0;min-height:80vh;padding-top:34px}
 .tcats{display:flex;justify-content:center;gap:6px;margin-bottom:22px}
 .tcats button{border:1px solid var(--line);background:#fff;border-radius:999px;padding:10px 20px;font-weight:700;font-size:15px}
 .tcats button.on{background:var(--red);border-color:var(--red);color:#fff}
+.tests.cmode .tinfo{display:none}
 .tests.running .tests-head h2,.tests.running .tinfo,.tests.running .tcats{display:none}
 .ttimer{font-weight:800;color:var(--ink);font-variant-numeric:tabular-nums}
 .ttimer.low{color:var(--red)}
@@ -215,7 +216,7 @@ dialog::backdrop{background:#0009}
 .slots button.busy:disabled{background:#fde8ea;border-color:#e5001f;color:#c00018;opacity:1;text-decoration:line-through}.slots button:disabled:not(.busy){opacity:.4}
 .slots .none{font-size:13px;color:var(--muted)}
 .ct{padding:34px 0 40px;background:#f6f7f9}
-.ctbox{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;max-width:560px;box-shadow:0 8px 30px #11121812;text-align:center}
+.ctbox{margin:0 auto;background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;max-width:560px;box-shadow:0 8px 30px #11121812;text-align:center}
 .ctbox canvas{width:100%;max-width:340px;height:auto;aspect-ratio:1;border-radius:50%;display:block;margin:6px auto 14px;background:#fff}
 .ctq{font-weight:700;font-size:17px;margin:0 0 10px}.ctprog{font-size:13px;color:var(--muted);margin-bottom:6px}
 .ctopts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:340px;margin:0 auto}
@@ -361,14 +362,6 @@ dialog::backdrop{background:#0009}
    <div class="steps" id="steps"></div>
   </div>
 
- </div>
-</section>
-
-<section class="ct" id="colortest">
- <div class="wrap">
-  <h2 id="ctH"></h2>
-  <p class="thp" id="ctP"></p>
-  <div class="ctbox" id="ctBox"></div>
  </div>
 </section>
 
@@ -632,9 +625,9 @@ function drawInst(){
 }
 
 const CTP=[{n:"12",c:1,o:["12","17","21","71"]},{n:"8",o:["3","8","6","9"]},{n:"6",o:["5","8","9","6"]},{n:"29",o:["70","26","29","20"]},{n:"5",o:["3","5","6","8"]},{n:"74",o:["21","71","24","74"]}];
-const CTS={hy:{h:"Դալտոնիզմի թեստ (գույների տարբերակում)",p:"Արագ ստուգում՝ կարո՞ղ եք տարբերել գույները։ Յուրաքանչյուր նկարում թիվ կա՝ նշեք, թե որն եք տեսնում։ Սա միայն նախնական ստուգում է և բժշկական եզրակացություն չէ։",start:"Սկսել թեստը",q:"Ի՞նչ թիվ եք տեսնում",none:"Ոչ մի թիվ չեմ տեսնում",pr:(i,n)=>`Նկար ${i} / ${n}`,ok:"Գույները տարբերում եք նորմալ",mid:"Հնարավոր են գույների տարբերակման թույլ դժվարություններ",bad:"Հնարավոր է դալտոնիզմ (կարմիր–կանաչ գույների տարբերակման դժվարություն)",ctrl:"Առաջին նկարը պետք է տեսնեն բոլորը։ Ստուգեք էկրանի պայծառությունը և փորձեք կրկին։",note:"Արդյունքը կախված է էկրանից և լուսավորությունից։ Վարորդական իրավունք ստանալու համար անհրաժեշտ է բժշկական զննում, ստույգ արդյունքը կտա ակնաբույժը։",again:"Կրկնել"},
-ru:{h:"Тест на дальтонизм (различение цветов)",p:"Быстрая проверка: различаете ли вы цвета. На каждой картинке есть число — укажите, какое вы видите. Это лишь предварительный тест, а не медицинское заключение.",start:"Начать тест",q:"Какое число вы видите?",none:"Я не вижу числа",pr:(i,n)=>`Картинка ${i} / ${n}`,ok:"Цвета вы различаете нормально",mid:"Возможны слабые затруднения с различением цветов",bad:"Возможен дальтонизм (трудности с красно-зелёными цветами)",ctrl:"Первую картинку видят все. Проверьте яркость экрана и попробуйте снова.",note:"Результат зависит от экрана и освещения. Для получения прав нужен медосмотр; точный ответ даст офтальмолог.",again:"Пройти ещё раз"},
-en:{h:"Colour blindness test",p:"A quick check of your colour vision. Each picture hides a number — pick the one you see. This is only a screening, not a medical diagnosis.",start:"Start the test",q:"Which number do you see?",none:"I can't see a number",pr:(i,n)=>`Plate ${i} / ${n}`,ok:"Your colour vision looks normal",mid:"You may have slight difficulty telling some colours apart",bad:"Possible colour blindness (red–green difficulty)",ctrl:"Everyone should see the first plate. Check your screen brightness and try again.",note:"Results depend on your screen and lighting. A medical exam is required for a licence; an eye doctor can give a definite answer.",again:"Try again"}};
+const CTS={hy:{tab:"Գույների թեստ",h:"Դալտոնիզմի թեստ (գույների տարբերակում)",p:"Արագ ստուգում՝ կարո՞ղ եք տարբերել գույները։ Յուրաքանչյուր նկարում թիվ կա՝ նշեք, թե որն եք տեսնում։ Սա միայն նախնական ստուգում է և բժշկական եզրակացություն չէ։",start:"Սկսել թեստը",q:"Ի՞նչ թիվ եք տեսնում",none:"Ոչ մի թիվ չեմ տեսնում",pr:(i,n)=>`Նկար ${i} / ${n}`,ok:"Գույները տարբերում եք նորմալ",mid:"Հնարավոր են գույների տարբերակման թույլ դժվարություններ",bad:"Հնարավոր է դալտոնիզմ (կարմիր–կանաչ գույների տարբերակման դժվարություն)",ctrl:"Առաջին նկարը պետք է տեսնեն բոլորը։ Ստուգեք էկրանի պայծառությունը և փորձեք կրկին։",note:"Արդյունքը կախված է էկրանից և լուսավորությունից։ Վարորդական իրավունք ստանալու համար անհրաժեշտ է բժշկական զննում, ստույգ արդյունքը կտա ակնաբույժը։",again:"Կրկնել"},
+ru:{tab:"Тест цветов",h:"Тест на дальтонизм (различение цветов)",p:"Быстрая проверка: различаете ли вы цвета. На каждой картинке есть число — укажите, какое вы видите. Это лишь предварительный тест, а не медицинское заключение.",start:"Начать тест",q:"Какое число вы видите?",none:"Я не вижу числа",pr:(i,n)=>`Картинка ${i} / ${n}`,ok:"Цвета вы различаете нормально",mid:"Возможны слабые затруднения с различением цветов",bad:"Возможен дальтонизм (трудности с красно-зелёными цветами)",ctrl:"Первую картинку видят все. Проверьте яркость экрана и попробуйте снова.",note:"Результат зависит от экрана и освещения. Для получения прав нужен медосмотр; точный ответ даст офтальмолог.",again:"Пройти ещё раз"},
+en:{tab:"Colour test",h:"Colour blindness test",p:"A quick check of your colour vision. Each picture hides a number — pick the one you see. This is only a screening, not a medical diagnosis.",start:"Start the test",q:"Which number do you see?",none:"I can't see a number",pr:(i,n)=>`Plate ${i} / ${n}`,ok:"Your colour vision looks normal",mid:"You may have slight difficulty telling some colours apart",bad:"Possible colour blindness (red–green difficulty)",ctrl:"Everyone should see the first plate. Check your screen brightness and try again.",note:"Results depend on your screen and lighting. A medical exam is required for a licence; an eye doctor can give a definite answer.",again:"Try again"}};
 let ct={i:-1,score:0,ctrl:true};
 function ctPlate(cv,txt,seed,isCtrl){
  const S=400,ctx=cv.getContext("2d");cv.width=cv.height=S;
@@ -655,14 +648,14 @@ function ctPlate(cv,txt,seed,isCtrl){
  ctx.restore();
 }
 function drawCT(){
- const L=CTS[lang],box=$("#ctBox");if(!box)return;$("#ctH").textContent=L.h;$("#ctP").textContent=L.p;
+ const L=CTS[lang],box=$("#testBox");if(!box||tCatSel!=="color")return;
  const n=CTP.length;
- if(ct.i<0){box.innerHTML=`<button type="button" class="btn" id="ctStart">${L.start}</button>`;$("#ctStart").onclick=()=>{ct={i:0,score:0,ctrl:true};drawCT()};return}
+ if(ct.i<0){box.innerHTML=`<div class="ctbox"><h3 style="margin:0 0 8px">${L.h}</h3><p class="ctnote" style="margin-top:0">${L.p}</p><button type="button" class="btn" id="ctStart">${L.start}</button></div>`;$("#ctStart").onclick=()=>{ct={i:0,score:0,ctrl:true};drawCT()};return}
  if(ct.i>=n){
   let msg,cls;if(!ct.ctrl){msg=L.ctrl}else{const sc=ct.score;msg=sc>=n-1?L.ok:sc>=n-3?L.mid:L.bad}
-  box.innerHTML=`<div class="ctres">${msg}</div><div class="ctnote">${L.note}</div><button type="button" class="btn" id="ctAgain">${L.again}</button>`;$("#ctAgain").onclick=()=>{ct={i:0,score:0,ctrl:true};drawCT()};return}
+  box.innerHTML=`<div class="ctbox"><div class="ctres">${msg}</div><div class="ctnote">${L.note}</div><button type="button" class="btn" id="ctAgain">${L.again}</button></div>`;$("#ctAgain").onclick=()=>{ct={i:0,score:0,ctrl:true};drawCT()};return}
  const P=CTP[ct.i];
- box.innerHTML=`<div class="ctprog">${L.pr(ct.i+1,n)}</div><canvas id="ctCv"></canvas><div class="ctq">${L.q}</div><div class="ctopts">${P.o.map(o=>`<button type="button" data-o="${o}">${o}</button>`).join("")}<button type="button" class="none" data-o="">${L.none}</button></div>`;
+ box.innerHTML=`<div class="ctbox"><div class="ctprog">${L.pr(ct.i+1,n)}</div><canvas id="ctCv"></canvas><div class="ctq">${L.q}</div><div class="ctopts">${P.o.map(o=>`<button type="button" data-o="${o}">${o}</button>`).join("")}<button type="button" class="none" data-o="">${L.none}</button></div></div>`;
  ctPlate($("#ctCv"),P.n,1000+ct.i*77,!!P.c);
  box.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const okk=b.dataset.o===P.n;if(P.c){ct.ctrl=okk}else if(okk)ct.score++;ct.i++;drawCT()});
 }
@@ -723,9 +716,11 @@ const tDone=()=>{try{return JSON.parse(localStorage.getItem("tests-done")||"{}")
 function tSave(id,ok){try{const d=tDone();d[tKey(id)]=ok?"pass":"fail";localStorage.setItem("tests-done",JSON.stringify(d))}catch(e){}}
 function drawTests(){
  const box=$("#testBox");if(!box)return;const t=T[lang];
+ $("#tests").classList.toggle("cmode",tCatSel==="color");
  $("#tests").classList.toggle("running",!!(tState&&TESTS));
  if(tState&&TESTS){drawQuestion();return}
- const cats=$("#tCats");if(cats){cats.innerHTML=`<button type="button" data-c="abc" class="${tCatSel==="abc"?"on":""}">${t.tABC}</button><button type="button" data-c="dt" class="${tCatSel==="dt"?"on":""}">${t.tDT}</button>`;cats.querySelectorAll("button").forEach(b=>b.onclick=()=>setCat(b.dataset.c))}
+ const cats=$("#tCats");if(cats){cats.innerHTML=`<button type="button" data-c="abc" class="${tCatSel==="abc"?"on":""}">${t.tABC}</button><button type="button" data-c="dt" class="${tCatSel==="dt"?"on":""}">${t.tDT}</button><button type="button" data-c="color" class="${tCatSel==="color"?"on":""}">${CTS[lang].tab}</button>`;cats.querySelectorAll("button").forEach(b=>b.onclick=()=>setCat(b.dataset.c))}
+ if(tCatSel==="color"){drawCT();return}
  if(!TESTS){box.innerHTML=`<div class="tnote">${t.tSoon}</div>`;return}
  const done=tDone();let h='<div class="tgrid">';
  for(let i=0;i<TESTS.length;i++){const id=TESTS[i].id;const st=done[tKey(id)];const lab=st==="pass"?t.tStDone:st==="fail"?t.tStFail:t.tStNew;const c=st==="pass"?"done":st==="fail"?"fail":"";h+=`<button type="button" data-t="${i}" class="${c}"><b>${id}</b><span>${t.tName} ${id}<small>${lab}</small></span></button>`}
@@ -763,7 +758,7 @@ function render(){
  $("#chips").innerHTML=t.chips.map(c=>`<div class="chip">${ico(c[0])}<span>${c[1]}</span></div>`).join("");
  {const O={hy:["Տեսական դասընթաց A, B, C","Տեսական դասընթաց D, T","Գործնական վարում"],ru:["Теоретический курс A, B, C","Теоретический курс D, T","Практическое вождение"],en:["Theory course A, B, C","Theory course D, T","Practical driving"]}[lang];
  $("#course").innerHTML=`<option data-cards="2">${O[0]}</option><option>${O[1]}</option><option data-cards="0 1">${O[2]}</option>`;}
- drawInst();drawCal();drawSlots();drawPick();drawTests();drawCT();
+ drawInst();drawCal();drawSlots();drawPick();drawTests();
 }
 
 document.addEventListener("click",e=>{
