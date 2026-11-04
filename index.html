@@ -742,7 +742,7 @@ function drawTests(){
  $("#tests").classList.toggle("running",!!(tState&&TESTS));
  if(tState&&TESTS){drawQuestion();return}
  const cats=$("#tCats");if(cats){cats.innerHTML=`<button type="button" data-c="abc" class="${tCatSel==="abc"?"on":""}">${t.tABC}</button><button type="button" data-c="dt" class="${tCatSel==="dt"?"on":""}">${t.tDT}</button><button type="button" data-c="color" class="${tCatSel==="color"?"on":""}">${CTS[lang].tab}</button>`;cats.querySelectorAll("button").forEach(b=>b.onclick=()=>setCat(b.dataset.c))}
- let host=box;if(tCatSel==="color"){box.innerHTML=`<div id="ctHost"></div><h3 class="ctsub">${CTS[lang].qh}</h3><div id="ctQuiz"></div>`;drawCT();host=$("#ctQuiz")}
+ let host=box;if(tCatSel==="color"){box.innerHTML=`<div id="ctHost"></div>`;drawCT();return}
  if(!TESTS){host.innerHTML=`<div class="tnote">${t.tSoon}</div>`;return}
  const done=tDone();let h='<div class="tgrid">';
  for(let i=0;i<TESTS.length;i++){const id=TESTS[i].id;const st=done[tKey(id)];const lab=st==="pass"?t.tStDone:st==="fail"?t.tStFail:t.tStNew;const sc=tScore(tKey(id));const c=st==="pass"?"done":st==="fail"?"fail":"";h+=`<button type="button" data-t="${i}" class="${c}"><b>${id}</b><span>${t.tName} ${id}<small>${lab}${sc&&st?`<em class="tsc">${sc[0]} / ${sc[1]}</em>`:""}</small></span></button>`}
