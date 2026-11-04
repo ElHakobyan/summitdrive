@@ -52,8 +52,10 @@ h1{font-size:clamp(38px,5.2vw,66px);line-height:1.05;letter-spacing:-1.5px;margi
 .perk .i{font-size:30px;color:var(--gold)}
 
 .nav{display:flex;gap:30px;font-size:15px;font-weight:600}
-.nav a{padding:6px 0;border-bottom:2px solid transparent;color:#fff}
-.nav a:hover{color:var(--gold);border-color:var(--gold)}
+.nav a{position:relative;padding:6px 0;font-weight:700;letter-spacing:.2px;color:transparent;background:linear-gradient(90deg,#ffe08a 0%,#ffb85c 50%,#ff7f6e 100%);-webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 1px 6px #0007);transition:filter .2s}
+.nav a:after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;border-radius:2px;background:linear-gradient(90deg,#ffe08a,#ff7f6e);transform:scaleX(0);transform-origin:left;transition:transform .25s}
+.nav a:hover,.nav a.on{filter:drop-shadow(0 0 8px #ffb85c66) brightness(1.08)}
+.nav a:hover:after,.nav a.on:after,body.tmode .nav a[href="#tests"]:after{transform:scaleX(1)}
 /* sections */
 .programs{position:relative;background:#fff;border-radius:26px 26px 0 0;margin-top:-30px;padding:34px 0 40px}
 .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:20px}
