@@ -426,6 +426,7 @@ dialog::backdrop{background:#0009}
   <div class="cal" id="calBox"></div>
   <div class="slots" id="slots" role="group"></div>
   <div class="pick" id="pick" role="status"></div>
+  <div id="tsBox" style="margin:10px 0;min-height:0"></div>
   <p class="priv" data-t="formPriv"></p>
   <div class="row"><button type="button" class="btn plain" id="cancel" data-t="cancel"></button><button class="btn" value="ok" data-t="send"></button></div>
   <div class="ok" id="ok" role="status"></div>
@@ -438,6 +439,20 @@ dialog::backdrop{background:#0009}
 const WEB3FORMS_KEY = "";   // paste the Access Key from web3forms.com here
 const FORM_PROXY = "https://summit-form.elenahakobyan63.workers.dev";   // after deploying worker/index.js on Cloudflare, put its URL here (then the Web3Forms key is no longer needed in this file)
 const FORM_ENDPOINT = FORM_PROXY || (WEB3FORMS_KEY ? "https://api.web3forms.com/submit" : "");
+const TS_SITEKEY = "0x4AAAAAAF0CSW9Vc2mY1pes";   // Cloudflare Turnstile site key (public)
+let tsToken="",tsId=null,tsLoading=false;
+const TSMSG={hy:"Սպասեք, ստուգումը ավարտվում է…",ru:"Подождите, идёт проверка…",en:"Please wait, verification in progress…"};
+function tsInit(){
+ if(!TS_SITEKEY||!FORM_PROXY)return;
+ if(window.turnstile){tsRender();return}
+ if(tsLoading)return;tsLoading=true;
+ const sc=document.createElement("script");sc.src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";sc.async=true;sc.onload=tsRender;document.head.appendChild(sc);
+}
+function tsRender(){
+ if(!window.turnstile||tsId!==null)return;
+ tsId=turnstile.render("#tsBox",{sitekey:TS_SITEKEY,callback:t=>{tsToken=t},"expired-callback":()=>{tsToken=""},"error-callback":()=>{tsToken=""}});
+}
+function tsReset(){tsToken="";if(window.turnstile&&tsId!==null)try{turnstile.reset(tsId)}catch(_){}}
 
 const UNITS={
 hy:{t:"Հաշվառման-քննական ստորաբաժանումներ",r:[
@@ -798,7 +813,7 @@ document.addEventListener("click",e=>{
  const l=e.target.closest(".lang");
  if(l){lang=l.dataset.lang;try{localStorage.setItem("neo-lang",lang)}catch(_){}render();return}
  const b=e.target.closest("[data-book]");
- if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book)){const o=$("#course").querySelector(`option[data-cards~="${b.dataset.book}"]`);if(o)o.selected=true}onCourse();$("#ok").textContent="";$("#thanks").classList.remove("show");bookOpenAt=Date.now();$("#bookDlg").showModal();return}
+ if(b){if(b.dataset.book!==""&&!isNaN(+b.dataset.book)){const o=$("#course").querySelector(`option[data-cards~="${b.dataset.book}"]`);if(o)o.selected=true}onCourse();$("#ok").textContent="";$("#thanks").classList.remove("show");bookOpenAt=Date.now();$("#bookDlg").showModal();tsInit();return}
 });
 let bookOpenAt=0;
 const WA_NUM="37493838038";
@@ -818,10 +833,12 @@ $("#bookForm").addEventListener("submit",async e=>{
  const t=T[lang];
  if(!form.reportValidity())return;
  if(!selDate||!selSlot){const el=$("#pick");el.textContent=t.pickErr;el.classList.add("err");return}
+ if(TS_SITEKEY&&FORM_PROXY&&window.turnstile&&!tsToken){const el=$("#pick");el.textContent=TSMSG[lang]||TSMSG.en;el.classList.add("err");return}
+ if(TS_SITEKEY&&FORM_PROXY&&tsToken)data["cf-turnstile-response"]=tsToken;
  if(trap||(Date.now()-bookOpenAt<3000)){thanks(t.sent,bk);form.reset();onCourse();return}   // bot (honeypot filled or submitted too fast): pretend success, send nothing
  if(FORM_ENDPOINT){
   try{const r=await fetch(FORM_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(FORM_PROXY?data:WEB3FORMS_KEY?{access_key:WEB3FORMS_KEY,subject:(bk?"Summit Drive: NEW BOOKING (awaiting payment)":"Summit Drive: new sign-up request"),from_name:"Summit Drive website",...data}:data)});
-   if(!r.ok)throw 0;if(WEB3FORMS_KEY||FORM_PROXY){const j=await r.json().catch(()=>({}));if(j.success===false)throw 0}thanks(t.sent,bk);form.reset();onCourse();return}catch(_){}
+   if(!r.ok)throw 0;if(WEB3FORMS_KEY||FORM_PROXY){const j=await r.json().catch(()=>({}));if(j.success===false)throw 0}tsReset();thanks(t.sent,bk);form.reset();onCourse();return}catch(_){tsReset()}
  }
  const blob=new Blob([`Summit\n${data.name}\n${data.phone}\n${data.course}\n${data.date} ${data.time}\n${new Date().toISOString()}\n`],{type:"text/plain;charset=utf-8"});
  const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="neo-drive-request.txt";a.click();URL.revokeObjectURL(a.href);
