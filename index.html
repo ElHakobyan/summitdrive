@@ -212,6 +212,7 @@ dialog::backdrop{background:#0009}
 .tbox .tsub{font-size:16px;font-weight:600;color:#4a4f58;margin:-8px 0 18px}.tbox .btn{width:100%;margin-top:8px}.tbox .tg{background:#229ED9;box-shadow:none;text-decoration:none}.tbox .wa{background:#25D366;box-shadow:none;text-decoration:none}.tbox .btn.plain{background:#eceef2;color:var(--ink,#111218)}
 .ipick{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.ipick button{border:1px solid #d9dce2;background:#fff;border-radius:10px;padding:10px 14px;font-weight:700;font-size:14px;cursor:pointer}.ipick button.sel{background:var(--red);border-color:var(--red);color:#fff}
 .ipick.dur{align-items:center;gap:12px}.stp{width:40px;height:40px;border-radius:50%;border:1px solid #d9dce2;background:#fff;font-size:24px;font-weight:700;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}.stp:disabled{opacity:.35;cursor:default}.stp:not(:disabled):hover{border-color:var(--red);color:var(--red)}.dv{font-size:18px;min-width:64px;text-align:center}.amt{margin-left:auto;font-size:18px;font-weight:800;color:var(--red)}
+.slots button.busy:disabled{background:#fde8ea;border-color:#e5001f;color:#c00018;opacity:1;text-decoration:line-through}.slots button:disabled:not(.busy){opacity:.4}
 .slots .none{font-size:13px;color:var(--muted)}
 .ok{color:#1f7a3e;font-size:14px;margin-top:12px}
 
@@ -586,25 +587,33 @@ const curInst=()=>AV.instructors.find(i=>i.id===selInst)||null;
 const hm=t=>{const [h,m]=t.split(":").map(Number);return h*60+m};
 const mh=n=>String(Math.floor(n/60)).padStart(2,"0")+":"+String(n%60).padStart(2,"0");
 const money=n=>lang==="en"?n.toLocaleString("en-US"):n.toLocaleString("en-US").replace(/,/g," ");
-function slotsFor(inst,k,dur){
+function gridFor(inst,k,dur){
  if(!inst)return [];dur=dur||selDur;const [y,m,d]=k.split("-").map(Number),dt=new Date(y,m-1,d);
  const win=(inst.weekly||{})[dt.getDay()];if(!win)return [];
- const bl=inst.blocked||[];if(bl.includes(k))return [];
+ const bl=inst.blocked||[],dayOff=bl.includes(k);
  const busy=bl.filter(x=>x.startsWith(k+" ")).map(x=>{const p=x.split(" "),st=hm(p[1]),h=p[2]?parseInt(p[2]):1;return [st,st+h*60+30]});
  const blk=dur*60+30,lo=hm(win[0]),hi=hm(win[1]),now=new Date(),isToday=dt.toDateString()===now.toDateString(),nm=now.getHours()*60+now.getMinutes()+30;
- const out=[];for(let s0=lo;s0+dur*60<=hi;s0+=blk){if(isToday&&s0<nm)continue;if(busy.some(([a,b])=>s0<b&&s0+blk>a))continue;out.push(mh(s0))}
+ const out=[];for(let s0=lo;s0+dur*60<=hi;s0+=blk){const taken=dayOff||busy.some(([a,b])=>s0<b&&s0+blk>a),past=isToday&&s0<nm;out.push({t:mh(s0),st:taken?"busy":past?"past":"free"})}
  return out;
+}
+const slotsFor=(inst,k,dur)=>gridFor(inst,k,dur).filter(x=>x.st==="free").map(x=>x.t);
+function autoDate(){
+ if(!isPractical()){return}
+ if(!curInst())selInst=AV.instructors[0].id;
+ if(selDate&&slotsFor(curInst(),selDate,selDur).length)return;
+ const t0=new Date();t0.setHours(0,0,0,0);selDate=null;selSlot=null;
+ for(let i=0;i<120;i++){const dt=new Date(t0);dt.setDate(t0.getDate()+i);const k=iso(dt);if(slotsFor(curInst(),k,selDur).length){selDate=k;calMonth=new Date(dt.getFullYear(),dt.getMonth(),1);return}}
 }
 function drawInst(){
  const on=isPractical();$("#instRow").hidden=!on;if(!on){selInst=null;return}
  if(!curInst())selInst=AV.instructors[0].id;
  $("#instPick").innerHTML=AV.instructors.map(i=>`<button type="button" data-i="${i.id}" class="${i.id===selInst?"sel":""}">${i.name[lang]||i.name.hy}</button>`).join("");
- $("#instPick").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{selInst=b.dataset.i;selDate=selSlot=null;drawInst();drawCal();drawSlots();drawPick()});
+ $("#instPick").querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{selInst=b.dataset.i;selSlot=null;autoDate();drawInst();drawCal();drawSlots();drawPick()});
  const hw={hy:"ժամ",ru:"ч",en:"h"}[lang],MAXH=12;
  $("#durPick").innerHTML=`<button type="button" class="stp" data-d="-1" aria-label="-" ${selDur<=1?"disabled":""}>−</button><b class="dv">${selDur} ${hw}</b><button type="button" class="stp" data-d="1" aria-label="+" ${selDur>=MAXH?"disabled":""}>+</button><span class="amt">${money(selDur*PRICE_H)} ${T[lang].cur}</span>`;
- $("#durPick").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDur=Math.min(MAXH,Math.max(1,selDur+ +b.dataset.d));selSlot=null;drawInst();drawCal();drawSlots();drawPick()});
+ $("#durPick").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDur=Math.min(MAXH,Math.max(1,selDur+ +b.dataset.d));selSlot=null;autoDate();drawInst();drawCal();drawSlots();drawPick()});
 }
-function onCourse(){selDate=selSlot=null;drawInst();drawCal();drawSlots();drawPick()}
+function onCourse(){selDate=selSlot=null;autoDate();drawInst();drawCal();drawSlots();drawPick()}
 $("#course").addEventListener("change",onCourse);
 
 const iso=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
@@ -629,8 +638,12 @@ function drawCal(){
  $("#calBox").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDate=b.dataset.d;if(isPractical())selSlot=null;drawCal();drawSlots();drawPick();setTimeout(()=>$("#slots").scrollIntoView({block:"center",behavior:"smooth"}),60)});
 }
 function drawSlots(){
- const list=isPractical()?(selDate?slotsFor(curInst(),selDate,selDur):[]):SLOTS;
- $("#slots").innerHTML=list.map(t=>`<button type="button" data-s="${t}" class="${selSlot===t?"sel":""}">${t}</button>`).join("");
+ if(isPractical()){
+  const g=selDate?gridFor(curInst(),selDate,selDur):[];
+  $("#slots").innerHTML=g.map(x=>`<button type="button" data-s="${x.t}" class="${selSlot===x.t?"sel":""} ${x.st==="busy"?"busy":""}" ${x.st==="free"?"":"disabled"}>${x.t}</button>`).join("");
+ }else{
+  $("#slots").innerHTML=SLOTS.map(t=>`<button type="button" data-s="${t}" class="${selSlot===t?"sel":""}">${t}</button>`).join("");
+ }
  $("#slots").querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{selSlot=b.dataset.s;drawSlots();drawPick()});
 }
 function drawPick(){
