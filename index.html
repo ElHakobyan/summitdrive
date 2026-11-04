@@ -214,6 +214,15 @@ dialog::backdrop{background:#0009}
 .ipick.dur{align-items:center;gap:12px}.stp{width:40px;height:40px;border-radius:50%;border:1px solid #d9dce2;background:#fff;font-size:24px;font-weight:700;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}.stp:disabled{opacity:.35;cursor:default}.stp:not(:disabled):hover{border-color:var(--red);color:var(--red)}.dv{font-size:18px;min-width:64px;text-align:center}.amt{margin-left:auto;font-size:18px;font-weight:800;color:var(--red)}
 .slots button.busy:disabled{background:#fde8ea;border-color:#e5001f;color:#c00018;opacity:1;text-decoration:line-through}.slots button:disabled:not(.busy){opacity:.4}
 .slots .none{font-size:13px;color:var(--muted)}
+.ct{padding:34px 0 40px;background:#f6f7f9}
+.ctbox{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;max-width:560px;box-shadow:0 8px 30px #11121812;text-align:center}
+.ctbox canvas{width:100%;max-width:340px;height:auto;aspect-ratio:1;border-radius:50%;display:block;margin:6px auto 14px;background:#fff}
+.ctq{font-weight:700;font-size:17px;margin:0 0 10px}.ctprog{font-size:13px;color:var(--muted);margin-bottom:6px}
+.ctopts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:340px;margin:0 auto}
+.ctopts button{border:1px solid #d9dce2;background:#fff;border-radius:10px;padding:12px;font-size:20px;font-weight:800;cursor:pointer}.ctopts button:hover{border-color:var(--red);color:var(--red)}
+.ctopts button.none{grid-column:1/-1;font-size:14px;font-weight:600;color:#4a4f58}
+.ctres{font-size:18px;font-weight:800;margin:6px 0 8px}.ctnote{font-size:13px;color:#5d6472;margin:8px 0 14px}
+.ctbox .btn{margin-top:4px}
 .ok{color:#1f7a3e;font-size:14px;margin-top:12px}
 
 /* calendar */
@@ -352,6 +361,14 @@ dialog::backdrop{background:#0009}
    <div class="steps" id="steps"></div>
   </div>
 
+ </div>
+</section>
+
+<section class="ct" id="colortest">
+ <div class="wrap">
+  <h2 id="ctH"></h2>
+  <p class="thp" id="ctP"></p>
+  <div class="ctbox" id="ctBox"></div>
  </div>
 </section>
 
@@ -613,6 +630,42 @@ function drawInst(){
  $("#durPick").innerHTML=`<button type="button" class="stp" data-d="-1" aria-label="-" ${selDur<=1?"disabled":""}>−</button><b class="dv">${selDur} ${hw}</b><button type="button" class="stp" data-d="1" aria-label="+" ${selDur>=MAXH?"disabled":""}>+</button><span class="amt">${money(selDur*PRICE_H)} ${T[lang].cur}</span>`;
  $("#durPick").querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{selDur=Math.min(MAXH,Math.max(1,selDur+ +b.dataset.d));selSlot=null;autoDate();drawInst();drawCal();drawSlots();drawPick()});
 }
+
+const CTP=[{n:"12",c:1,o:["12","17","21","71"]},{n:"8",o:["3","8","6","9"]},{n:"6",o:["5","8","9","6"]},{n:"29",o:["70","26","29","20"]},{n:"5",o:["3","5","6","8"]},{n:"74",o:["21","71","24","74"]}];
+const CTS={hy:{h:"Դալտոնիզմի թեստ (գույների տարբերակում)",p:"Արագ ստուգում՝ կարո՞ղ եք տարբերել գույները։ Յուրաքանչյուր նկարում թիվ կա՝ նշեք, թե որն եք տեսնում։ Սա միայն նախնական ստուգում է և բժշկական եզրակացություն չէ։",start:"Սկսել թեստը",q:"Ի՞նչ թիվ եք տեսնում",none:"Ոչ մի թիվ չեմ տեսնում",pr:(i,n)=>`Նկար ${i} / ${n}`,ok:"Գույները տարբերում եք նորմալ",mid:"Հնարավոր են գույների տարբերակման թույլ դժվարություններ",bad:"Հնարավոր է դալտոնիզմ (կարմիր–կանաչ գույների տարբերակման դժվարություն)",ctrl:"Առաջին նկարը պետք է տեսնեն բոլորը։ Ստուգեք էկրանի պայծառությունը և փորձեք կրկին։",note:"Արդյունքը կախված է էկրանից և լուսավորությունից։ Վարորդական իրավունք ստանալու համար անհրաժեշտ է բժշկական զննում, ստույգ արդյունքը կտա ակնաբույժը։",again:"Կրկնել"},
+ru:{h:"Тест на дальтонизм (различение цветов)",p:"Быстрая проверка: различаете ли вы цвета. На каждой картинке есть число — укажите, какое вы видите. Это лишь предварительный тест, а не медицинское заключение.",start:"Начать тест",q:"Какое число вы видите?",none:"Я не вижу числа",pr:(i,n)=>`Картинка ${i} / ${n}`,ok:"Цвета вы различаете нормально",mid:"Возможны слабые затруднения с различением цветов",bad:"Возможен дальтонизм (трудности с красно-зелёными цветами)",ctrl:"Первую картинку видят все. Проверьте яркость экрана и попробуйте снова.",note:"Результат зависит от экрана и освещения. Для получения прав нужен медосмотр; точный ответ даст офтальмолог.",again:"Пройти ещё раз"},
+en:{h:"Colour blindness test",p:"A quick check of your colour vision. Each picture hides a number — pick the one you see. This is only a screening, not a medical diagnosis.",start:"Start the test",q:"Which number do you see?",none:"I can't see a number",pr:(i,n)=>`Plate ${i} / ${n}`,ok:"Your colour vision looks normal",mid:"You may have slight difficulty telling some colours apart",bad:"Possible colour blindness (red–green difficulty)",ctrl:"Everyone should see the first plate. Check your screen brightness and try again.",note:"Results depend on your screen and lighting. A medical exam is required for a licence; an eye doctor can give a definite answer.",again:"Try again"}};
+let ct={i:-1,score:0,ctrl:true};
+function ctPlate(cv,txt,seed,isCtrl){
+ const S=400,ctx=cv.getContext("2d");cv.width=cv.height=S;
+ const m=document.createElement("canvas");m.width=m.height=S;const mc=m.getContext("2d");
+ mc.fillStyle=mc.strokeStyle="#000";mc.textAlign="center";mc.textBaseline="middle";const fs=txt.length>1?200:280;mc.font=`bold ${fs}px Arial,Helvetica,sans-serif`;mc.lineWidth=6;mc.lineJoin="round";mc.strokeText(txt,S/2,S/2+fs*.04);mc.fillText(txt,S/2,S/2+fs*.04);
+ const md=mc.getImageData(0,0,S,S).data;let a=seed;
+ const rnd=()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296};
+ const inP=isCtrl?["#1b5a78","#16506b","#256a8c","#1d6180","#2f7595"]:["#8fb04a","#a7c25f","#7ea23f","#b8cc7a","#6f9a3a","#9bb857"];
+ const outP=isCtrl?["#ecd3a0","#e6c88a","#f0dcb0","#e2c07e","#f3e2bd"]:["#e07b45","#d8603f","#f0a266","#e9905a","#c9573a","#f2b27a","#dd8a55"];
+ ctx.clearRect(0,0,S,S);ctx.save();ctx.beginPath();ctx.arc(S/2,S/2,S/2-1,0,7);ctx.clip();ctx.fillStyle="#f4ede0";ctx.fillRect(0,0,S,S);
+ const CELL=24,grid=new Map(),key=(x,y)=>x+","+y,cs=[];
+ for(const r of [8.5,7,5.8,4.8,3.9,3.1,2.5]){for(let i=0;i<3000;i++){
+  const x=r+rnd()*(S-2*r),y=r+rnd()*(S-2*r);if(Math.hypot(x-S/2,y-S/2)>S/2-r-2)continue;
+  let ok=true;const gx=x/CELL|0,gy=y/CELL|0;
+  for(let dx=-1;dx<=1&&ok;dx++)for(let dy=-1;dy<=1&&ok;dy++){const l=grid.get(key(gx+dx,gy+dy));if(l)for(const c of l){if(Math.hypot(c[0]-x,c[1]-y)<c[2]+r+1.2){ok=false;break}}}
+  if(!ok)continue;const k=key(gx,gy);(grid.get(k)||grid.set(k,[]).get(k)).push([x,y,r]);
+  const inside=md[((y|0)*S+(x|0))*4+3]>128,pal=inside?inP:outP;ctx.fillStyle=pal[rnd()*pal.length|0];ctx.beginPath();ctx.arc(x,y,r,0,7);ctx.fill()}}
+ ctx.restore();
+}
+function drawCT(){
+ const L=CTS[lang],box=$("#ctBox");if(!box)return;$("#ctH").textContent=L.h;$("#ctP").textContent=L.p;
+ const n=CTP.length;
+ if(ct.i<0){box.innerHTML=`<button type="button" class="btn" id="ctStart">${L.start}</button>`;$("#ctStart").onclick=()=>{ct={i:0,score:0,ctrl:true};drawCT()};return}
+ if(ct.i>=n){
+  let msg,cls;if(!ct.ctrl){msg=L.ctrl}else{const sc=ct.score;msg=sc>=n-1?L.ok:sc>=n-3?L.mid:L.bad}
+  box.innerHTML=`<div class="ctres">${msg}</div><div class="ctnote">${L.note}</div><button type="button" class="btn" id="ctAgain">${L.again}</button>`;$("#ctAgain").onclick=()=>{ct={i:0,score:0,ctrl:true};drawCT()};return}
+ const P=CTP[ct.i];
+ box.innerHTML=`<div class="ctprog">${L.pr(ct.i+1,n)}</div><canvas id="ctCv"></canvas><div class="ctq">${L.q}</div><div class="ctopts">${P.o.map(o=>`<button type="button" data-o="${o}">${o}</button>`).join("")}<button type="button" class="none" data-o="">${L.none}</button></div>`;
+ ctPlate($("#ctCv"),P.n,1000+ct.i*77,!!P.c);
+ box.querySelectorAll("[data-o]").forEach(b=>b.onclick=()=>{const okk=b.dataset.o===P.n;if(P.c){ct.ctrl=okk}else if(okk)ct.score++;ct.i++;drawCT()});
+}
 function onCourse(){selDate=selSlot=null;autoDate();drawInst();drawCal();drawSlots();drawPick()}
 $("#course").addEventListener("change",onCourse);
 
@@ -710,7 +763,7 @@ function render(){
  $("#chips").innerHTML=t.chips.map(c=>`<div class="chip">${ico(c[0])}<span>${c[1]}</span></div>`).join("");
  {const O={hy:["Տեսական դասընթաց A, B, C","Տեսական դասընթաց D, T","Գործնական վարում"],ru:["Теоретический курс A, B, C","Теоретический курс D, T","Практическое вождение"],en:["Theory course A, B, C","Theory course D, T","Practical driving"]}[lang];
  $("#course").innerHTML=`<option data-cards="2">${O[0]}</option><option>${O[1]}</option><option data-cards="0 1">${O[2]}</option>`;}
- drawInst();drawCal();drawSlots();drawPick();drawTests();
+ drawInst();drawCal();drawSlots();drawPick();drawTests();drawCT();
 }
 
 document.addEventListener("click",e=>{
