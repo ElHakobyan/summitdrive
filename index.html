@@ -222,7 +222,17 @@ dialog::backdrop{background:#0009}
 .ctopts{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;max-width:340px;margin:0 auto}
 .ctopts button{border:1px solid #d9dce2;background:#fff;border-radius:10px;padding:12px;font-size:20px;font-weight:800;cursor:pointer}.ctopts button:hover{border-color:var(--red);color:var(--red)}
 .ctopts button.none{grid-column:1/-1;font-size:14px;font-weight:600;color:#4a4f58}
-.ctres{font-size:18px;font-weight:800;margin:6px 0 8px}.ctsub{text-align:center;margin:26px 0 12px;font-size:20px}
+.ctres{font-size:18px;font-weight:800;margin:6px 0 8px}.opts button.sel{border-color:#2b4a9a;background:#eef2ff;font-weight:700}
+.resh{display:flex;gap:18px;align-items:center;margin-bottom:18px}.resi{flex:none;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:34px;font-weight:800}.resi.pass{background:#1f7a3e}.resi.fail{background:#c4161c}
+.ressc{font-size:22px;color:var(--muted)}.ressc b{font-size:38px;color:var(--ink)}.resn{font-size:13px;color:var(--muted)}
+.rstats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}.rstats>div{background:#f3f4f8;border-radius:12px;padding:12px;text-align:center}.rstats small{display:block;font-size:12px;text-transform:uppercase;color:var(--muted);letter-spacing:.04em;margin-bottom:4px}.rstats b{font-size:26px}.rstats b.g{color:#1f7a3e}.rstats b.r{color:#c4161c}
+.rvhead{max-width:900px;margin:30px auto 14px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.rvhead h3{margin:0;font-size:24px}
+.rtabs{display:flex;background:#fff;border:1px solid var(--line);border-radius:999px;padding:4px}.rtabs button{border:0;background:none;border-radius:999px;padding:8px 16px;font-weight:700;cursor:pointer}.rtabs button.on{background:var(--red);color:#fff}
+.rvlist{max-width:900px;margin:0 auto}.rv{background:#fff;border:1px solid var(--line);border-left:5px solid #c4161c;border-radius:14px;padding:20px 22px;margin-bottom:14px}.rv.g{border-left-color:#1f7a3e}
+.rvh{font-size:13px;font-weight:700;color:#c4161c;margin-bottom:6px}.rv.g .rvh{color:#1f7a3e}
+.ro{border:1px solid var(--line);border-radius:10px;padding:11px 14px;margin-bottom:8px;background:#fff}.ro.ok{border-color:#1f7a3e;background:#e8f6ed}.ro.bad{border-color:#c4161c;background:#fdecec}.ro em{font-style:normal;font-weight:700;font-size:12px;margin-left:6px}
+@media(max-width:600px){.rstats{grid-template-columns:repeat(2,1fr)}}
+.ctsub{text-align:center;margin:26px 0 12px;font-size:20px}
 .ctlist{margin:10px auto 6px;max-width:380px;text-align:left;font-size:14px}.ctlist>div>span:first-child{white-space:nowrap}.ctlist>div{display:flex;justify-content:space-between;gap:10px;padding:6px 8px;border-bottom:1px solid var(--line)}.ctlist .ok{color:#1f7a3e}.ctlist .bad{color:#c4161c;background:#fff1f1}
 .ctnote{font-size:13px;color:#5d6472;margin:8px 0 14px}
 .ctbox .btn{margin-top:4px}
@@ -729,18 +739,25 @@ function drawTests(){
  host.innerHTML=h+"</div>";
  host.querySelectorAll("[data-t]").forEach(b=>b.onclick=()=>{tState=newRun(+b.dataset.t);drawTests();window.scrollTo(0,0)});
 }
+const RS={hy:{q:"Հարց",okL:"ՃԻՇՏ",badL:"ՍԽԱԼ",skL:"ԲԱՑ ԹՈՂՆՎԱԾ",right:"ճիշտ պատասխան",yours:"Ձեր պատասխանը",c:"Ճիշտ",w:"Սխալ",s:"Բաց թողնված",t:"Ժամանակ",h:"Թեստի արդյունքները",e:"Սխալներ",a:"Բոլորը",none:"Սխալներ չկան 🎉",allow:n=>`Թույլատրելի է առավելագույնը ${n} սխալ`},
+ru:{q:"Вопрос",okL:"ВЕРНО",badL:"ОШИБКА",skL:"ПРОПУЩЕН",right:"верный ответ",yours:"ваш ответ",c:"Верно",w:"Ошибок",s:"Пропущено",t:"Время",h:"Результаты теста",e:"Ошибки",a:"Все",none:"Ошибок нет 🎉",allow:n=>`Допускается не более ${n} ошибок`},
+en:{q:"Question",okL:"CORRECT",badL:"WRONG",skL:"SKIPPED",right:"correct answer",yours:"your answer",c:"Correct",w:"Wrong",s:"Skipped",t:"Time",h:"Test results",e:"Mistakes",a:"All",none:"No mistakes 🎉",allow:n=>`Up to ${n} mistakes allowed`}};
 function drawQuestion(){
  const box=$("#testBox"),t=T[lang],test=TESTS[tState.i],qs=test.questions;
  if(tState.q>=qs.length){
-  const correct=tState.ans.filter(Boolean).length,mist=qs.length-correct,ok=mist<=PASS_MISTAKES;
-  tSave(test.id,ok);
-  box.innerHTML=`<div class="qcard"><div class="res ${ok?"pass":"fail"}">${ok?t.tPass:t.tFailed}</div>${tState.timeout?`<p>${t.tTime}</p>`:""}<p>${t.tCorrect}: <b>${correct}/${qs.length}</b></p><div class="qact"><button class="btn sm" id="tRetry">${t.tRetry}</button><button class="btn sm ghost" style="color:var(--ink);border-color:var(--line);background:#fff" id="tBack">${t.tAll}</button></div></div>`;
-  $("#tRetry").onclick=()=>{tState=newRun(tState.i);drawTests()};
-  $("#tBack").onclick=()=>{tState=null;drawTests()};return}
+   const N=qs.length,correct=tState.ans.filter(Boolean).length,skipped=qs.filter((_,i)=>tState.pick[i]===undefined).length,wrong=N-correct-skipped,mist=N-correct,ok=mist<=PASS_MISTAKES,R=RS[lang];
+   if(!tState.saved){tState.saved=1;tState.el=Math.min(TLIMIT,Date.now()-(tState.end-TLIMIT));tSave(test.id,ok)}
+   const tab=tState.tab||(mist?"err":"all"),list=qs.map((q,i)=>i).filter(i=>tab==="all"||!tState.ans[i]);
+   const rev=list.map(i=>{const q=qs[i],pk=tState.pick[i],good=!!tState.ans[i];return `<div class="rv ${good?"g":"b"}"><div class="rvh">${good?"✓":"✕"} ${R.q} ${i+1} / ${N} · ${good?R.okL:pk===undefined?R.skL:R.badL}</div><p class="qtext">${tr(q.q)}</p>${q.img?`<img class="qimg" src="${q.img}" alt="">`:""}<div class="opts">${q.a.map((a,j)=>`<div class="ro ${j===q.c?"ok":j===pk?"bad":""}">${j+1}. ${tr(a)}${j===q.c?` <em>✓ ${R.right}</em>`:j===pk?` <em>✕ ${R.yours}</em>`:""}</div>`).join("")}</div></div>`}).join("");
+   const mm=Math.floor(tState.el/60000),ss=String(Math.floor(tState.el/1000)%60).padStart(2,"0");
+   box.innerHTML=`<div class="qcard"><div class="resh"><span class="resi ${ok?"pass":"fail"}">${ok?"✓":"✕"}</span><div><div class="res ${ok?"pass":"fail"}" style="text-align:left;margin:0">${ok?t.tPass:t.tFailed}</div><div class="ressc"><b>${correct}</b> / ${N}</div><div class="resn">${R.allow(PASS_MISTAKES)}</div>${tState.timeout?`<p style="margin:4px 0 0">${t.tTime}</p>`:""}</div></div><div class="rstats"><div><small>${R.c}</small><b class="g">${correct}</b></div><div><small>${R.w}</small><b class="r">${wrong}</b></div><div><small>${R.s}</small><b>${skipped}</b></div><div><small>${R.t}</small><b>${mm}:${ss}</b></div></div><div class="qact" style="justify-content:flex-start"><button class="btn sm" id="tRetry">${t.tRetry}</button><button class="btn sm ghost" style="color:var(--ink);border-color:var(--line);background:#fff" id="tBack">${t.tAll}</button></div></div><div class="rvhead"><h3>${R.h}</h3><div class="rtabs"><button type="button" data-tab="err" class="${tab==="err"?"on":""}">${R.e} (${mist})</button><button type="button" data-tab="all" class="${tab==="all"?"on":""}">${R.a} (${N})</button></div></div><div class="rvlist">${rev||`<div class="tnote">${R.none}</div>`}</div>`;
+   $("#tRetry").onclick=()=>{tState=newRun(tState.i);drawTests();window.scrollTo(0,0)};
+   $("#tBack").onclick=()=>{tState=null;drawTests()};
+   box.querySelectorAll("[data-tab]").forEach(x=>x.onclick=()=>{tState.tab=x.dataset.tab;drawQuestion()});return}
  const q=qs[tState.q],pk=tState.pick[tState.q]!==undefined?tState.pick[tState.q]:null;
- box.innerHTML=`<div class="qcard"><div class="qtop"><span>${t.tName} ${test.id} · ${t.tQ} ${tState.q+1}/${qs.length} · <span class="ttimer" id="tTimer">${fmt(tState.end-Date.now())}</span></span><button type="button" id="tBack" style="border:0;background:none;color:var(--red);font-weight:700">${t.tAll}</button></div><div class="qbar"><i style="width:${tState.q/qs.length*100}%"></i></div><p class="qtext">${tr(q.q)}</p>${q.img?`<img class="qimg" src="${q.img}" alt="">`:""}<div class="opts">${q.a.map((a,i)=>`<button type="button" data-a="${i}" ${pk!==null?"disabled":""} class="${pk!==null?(i===q.c?"ok":i===pk?"bad":""):""}">${i+1}. ${tr(a)}</button>`).join("")}</div><div class="qact"><button type="button" class="btn sm ghost" id="tPrev" style="color:var(--ink);border-color:var(--line);background:#fff" ${tState.q===0?"disabled":""}>‹ ${t.tPrev}</button><button type="button" class="btn sm" id="tNext">${tState.q+1>=qs.length?t.tFinish:t.tNext+" ›"}</button></div></div>`;
+ box.innerHTML=`<div class="qcard"><div class="qtop"><span>${t.tName} ${test.id} · ${t.tQ} ${tState.q+1}/${qs.length} · <span class="ttimer" id="tTimer">${fmt(tState.end-Date.now())}</span></span><button type="button" id="tBack" style="border:0;background:none;color:var(--red);font-weight:700">${t.tAll}</button></div><div class="qbar"><i style="width:${tState.q/qs.length*100}%"></i></div><p class="qtext">${tr(q.q)}</p>${q.img?`<img class="qimg" src="${q.img}" alt="">`:""}<div class="opts">${q.a.map((a,i)=>`<button type="button" data-a="${i}" class="${pk===i?"sel":""}">${i+1}. ${tr(a)}</button>`).join("")}</div><div class="qact"><button type="button" class="btn sm ghost" id="tPrev" style="color:var(--ink);border-color:var(--line);background:#fff" ${tState.q===0?"disabled":""}>‹ ${t.tPrev}</button><button type="button" class="btn sm" id="tNext">${tState.q+1>=qs.length?t.tFinish:t.tNext+" ›"}</button></div></div>`;
  $("#tBack").onclick=()=>{tState=null;drawTests()};
- box.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{if(tState.pick[tState.q]!==undefined)return;tState.pick[tState.q]=+b.dataset.a;tState.ans[tState.q]=tState.pick[tState.q]===q.c;drawQuestion()});
+ box.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{tState.pick[tState.q]=+b.dataset.a;tState.ans[tState.q]=tState.pick[tState.q]===q.c;drawQuestion()});
  const nx=$("#tNext");if(nx)nx.onclick=()=>{tState.q++;drawQuestion()};
  const pv=$("#tPrev");if(pv)pv.onclick=()=>{tState.q--;drawQuestion()};
 }
