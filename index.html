@@ -61,7 +61,7 @@ h1{font-size:clamp(38px,5.2vw,66px);line-height:1.05;letter-spacing:-1.5px;margi
 .sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:20px}
 h2{font-size:clamp(25px,3vw,32px);line-height:1.2;margin:0;letter-spacing:-.5px;font-weight:800}
 .more{font-size:13px;font-weight:700;display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .card{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:14px;padding:20px;background:linear-gradient(150deg,#fff 55%,#f3f4f7);display:flex;flex-direction:column;min-height:262px;box-shadow:0 4px 14px #1112180a;transition:.2s}
 .card:hover{transform:translateY(-3px);box-shadow:0 10px 26px #11121818}
 .card-top{display:flex;gap:12px;align-items:center;margin-bottom:14px}
@@ -408,7 +408,6 @@ hy:{
  cards:[
   {n:"B կարգ",s:"Թեթև ավտոմեքենաներ",l:["Տեսություն և պրակտիկա","Նախապատրաստում քննությանը","Ժամանակակից ավտոմեքենաներ","Անհատական մոտեցում"],p:"180 000"},
   {n:"Ավտոմատ (ԱԿՓ)",s:"",l:["Հարմար սկսնակների համար","Հանգիստ ուսուցում","Ճկուն ժամանակացույց","Նախապատրաստում քննությանը"],p:"200 000"},
-  {n:"Մեխանիկա (ՄԿՓ)",s:"",l:["Կառավարման լիարժեք դասընթաց","Փորձառու հրահանգիչներ","Ժամանակակից ավտոմեքենաներ","Նախապատրաստում քննությանը"],p:"180 000"},
   {n:"Տեսական դասընթաց",s:"",l:["ՃԿԿ, ճանապարհային իրավիճակներ","Օնլայն և օֆլայն ձևաչափ","Դասախոսի աջակցություն","Հարմար ժամանակացույց"],p:"40 000"}],
  from:"սկսած",cur:"֏",
  advTitle:"Մեր <em>առավելությունները</em>",
@@ -423,10 +422,10 @@ hy:{
  botPh:"Գրեք հաղորդագրություն…",
  quick:[["cap","Ընտրել դասընթաց"],["users","Գտնել հրահանգիչ"],["cal","Ազատ ժամանակ"],["tag","Արժեք"]],
  answers:[
-  "Առաջարկում ենք B կարգ (180 000 ֏-ից), ավտոմատ (200 000 ֏-ից), մեխանիկա (180 000 ֏-ից) և տեսական դասընթաց (40 000 ֏-ից)։ Եթե նոր եք սկսում, ավտոմատը ամենահարմար տարբերակն է։",
+  "Առաջարկում ենք B կարգ (180 000 ֏-ից), ավտոմատ (200 000 ֏-ից) և տեսական դասընթաց (40 000 ֏-ից)։ Եթե նոր եք սկսում, ավտոմատը ամենահարմար տարբերակն է։",
   "Մեր հրահանգիչները խոսում են ռուսերեն, հայերեն և անգլերեն։ Թողեք հայտ, և մենք կընտրենք ձեզ հարմար հրահանգչին։",
   "Ժամանակացույցը ճկուն է՝ առավոտյան, ցերեկային և երեկոյան խմբեր։ Թողեք հայտ, և մենք կհամաձայնեցնենք ժամը։",
-  "Արժեքը՝ B կարգ 180 000 ֏-ից, ավտոմատ 200 000 ֏-ից, մեխանիկա 180 000 ֏-ից, տեսություն 40 000 ֏-ից։"],
+  "Արժեքը՝ B կարգ 180 000 ֏-ից, ավտոմատ 200 000 ֏-ից, տեսություն 40 000 ֏-ից։"],
  thTitle:"Քննական հարցեր (ՃՈ պաշտոնական շարք)",thText:"Վարորդական իրավունքի տեսական քննության պաշտոնական հարցաշարերը (A, B, C կարգեր)՝ 10 խումբ։ Քննությանը տրվում է 20 հարց, թույլատրվում է մինչև 2 սխալ։",thSrc:"Աղբյուրը՝ ՀՀ ՆԳՆ Ճանապարհային ոստիկանություն՝",thGroup:"Խումբ",
  calTitle:"Ընտրեք օրը և ժամը",pickErr:"Ընտրեք ամսաթիվը և ժամը։",picked:"Ընտրված է՝",
  tPrev:"Նախորդը", tPick:"Ընտրեք թեստը",tQn:"20 հարց",tMin:"30 րոպե",tMax:"Թույլատրելի է առավելագույնը 2 սխալ",tABC:"A, B, C կարգեր",tDT:"D, T կարգեր",tStDone:"Հանձնված",tStFail:"Չի հանձնվել",tStNew:"Չանցած",tTime:"Ժամանակն ավարտվեց", tCat:"A, B, C կարգերի հարցեր", tTitle:"Թեստեր",tText:"Վարորդական իրավունքի տեսական քննության թեստեր։ Յուրաքանչյուր թեստում 20 հարց է, թույլատրվում է մինչև 2 սխալ։",tName:"Թեստը",tNext:"Հաջորդը",tFinish:"Ավարտել",tRetry:"Նորից",tAll:"Բոլոր թեստերը",tPass:"Հանձնված է",tFailed:"Չի հանձնվել",tCorrect:"Ճիշտ պատասխաններ",tQ:"Հարց",tSoon:"Թեստերի հարցերը շուտով կավելացվեն։",
@@ -446,7 +445,6 @@ ru:{
  cards:[
   {n:"Категория B",s:"Легковые автомобили",l:["Теория и практика","Подготовка к экзамену","Современные автомобили","Индивидуальный подход"],p:"180 000"},
   {n:"Автомат (АКПП)",s:"",l:["Удобно для начинающих","Спокойное обучение","Гибкий график","Подготовка к экзамену"],p:"200 000"},
-  {n:"Механика (МКПП)",s:"",l:["Полный курс управления","Опытные инструкторы","Современные автомобили","Подготовка к экзамену"],p:"180 000"},
   {n:"Теоретический курс",s:"",l:["ПДД, дорожные ситуации","Онлайн и офлайн формат","Поддержка преподавателя","Удобный график"],p:"40 000"}],
  from:"от",cur:"֏",
  advTitle:"Наши <em>преимущества</em>",
@@ -461,10 +459,10 @@ ru:{
  botPh:"Напишите сообщение…",
  quick:[["cap","Подобрать курс"],["users","Найти инструктора"],["cal","Свободное время"],["tag","Стоимость"]],
  answers:[
-  "Есть категория B (от 180 000 ֏), автомат (от 200 000 ֏), механика (от 180 000 ֏) и теоретический курс (от 40 000 ֏). Если вы начинаете с нуля, проще всего учиться на автомате.",
+  "Есть категория B (от 180 000 ֏), автомат (от 200 000 ֏) и теоретический курс (от 40 000 ֏). Если вы начинаете с нуля, проще всего учиться на автомате.",
   "Наши инструкторы говорят на русском, армянском и английском. Оставьте заявку, и мы подберём подходящего инструктора.",
   "График гибкий: утренние, дневные и вечерние группы. Оставьте заявку, и мы согласуем время.",
-  "Стоимость: категория B от 180 000 ֏, автомат от 200 000 ֏, механика от 180 000 ֏, теория от 40 000 ֏."],
+  "Стоимость: категория B от 180 000 ֏, автомат от 200 000 ֏, теория от 40 000 ֏."],
  thTitle:"Экзаменационные вопросы (официальные)",thText:"Официальные вопросы теоретического экзамена (категории A, B, C): 10 групп. На экзамене 20 вопросов, допускается не более 2 ошибок.",thSrc:"Источник: Дорожная полиция МВД РА —",thGroup:"Группа",
  calTitle:"Выберите день и время",pickErr:"Выберите дату и время.",picked:"Выбрано:",
  tPrev:"Назад", tPick:"Выберите тест",tQn:"20 вопросов",tMin:"30 минут",tMax:"Допускается не более 2 ошибок",tABC:"Категории A, B, C",tDT:"Категории D, T",tStDone:"Сдан",tStFail:"Не сдан",tStNew:"Не пройден",tTime:"Время вышло", tCat:"Вопросы категорий A, B, C", tTitle:"Тесты",tText:"Тесты по теоретическому экзамену на права. В каждом тесте 20 вопросов, допускается не более 2 ошибок.",tName:"Тест",tNext:"Далее",tFinish:"Завершить",tRetry:"Заново",tAll:"Все тесты",tPass:"Сдано",tFailed:"Не сдано",tCorrect:"Правильных ответов",tQ:"Вопрос",tSoon:"Вопросы тестов скоро появятся.",
@@ -484,7 +482,6 @@ en:{
  cards:[
   {n:"Category B",s:"Passenger cars",l:["Theory and practice","Exam preparation","Modern cars","Individual approach"],p:"180,000"},
   {n:"Automatic",s:"",l:["Great for beginners","Calm, relaxed learning","Flexible schedule","Exam preparation"],p:"200,000"},
-  {n:"Manual",s:"",l:["Full driving course","Experienced instructors","Modern cars","Exam preparation"],p:"180,000"},
   {n:"Theory course",s:"",l:["Traffic rules, road situations","Online and offline","Teacher support","Flexible schedule"],p:"40,000"}],
  from:"from",cur:"AMD",
  advTitle:"Our <em>advantages</em>",
@@ -499,10 +496,10 @@ en:{
  botPh:"Type a message…",
  quick:[["cap","Pick a course"],["users","Find an instructor"],["cal","Available times"],["tag","Prices"]],
  answers:[
-  "We offer Category B (from 180,000 AMD), automatic (from 200,000 AMD), manual (from 180,000 AMD) and a theory course (from 40,000 AMD). If you are starting from scratch, automatic is the easiest.",
+  "We offer Category B (from 180,000 AMD), automatic (from 200,000 AMD) and a theory course (from 40,000 AMD). If you are starting from scratch, automatic is the easiest.",
   "Our instructors speak Russian, Armenian and English. Leave a request and we will match you with the right one.",
   "The schedule is flexible: morning, afternoon and evening groups. Leave a request and we will agree on a time.",
-  "Prices: Category B from 180,000 AMD, automatic from 200,000 AMD, manual from 180,000 AMD, theory from 40,000 AMD."],
+  "Prices: Category B from 180,000 AMD, automatic from 200,000 AMD, theory from 40,000 AMD."],
  thTitle:"Exam questions (official)",thText:"Official theory exam questions (categories A, B, C): 10 groups. The exam has 20 questions and up to 2 mistakes are allowed.",thSrc:"Source: Road Police of the Ministry of Internal Affairs of Armenia —",thGroup:"Group",
  calTitle:"Choose a day and time",pickErr:"Please choose a date and a time.",picked:"Selected:",
  tPrev:"Previous", tPick:"Choose a test",tQn:"20 questions",tMin:"30 minutes",tMax:"Up to 2 mistakes allowed",tABC:"Categories A, B, C",tDT:"Categories D, T",tStDone:"Passed",tStFail:"Failed",tStNew:"Not taken",tTime:"Time is up", tCat:"Categories A, B, C questions", tTitle:"Tests",tText:"Practice tests for the driving theory exam. Each test has 20 questions and up to 2 mistakes are allowed.",tName:"Test",tNext:"Next",tFinish:"Finish",tRetry:"Retry",tAll:"All tests",tPass:"Passed",tFailed:"Not passed",tCorrect:"Correct answers",tQ:"Question",tSoon:"Test questions are coming soon.",
@@ -604,7 +601,7 @@ function render(){
  document.querySelectorAll(".lang").forEach(b=>{const on=b.dataset.lang===lang;b.classList.toggle("on",on);b.setAttribute("aria-pressed",on)});
  $("#nav").innerHTML=NAV[lang].map((n,i)=>`<a href="#${["top","advantages","tests","contact"][i]}">${n}</a>`).join("");
  $("#perks").innerHTML=t.perks.map((p,i)=>`<div class="perk">${ico(["cap","car","shield"][i])}<span>${p}</span></div>`).join("");
- $("#cards").innerHTML=t.cards.map((c,i)=>`<article class="card"><div class="card-top"><span class="ico">${ico(["wheel","gear","gear","book"][i])}</span><h3>${c.n}${c.s?`<small>${c.s}</small>`:""}</h3></div><ul>${c.l.map(x=>`<li>${x}</li>`).join("")}</ul><div class="card-bot"><span class="price"><small>${t.from}</small>${c.p} ${t.cur}</span><button class="go" data-book="${i}" aria-label="${c.n}">${ico("arrow")}</button></div></article>`).join("");
+ $("#cards").innerHTML=t.cards.map((c,i)=>`<article class="card"><div class="card-top"><span class="ico">${ico(["wheel","gear","book"][i])}</span><h3>${c.n}${c.s?`<small>${c.s}</small>`:""}</h3></div><ul>${c.l.map(x=>`<li>${x}</li>`).join("")}</ul><div class="card-bot"><span class="price"><small>${t.from}</small>${c.p} ${t.cur}</span><button class="go" data-book="${i}" aria-label="${c.n}">${ico("arrow")}</button></div></article>`).join("");
  $("#adv").innerHTML=t.adv.map((a,i)=>`<div><span class="ic">${ico(["users","car","cal","shield"][i])}</span><span><h3>${a[0]}</h3><p>${a[1]}</p></span></div>`).join("");
  $("#inst").innerHTML=t.inst.map((p,i)=>`<div class="person"><span class="ph" aria-hidden="true">${ico("users")}</span><div><h3>${p[0]}</h3><p>${p[1]}</p><div class="tags">${p[2].map(l=>`<span>${l}</span>`).join("")}</div></div></div>`).join("");
  $("#steps").innerHTML=t.steps.map((s,i)=>`<div class="step"><div class="ring">${ico(["doc","head","cal","car","id"][i])}</div>${s}</div>`).join("");
