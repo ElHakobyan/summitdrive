@@ -158,13 +158,13 @@ body.tmode .tests{margin-top:0;border-radius:0;min-height:80vh;padding-top:34px}
 .tests{padding:34px 0 10px;background:#fff}
 .tgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
 .tgrid button{border:1px solid var(--line);background:#fff;border-radius:12px;padding:14px;font-weight:700;font-size:15px;text-align:left;display:flex;align-items:center;gap:12px}
-.tgrid .tsc{display:block;font-style:normal;font-weight:800;color:#c4161c;font-size:13px}.tgrid button.done .tsc{color:#1f7a3e}
+.tgrid .tsc{display:inline;color:inherit;font-style:normal;font-weight:800;margin-left:6px}
 .tgrid button b{display:inline-grid;place-items:center;min-width:40px;height:40px;border-radius:10px;background:#1b2a33;color:#fff}
 .tgrid button small{display:block;font-weight:500;color:#667;font-size:13px}
 .tgrid button:hover:not(:disabled){border-color:var(--red);color:var(--red)}
 .tgrid button:disabled{opacity:.5;cursor:default}
-.tgrid button.done{background:#e9f7ee;border-color:#9bd3ad}
-.tgrid button.fail{background:#fdeaea;border-color:#f0a8a8}
+.tgrid button.done small{color:#1f7a3e;font-weight:700}.tgrid button.done b{background:#1f4d3b}
+.tgrid button.fail small{color:#c4161c;font-weight:700}.tgrid button.fail b{background:#c4161c}
 .tnote{background:#fff8e6;border:1px solid #ffe2a0;border-radius:10px;padding:12px 14px;font-size:14px;margin-bottom:14px}
 .qcard{border:1px solid var(--line);border-radius:18px;padding:34px 38px;box-shadow:0 10px 40px #11121814;max-width:900px;margin:0 auto;background:#fff}
 .tests.running{display:flex;flex-direction:column;justify-content:center}
